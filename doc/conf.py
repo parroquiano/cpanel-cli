@@ -4,8 +4,9 @@ from sphinx.locale import get_translation
 _ = get_translation('index')
 
 project = cpanel.__description__
-copyright = cpanel.__copyright__
+project_copyright = cpanel.__copyright__
 author = cpanel.__author__
+version = cpanel.__version__
 release = cpanel.__version__
 extensions = []
 templates_path = []
