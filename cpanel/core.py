@@ -351,8 +351,8 @@ class CPanelEndpoint:
 			r = response.json(object_hook = Result)
 		except ValueError:
 			raise CPanelError("Bad response")
-		finally:
-			return self.safely(r, lambda: "OK")
+
+		return self.safely(r, lambda: "OK")
 
 
 	def set_mail_filter(self, account: str, filterfile: str) -> str:
