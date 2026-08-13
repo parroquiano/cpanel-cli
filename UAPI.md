@@ -2,6 +2,9 @@
 
 - [ ] AccountEnhancements::has_enhancement
 - [ ] AccountEnhancements::list
+- [ ] AddonDomain::addaddondomain
+- [ ] AddonDomain::deladdondomain
+- [ ] AddonDomain::listaddondomains
 - [ ] AuditLog::get_api_log
 - [x] Backup::fullbackup_to_ftp
 - [x] Backup::fullbackup_to_homedir
@@ -12,6 +15,9 @@
 - [-] Backup::restore_email_filters
 - [-] Backup::restore_email_forwarders
 - [x] Backup::restore_files
+- [ ] BackupInfo::list
+- [ ] BackupInfo::progress
+- [ ] BackupInfo::reset
 - [x] Bandwidth::get_enabled_protocols
 - [x] Bandwidth::get_retention_periods
 - [ ] Bandwidth::query
@@ -51,6 +57,11 @@
 - [ ] CSVImport::doimport
 - [x] CacheBuster::read
 - [x] CacheBuster::update
+- [ ] CCS::add_delegate
+- [ ] CCS::list_delegates
+- [ ] CCS::list_users
+- [ ] CCS::remove_delegate
+- [ ] CCS::update_delegate
 - [ ] Chkservd::get_exim_ports
 - [ ] Chkservd::get_exim_ports_ssl
 - [ ] Chrome::get_dom
@@ -60,9 +71,19 @@
 - [ ] ClamScanner::get_scan_status
 - [ ] ClamScanner::list_infected_files
 - [ ] ClamScanner::start_scan
+- [ ] ContactInformation::get_notification_preferences
+- [ ] ContactInformation::get_pushbullet_access_token
 - [ ] ContactInformation::set_email_addresses
+- [ ] ContactInformation::set_notification_preferences
+- [ ] ContactInformation::set_pushbullet_access_token
 - [ ] ContactInformation::unset_email_addresses
 - [ ] Contactus::is_enabled
+- [ ] CPDAVD::add_delegate
+- [ ] CPDAVD::list_delegates
+- [ ] CPDAVD::list_users
+- [ ] CPDAVD::manage_collection
+- [ ] CPDAVD::remove_delegate
+- [ ] CPDAVD::update_delegate
 - [ ] DAV::disable_shared_global_addressbook
 - [ ] DAV::enable_shared_global_addressbook
 - [ ] DAV::get_calendar_contacts_config
@@ -74,7 +95,11 @@
 - [ ] DCV::check_domains_via_http
 - [ ] DCV::ensure_domains_can_pass_dcv
 - [x] DNS::ensure_domains_reside_only_locally
+- [ ] DNS::fetch_cpanel_generated_domains
 - [x] DNS::has_local_authority
+- [ ] DNS::is_alias_available
+- [ ] DNS::is_https_available
+- [ ] DNS::is_svcb_available
 - [x] DNS::lookup
 - [ ] DNS::mass_edit_zone
 - [ ] DNS::parse_zone
@@ -101,10 +126,25 @@
 - [x] DirectoryPrivacy::list_directories
 - [x] DirectoryPrivacy::list_users
 - [x] DirectoryProtection::list_directories
+- [ ] Domain::convert_temporary_to_registered
+- [ ] Domain::is_temporary_domain
+- [ ] Domain::rename_domain
+- [ ] Domain::temporary_domain_is_disabled
 - [x] DomainInfo::domains_data
 - [x] DomainInfo::list_domains
 - [x] DomainInfo::main_domain_builtin_subdomain_aliases
+- [ ] DomainInfo::primary_domain
 - [x] DomainInfo::single_domain_data
+- [ ] DomainLookup::countbasedomains
+- [ ] DomainLookup::getbasedomains
+- [ ] DomainLookup::getdocroot
+- [ ] DomainLookup::getdocroots
+- [ ] DomainRecommendations::domain_availability
+- [ ] DomainRecommendations::domain_suggestions
+- [ ] DomainRecommendations::get_store_config
+- [ ] DomainRecommendations::is_enabled
+- [ ] DomainRecommendations::purchase_domain
+- [ ] DomainRecommendations::supported_tlds
 - [x] DynamicDNS::create
 - [x] DynamicDNS::delete
 - [x] DynamicDNS::list
@@ -148,6 +188,7 @@
 - [ ] Email::enable_mailbox_autocreate
 - [x] Email::enable_spam_assassin
 - [x] Email::enable_spam_box
+- [ ] Email::export_lists
 - [ ] Email::fetch_charmaps
 - [ ] Email::fts_rescan_mailbox
 - [x] Email::generate_mailman_otp
@@ -207,13 +248,16 @@
 - [x] Email::unsuspend_login
 - [x] Email::unsuspend_outgoing
 - [ ] Email::verify_password
+- [ ] EmailAuth::apply_dmarc
 - [ ] EmailAuth::disable_dkim
 - [ ] EmailAuth::enable_dkim
 - [ ] EmailAuth::ensure_dkim_keys_exist
 - [ ] EmailAuth::fetch_dkim_private_keys
 - [ ] EmailAuth::install_dkim_private_keys
 - [ ] EmailAuth::install_spf_records
+- [ ] EmailAuth::remove_dmarc
 - [ ] EmailAuth::validate_current_dkims
+- [ ] EmailAuth::validate_current_dmarcs
 - [ ] EmailAuth::validate_current_ptrs
 - [ ] EmailAuth::validate_current_spfs
 - [ ] ExternalAuthentication::add_authn_link
@@ -221,16 +265,27 @@
 - [ ] ExternalAuthentication::get_authn_links
 - [ ] ExternalAuthentication::has_external_auth_modules_configured
 - [ ] ExternalAuthentication::remove_authn_link
+- [ ] ExtractInfo::finish
+- [ ] ExtractInfo::progress
+- [ ] ExtractInfo::start
 - [x] Features::get_feature_metadata
 - [x] Features::has_feature
+- [ ] Features::has_features_like
 - [x] Features::list_features
+- [ ] Features::list_features_like
 - [x] Fileman::autocompletedir
+- [ ] Fileman::copy_file
+- [ ] Fileman::delete_file
 - [x] Fileman::empty_trash
 - [x] Fileman::get_file_content
 - [x] Fileman::get_file_information
 - [x] Fileman::list_files
+- [ ] Fileman::move_file
+- [ ] Fileman::rename_file
+- [ ] Fileman::restore_from_trash
 - [x] Fileman::save_file_content
 - [-] Fileman::transcode
+- [ ] Fileman::trash_file
 - [x] Fileman::upload_files
 - [x] Ftp::add_ftp
 - [x] Ftp::allows_anonymous_ftp
@@ -263,6 +318,7 @@
 - [ ] ImageManager::create_thumbnails
 - [ ] ImageManager::get_dimensions
 - [ ] ImageManager::resize_image
+- [ ] InProductSurvey::get_in_product_survey_url
 - [ ] InstallWordpress::capturex
 - [ ] InstallWordpress::decode_json
 - [ ] InstallWordpress::encode_json
@@ -292,9 +348,12 @@
 - [x] Locale::get_attributes
 - [x] Locale::list_locales
 - [x] Locale::set_locale
+- [ ] LogManager::delete_archive
 - [x] LogManager::get_settings
 - [x] LogManager::list_archives
+- [ ] LogManager::list_error_logs
 - [x] LogManager::set_settings
+- [ ] LogManager::view_error_log
 - [ ] Mailboxes::expunge_mailbox_messages
 - [ ] Mailboxes::expunge_messages_for_mailbox_guid
 - [ ] Mailboxes::get_mailbox_status_list
@@ -379,6 +438,7 @@
 - [x] Mysql::revoke_access_to_database
 - [x] Mysql::set_password
 - [x] Mysql::set_privileges_on_database
+- [ ] Mysql::setup_db_and_user
 - [-] Mysql::update_privileges
 - [ ] NVData::get
 - [ ] NVData::set
@@ -387,6 +447,9 @@
 - [ ] NginxCaching::enable_cache
 - [ ] NginxCaching::reset_cache_config
 - [ ] Notifications::get_notifications_count
+- [ ] Park::listparkeddomains
+- [ ] Park::park
+- [ ] Park::unpark
 - [ ] Parser::firstfile_relative_uri
 - [ ] PassengerApps::disable_application
 - [ ] PassengerApps::edit_application
@@ -399,6 +462,7 @@
 - [ ] Personalization::get
 - [ ] Personalization::set
 - [ ] Plugins::can_show_promotions
+- [ ] Plugins::create_user
 - [ ] Plugins::get_uuid
 - [ ] Plugins::reset_uuid
 - [x] Postgresql::create_database
@@ -425,8 +489,10 @@
 - [-] Restore::query_file_info
 - [-] Restore::restore_file
 - [x] SSH::get_port
+- [ ] SSH::get_shell
 - [ ] SSL::add_autossl_excluded_domains
 - [ ] SSL::can_ssl_redirect
+- [ ] SSL::check_shared_cert
 - [ ] SSL::delete_cert
 - [ ] SSL::delete_csr
 - [ ] SSL::delete_key
@@ -445,6 +511,7 @@
 - [ ] SSL::get_autossl_excluded_domains
 - [ ] SSL::get_autossl_pending_queue
 - [ ] SSL::get_autossl_problems
+- [ ] SSL::get_autossl_renewal_status
 - [ ] SSL::get_cabundle
 - [ ] SSL::get_cn_name
 - [ ] SSL::install_ssl
@@ -488,15 +555,19 @@
 - [ ] SiteQuality::get_all_scores
 - [ ] SiteQuality::get_app_token
 - [ ] SiteQuality::get_environment
+- [ ] SiteQuality::get_monitored_domains
+- [ ] SiteQuality::get_monitored_system_scores
 - [ ] SiteQuality::has_site_quality_user
 - [ ] SiteQuality::is_site_quality_user_enabled
 - [ ] SiteQuality::reset_config
 - [ ] SiteQuality::send_activation_email
+- [ ] SiteQuality::update_domain
 - [ ] SiteQuality::verify_code
 - [ ] SiteTemplates::list_site_templates
 - [ ] SiteTemplates::list_user_settings
 - [ ] SiteTemplates::publish
 - [ ] Sitejet::add_api_token
+- [ ] Sitejet::can_create_domains
 - [ ] Sitejet::create_account
 - [ ] Sitejet::create_restore_point
 - [ ] Sitejet::create_website
@@ -520,6 +591,7 @@
 - [x] SpamAssassin::get_user_preferences
 - [x] SpamAssassin::update_user_preference
 - [x] Stats::get_bandwidth
+- [ ] Stats::get_stats_daily
 - [x] Stats::get_site_errors
 - [x] Stats::list_sites
 - [-] Stats::list_stats_by_domain
@@ -527,14 +599,25 @@
 - [ ] StatsManager::get_configuration
 - [ ] StatsManager::save_configuration
 - [ ] SubDomain::addsubdomain
+- [ ] SubDomain::changedocroot
+- [ ] SubDomain::delsubdomain
+- [ ] SubDomain::getreservedsubdomains
+- [ ] SubDomain::listsubdomains
+- [ ] SubDomain::validregex
 - [ ] Team::add_roles
 - [ ] Team::add_team_user
+- [ ] Team::cancel_expire
 - [ ] Team::edit_team_user
+- [ ] Team::get_team_users_with_roles_count
 - [ ] Team::list_team
 - [ ] Team::list_team_ui
+- [ ] Team::password_reset_request
+- [ ] Team::reinstate_team_user
 - [ ] Team::remove_roles
 - [ ] Team::remove_team_user
 - [ ] Team::set_contact_email
+- [ ] Team::set_expire
+- [ ] Team::set_locale
 - [ ] Team::set_notes
 - [ ] Team::set_password
 - [ ] Team::set_roles
@@ -548,11 +631,15 @@
 - [ ] Tokens::list
 - [ ] Tokens::rename
 - [ ] Tokens::revoke
+- [ ] Trash::remove
 - [ ] TwoFactorAuth::generate_user_configuration
 - [ ] TwoFactorAuth::get_team_user_configuration
 - [ ] TwoFactorAuth::get_user_configuration
 - [ ] TwoFactorAuth::remove_user_configuration
 - [ ] TwoFactorAuth::set_user_configuration
+- [ ] UserData::get_scoped_userdata
+- [ ] UserData::set_scoped_userdata
+- [ ] UserManager::change_password
 - [x] UserManager::check_account_conflicts
 - [ ] UserManager::create_user
 - [ ] UserManager::delete_user
@@ -563,6 +650,7 @@
 - [x] UserManager::lookup_user
 - [ ] UserManager::merge_service_account
 - [ ] UserManager::unlink_service_account
+- [ ] Users::change_password
 - [ ] UserTasks::delete
 - [ ] UserTasks::retrieve
 - [ ] Variables::get_server_information
@@ -575,15 +663,40 @@
 - [ ] VersionControlDeployment::create
 - [ ] VersionControlDeployment::delete
 - [ ] VersionControlDeployment::retrieve
+- [ ] WebApp::configure
+- [ ] WebApp::delete
+- [ ] WebApp::deploy
+- [ ] WebApp::fetch_logs
+- [ ] WebApp::get_available
+- [ ] WebApp::has_feature
+- [ ] WebApp::list
+- [ ] WebApp::redeploy
+- [ ] WebApp::restart
+- [ ] WebApp::set_mode
+- [ ] WebApp::stage
+- [ ] WebApp::start
+- [ ] WebApp::stop
 - [ ] WebDisk::delete_user
 - [ ] WebDisk::set_homedir
 - [ ] WebDisk::set_password
 - [ ] WebDisk::set_permissions
+- [ ] WebProsMCP::get_connection_config
+- [ ] WebProsMCP::unlink_webpros_account
 - [ ] WebVhosts::list_domains
 - [ ] WebVhosts::list_ssl_capable_domains
 - [x] WebmailApps::list_webmail_apps
+- [ ] WordPressBackup::any_running
+- [ ] WordPressBackup::cancel
+- [ ] WordPressBackup::cleanup
+- [ ] WordPressBackup::get_available_backups
+- [ ] WordPressBackup::is_running
+- [ ] WordPressBackup::start
+- [ ] WordPressRestore::any_running
+- [ ] WordPressRestore::cleanup
+- [ ] WordPressRestore::start
 - [ ] WordPressSite::create
 - [ ] WordPressSite::retrieve
+- [ ] ZoneEdit::resetzone
 - [x] cPAddons::get_available_addons
 - [x] cPAddons::get_instance_settings
 - [x] cPAddons::list_addon_instances
