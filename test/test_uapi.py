@@ -130,6 +130,43 @@ class TestCore(unittest.TestCase):
 			self.assertEqual("service", service['type'])
 
 
+	def test_create_then_delete_subaccount(self) -> None:
+		domain_data: JSONType = json.loads(dispatch(self.host, ["list", "domains"]))
+		main_domain = domain_data.get('main_domain')
+		if not isinstance(main_domain, str) or len(main_domain) == 0:
+			self.skipTest("server account has no usable main domain")
+
+		local_username = 'cpanel-cli-{}'.format(uuid.uuid4().hex[:12])
+		full_username = '{}@{}'.format(local_username, main_domain)
+		password = 'Subaccount-{}!A1'.format(uuid.uuid4().hex)
+
+		r: str = dispatch(self.host, ["create", "subaccount", full_username, password])
+		self.assertEqual(r, "OK")
+		self.addCleanup(
+			self.dispatch_ignoring_error,
+			["delete", "subaccount", full_username],
+		)
+
+		subaccounts: list[JSONType] = json.loads(dispatch(self.host, ["list", "subaccounts"]))
+		created = next(
+			(item for item in subaccounts if item.get('full_username') == full_username),
+			None,
+		)
+		self.assertIsNotNone(created)
+		assert created is not None
+		self.assertIn(created.get('sub_account_exists'), (0, 1))
+		self.assertTrue(created.get('guid'))
+
+		if created.get('sub_account_exists') == 1:
+			details: JSONType = json.loads(dispatch(self.host, ["get", "subaccount", str(created['guid'])]))
+			self.assertEqual(details.get('full_username'), full_username)
+
+		r = dispatch(self.host, ["delete", "subaccount", full_username])
+		self.assertEqual(r, "OK")
+		subaccounts = json.loads(dispatch(self.host, ["list", "subaccounts"]))
+		self.assertFalse(any(item.get('full_username') == full_username for item in subaccounts))
+
+
 	def test_cache(self) -> None:
 		update: JSONType = json.loads(dispatch(self.host, ["update", "cache"]))
 		print(update)

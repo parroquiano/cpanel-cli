@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cPanel CLI \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-26 03:03-0300\n"
+"POT-Creation-Date: 2026-08-15 19:33-0400\n"
 "PO-Revision-Date: 2024-11-26 03:05-0300\n"
 "Last-Translator: Marco Bravo Mejías <marco@layfellow.net>\n"
 "Language: en\n"
@@ -16,7 +16,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.16.0\n"
+"Generated-By: Babel 2.18.0\n"
 
 #: ../../reference/subaccounts.rst:7
 msgid "Module: ``subaccounts``"
@@ -26,27 +26,40 @@ msgstr "Módulo: ``subaccounts``"
 msgid "`Leer en español </es/latest/reference/subaccounts.html>`_"
 msgstr "`Read in English </en/latest/reference/subaccounts.html>`_"
 
-#: ../../reference/subaccounts.rst:11 ../../reference/subaccounts.rst:19
+#: ../../reference/subaccounts.rst:11
+#: ../../reference/subaccounts.rst:21
 msgid "**list subaccounts**"
 msgstr "**list subaccounts**"
 
-#: ../../reference/subaccounts.rst:12 ../../reference/subaccounts.rst:33
+#: ../../reference/subaccounts.rst:12
+#: ../../reference/subaccounts.rst:35
+msgid "**create subaccount USER\\@DOMAIN PASSWORD**"
+msgstr "**create subaccount USUARIO\\@DOMINIO CONTRASEÑA**"
+
+#: ../../reference/subaccounts.rst:13
+#: ../../reference/subaccounts.rst:50
+msgid "**delete subaccount USER\\@DOMAIN**"
+msgstr "**delete subaccount USUARIO\\@DOMINIO**"
+
+#: ../../reference/subaccounts.rst:14
+#: ../../reference/subaccounts.rst:65
 msgid "**get subaccount GUID**"
 msgstr "**get subaccount GUID**"
 
-#: ../../reference/subaccounts.rst:13
+#: ../../reference/subaccounts.rst:15
 msgid "**get service account USERNAME TYPE**"
 msgstr "**get service account USUARIO TIPO**"
 
-#: ../../reference/subaccounts.rst:14 ../../reference/subaccounts.rst:64
+#: ../../reference/subaccounts.rst:16
+#: ../../reference/subaccounts.rst:96
 msgid "**check subaccount conflicts USERNAME**"
 msgstr "**check subaccount conflicts USUARIO**"
 
-#: ../../reference/subaccounts.rst:16
+#: ../../reference/subaccounts.rst:18
 msgid "**COMMANDS**"
 msgstr "**COMANDOS**"
 
-#: ../../reference/subaccounts.rst:21
+#: ../../reference/subaccounts.rst:23
 msgid ""
 "List the sub-accounts of the main cPanel account, along with detailed "
 "information of each sub-account."
@@ -54,12 +67,16 @@ msgstr ""
 "Lista las sub-cuentas de la cuenta principal de cPanel, junto con "
 "información detallada de cada sub-cuenta."
 
-#: ../../reference/subaccounts.rst:24 ../../reference/subaccounts.rst:39
-#: ../../reference/subaccounts.rst:55 ../../reference/subaccounts.rst:71
+#: ../../reference/subaccounts.rst:26
+#: ../../reference/subaccounts.rst:41
+#: ../../reference/subaccounts.rst:56
+#: ../../reference/subaccounts.rst:71
+#: ../../reference/subaccounts.rst:87
+#: ../../reference/subaccounts.rst:103
 msgid "*Example*"
 msgstr "*Ejemplo*"
 
-#: ../../reference/subaccounts.rst:30
+#: ../../reference/subaccounts.rst:32
 msgid ""
 "See a sample of the JSON result data at: "
 "https://api.docs.cpanel.net/openapi/cpanel/operation/UserManager-"
@@ -69,7 +86,51 @@ msgstr ""
 "https://api.docs.cpanel.net/openapi/cpanel/operation/UserManager-"
 "list_users/"
 
-#: ../../reference/subaccounts.rst:35
+#: ../../reference/subaccounts.rst:37
+msgid ""
+"Create a subaccount identified by USER\\@DOMAIN, using PASSWORD for "
+"authentication. This command creates only the base subaccount; email, FTP"
+" and Web Disk access remain disabled according to the cPanel API "
+"defaults."
+msgstr ""
+"Crea una subcuenta identificada por USUARIO\\@DOMINIO y usa CONTRASEÑA "
+"para la autenticación. Este comando sólo crea la subcuenta base; el "
+"acceso al correo electrónico, FTP y Web Disk permanece deshabilitado "
+"según los valores predeterminados de la API de cPanel."
+
+#: ../../reference/subaccounts.rst:47
+msgid ""
+"See a sample of the JSON result data at: "
+"https://api.docs.cpanel.net/openapi/cpanel/operation/UserManager-"
+"create_user/"
+msgstr ""
+"Vea una muestra del resultado en formato JSON en: "
+"https://api.docs.cpanel.net/openapi/cpanel/operation/UserManager-"
+"create_user/"
+
+#: ../../reference/subaccounts.rst:52
+msgid ""
+"Delete a subaccount identified by USER\\@DOMAIN. This does not delete "
+"separate email, FTP or Web Disk service accounts that use the same "
+"username and domain. The aliases ‘rm subaccount’ and ‘remove subaccount’ "
+"are also supported."
+msgstr ""
+"Elimina una subcuenta identificada por USUARIO\\@DOMINIO. Esto no "
+"elimina las cuentas de servicio separadas de correo electrónico, FTP o "
+"Web Disk que usan el mismo nombre de usuario y dominio. También se "
+"admiten los alias ‘rm subaccount’ y ‘remove subaccount’."
+
+#: ../../reference/subaccounts.rst:62
+msgid ""
+"See a sample of the JSON result data at: "
+"https://api.docs.cpanel.net/openapi/cpanel/operation/UserManager-"
+"delete_user/"
+msgstr ""
+"Vea una muestra del resultado en formato JSON en: "
+"https://api.docs.cpanel.net/openapi/cpanel/operation/UserManager-"
+"delete_user/"
+
+#: ../../reference/subaccounts.rst:67
 msgid ""
 "Show detailed information of a sub-account, identified by its GUID. To "
 "get this GUID, use ‘cpanel list subaccounts’. Note that only sub-accounts"
@@ -80,7 +141,7 @@ msgstr ""
 "cuenta que sólo sub-cuentas con un flag sub_account_exists establecido a "
 "1 devuelven información."
 
-#: ../../reference/subaccounts.rst:45
+#: ../../reference/subaccounts.rst:77
 msgid ""
 "See a sample of the JSON result data at: "
 "https://api.docs.cpanel.net/openapi/cpanel/operation/lookup_user/"
@@ -88,11 +149,11 @@ msgstr ""
 "Vea una muestra del resultado en formato JSON en: "
 "https://api.docs.cpanel.net/openapi/cpanel/operation/lookup_user/"
 
-#: ../../reference/subaccounts.rst:48
+#: ../../reference/subaccounts.rst:80
 msgid "**get service subaccount USERNAME TYPE**"
 msgstr "**get service subaccount USUARIO TIPO**"
 
-#: ../../reference/subaccounts.rst:50
+#: ../../reference/subaccounts.rst:82
 msgid ""
 "Show detailed information of a service subaccount, identified by its "
 "USERNAME. TYPE is the type of service subaccount, it's either ‘ftp’, "
@@ -102,17 +163,22 @@ msgstr ""
 "por su USUARIO. TIPO es el tipo de subcuenta de servicio, puede ser "
 "‘ftp’, ‘email’ o ‘webdisk’."
 
-#: ../../reference/subaccounts.rst:53 ../../reference/subaccounts.rst:69
+#: ../../reference/subaccounts.rst:85
+#: ../../reference/subaccounts.rst:101
 msgid "Use ‘cpanel list subaccounts’ to get a list of full subaccount usernames."
-msgstr "Use ‘cpanel list subaccounts’ para obtener una lista de nombres completos de subcuentas."
+msgstr ""
+"Use ‘cpanel list subaccounts’ para obtener una lista de nombres completos"
+" de subcuentas."
 
-#: ../../reference/subaccounts.rst:61
+#: ../../reference/subaccounts.rst:93
 msgid ""
 "See a sample of the JSON result data at: "
 "https://api.docs.cpanel.net/openapi/cpanel/operation/lookup_service_account/"
-msgstr "Vea una muestra del resultado en formato JSON en: https://api.docs.cpanel.net/openapi/cpanel/operation/lookup_service_account/"
+msgstr ""
+"Vea una muestra del resultado en formato JSON en: "
+"https://api.docs.cpanel.net/openapi/cpanel/operation/lookup_service_account/"
 
-#: ../../reference/subaccounts.rst:66
+#: ../../reference/subaccounts.rst:98
 msgid ""
 "Check if a subaccount identified by USERNAME conflicts with any other "
 "subaccount. Look for a “conflict”:1 in the returned JSON data."
@@ -121,9 +187,10 @@ msgstr ""
 " alguna otra subcuenta. Busque un “conflict”:1 en los datos JSON "
 "devueltos."
 
-#: ../../reference/subaccounts.rst:77
+#: ../../reference/subaccounts.rst:109
 msgid ""
 "See a sample of the JSON result data at: "
 "https://api.docs.cpanel.net/openapi/cpanel/operation/check_account_conflicts/"
-msgstr "Vea una muestra del resultado en formato JSON en: https://api.docs.cpanel.net/openapi/cpanel/operation/check_account_conflicts/"
-
+msgstr ""
+"Vea una muestra del resultado en formato JSON en: "
+"https://api.docs.cpanel.net/openapi/cpanel/operation/check_account_conflicts/"

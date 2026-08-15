@@ -221,6 +221,8 @@ Usage: cpanel list accounts
 ---
 
 Usage: cpanel list subaccounts
+    cpanel create subaccount USER@DOMAIN PASSWORD
+    cpanel delete subaccount USER@DOMAIN
     cpanel get subaccount GUID
     cpanel get service account USERNAME TYPE
     cpanel check subaccount conflicts USERNAME
@@ -236,6 +238,28 @@ Usage: cpanel list subaccounts
 
     See a sample of the JSON result data at:
     https://api.docs.cpanel.net/openapi/cpanel/operation/UserManager-list_users/
+
+\033[1mcreate subaccount USER@DOMAIN PASSWORD\033[0m
+    Create a subaccount identified by USER@DOMAIN, using PASSWORD for authentication.
+    This command creates only the base subaccount; email, FTP and Web Disk access
+    remain disabled according to the cPanel API defaults.
+
+    EXAMPLE
+        \033[1;34mcpanel create subaccount user@example.com A-Strong-Password\033[00m
+
+    See a sample of the JSON result data at:
+    https://api.docs.cpanel.net/openapi/cpanel/operation/UserManager-create_user/
+
+\033[1mdelete subaccount USER@DOMAIN\033[0m
+    Delete a subaccount identified by USER@DOMAIN. This does not delete separate
+    email, FTP or Web Disk service accounts that use the same username and domain.
+    The aliases ‘rm subaccount’ and ‘remove subaccount’ are also supported.
+
+    EXAMPLE
+        \033[1;34mcpanel delete subaccount user@example.com\033[00m
+
+    See a sample of the JSON result data at:
+    https://api.docs.cpanel.net/openapi/cpanel/operation/UserManager-delete_user/
 
 \033[1mget subaccount GUID\033[0m
     Show detailed information of a sub-account, identified by its GUID. To get

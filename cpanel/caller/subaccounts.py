@@ -1,6 +1,6 @@
 from cpanel_api import Api
 from ..core import CPanelEndpoint
-from ..util import cmd_is
+from ..util import cmd_is, domain, username
 
 
 def call(host: CPanelEndpoint, cmd: str, args: list[str]) -> str:
@@ -18,5 +18,13 @@ def call(host: CPanelEndpoint, cmd: str, args: list[str]) -> str:
 		
 	elif cmd_is(cmd, "check subaccount conflicts"):
 		r = host.dump(lambda: uapi.UserManager.check_account_conflicts(full_username=args[3]))
+
+	elif cmd_is(cmd, "create subaccount"):
+		r = host.check(lambda: uapi.UserManager.create_user(
+			username = username(args[2]), domain = domain(args[2]), password = args[3]))
+
+	elif cmd_is(cmd, "delete subaccount", "rm subaccount", "remove subaccount"):
+		r = host.check(lambda: uapi.UserManager.delete_user(
+			username = username(args[2]), domain = domain(args[2])))
 
 	return r

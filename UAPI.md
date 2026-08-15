@@ -641,8 +641,8 @@
 - [ ] UserData::set_scoped_userdata
 - [ ] UserManager::change_password
 - [x] UserManager::check_account_conflicts
-- [ ] UserManager::create_user
-- [ ] UserManager::delete_user
+- [x] UserManager::create_user
+- [x] UserManager::delete_user
 - [ ] UserManager::dismiss_merge
 - [ ] UserManager::edit_user
 - [x] UserManager::list_users

@@ -1,4 +1,5 @@
 import unittest
+from collections.abc import Callable
 from unittest.mock import Mock
 
 from cpanel.core import CPanelError
@@ -40,3 +41,54 @@ class TestDispatch(unittest.TestCase):
 		self.assertEqual(specification.match(['perform', 'thing', 'value']), ('perform thing', 2))
 		self.assertEqual(specification.min_arguments, 1)
 		self.assertEqual(specification.max_arguments, 2)
+
+
+class TestSubaccountDispatch(unittest.TestCase):
+
+	def setUp(self) -> None:
+		self.host = Mock()
+		self.host.check.side_effect = self.run_check
+
+
+	@staticmethod
+	def run_check(apicall: Callable[[], object]) -> str:
+		apicall()
+		return 'OK'
+
+
+	def test_create_subaccount_forwards_required_parameters(self) -> None:
+		result = dispatch(
+			self.host,
+			['create', 'subaccount', 'new.user@example.test', 'secret-password'],
+		)
+
+		self.assertEqual(result, 'OK')
+		self.host.client.uapi.UserManager.create_user.assert_called_once_with(
+			username = 'new.user',
+			domain = 'example.test',
+			password = 'secret-password',
+		)
+
+
+	def test_delete_subaccount_aliases_forward_identity(self) -> None:
+		for verb in ('delete', 'rm', 'remove'):
+			with self.subTest(verb = verb):
+				self.host.client.uapi.UserManager.delete_user.reset_mock()
+				result = dispatch(self.host, [verb, 'subaccount', 'old.user@example.test'])
+				self.assertEqual(result, 'OK')
+				self.host.client.uapi.UserManager.delete_user.assert_called_once_with(
+					username = 'old.user',
+					domain = 'example.test',
+				)
+
+
+	def test_create_subaccount_requires_password_before_api_call(self) -> None:
+		with self.assertRaisesRegex(CPanelError, '^missing arguments for create subaccount'):
+			dispatch(self.host, ['create', 'subaccount', 'new.user@example.test'])
+		self.host.check.assert_not_called()
+
+
+	def test_subaccount_identity_requires_domain(self) -> None:
+		with self.assertRaisesRegex(CPanelError, '^invalid email, local-only$'):
+			dispatch(self.host, ['delete', 'subaccount', 'local-only'])
+		self.host.client.uapi.UserManager.delete_user.assert_not_called()

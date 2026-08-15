@@ -9,6 +9,8 @@ Module: ``subaccounts``
 `Leer en español </es/latest/reference/subaccounts.html>`_
 
 - **list subaccounts**
+- **create subaccount USER\@DOMAIN PASSWORD**
+- **delete subaccount USER\@DOMAIN**
 - **get subaccount GUID**
 - **get service account USERNAME TYPE**
 - **check subaccount conflicts USERNAME**
@@ -29,6 +31,36 @@ of each sub-account.
 
 See a sample of the JSON result data at:
 https://api.docs.cpanel.net/openapi/cpanel/operation/UserManager-list_users/
+
+**create subaccount USER\@DOMAIN PASSWORD**
+
+Create a subaccount identified by USER\@DOMAIN, using PASSWORD for authentication.
+This command creates only the base subaccount; email, FTP and Web Disk access
+remain disabled according to the cPanel API defaults.
+
+*Example*
+
+.. code:: sh
+
+    $ cpanel create subaccount user@example.com A-Strong-Password
+
+See a sample of the JSON result data at:
+https://api.docs.cpanel.net/openapi/cpanel/operation/UserManager-create_user/
+
+**delete subaccount USER\@DOMAIN**
+
+Delete a subaccount identified by USER\@DOMAIN. This does not delete separate
+email, FTP or Web Disk service accounts that use the same username and domain.
+The aliases ‘rm subaccount’ and ‘remove subaccount’ are also supported.
+
+*Example*
+
+.. code:: sh
+
+    $ cpanel delete subaccount user@example.com
+
+See a sample of the JSON result data at:
+https://api.docs.cpanel.net/openapi/cpanel/operation/UserManager-delete_user/
 
 **get subaccount GUID**
 
