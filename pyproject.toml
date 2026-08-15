@@ -6,7 +6,7 @@ build-backend = "hatchling.build"
 name = "cpanel-cli"
 dynamic = ["version", "authors", "description", "urls"]
 readme = "README.rst"
-requires-python = ">=3.13"
+requires-python = ">=3.11"
 license = { text = "GNU General Public License v3 (GPLv3)" }
 keywords = ["cpanel", "cli", "command-line", "hosting"]
 classifiers = [
