@@ -8,103 +8,114 @@ To contribute, just fork this repository, make a new branch and open a `pull req
 
 .. _`pull request`: https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request
 
-**cpanel-cli** is written in Python (version 3.11 or later required). I organized the code into a standard tree::
+**cpanel-cli** is written in Python (version 3.11 or later required). The repository is organized
+as follows (groups of similar generated files and command modules are abbreviated with ``*``)::
 
     cpanel-cli
-    ├── API.md
+    ├── .devcontainer
+    │   └── devcontainer.json
+    ├── .editorconfig
+    ├── .gitignore
+    ├── .readthedocs.yaml
+    ├── AGENTS.md
     ├── CONTRIBUTING.rst
     ├── cpanel
-    │   ├── cli.py
-    │   ├── core.py
+    │   ├── caller
+    │   │   └── *.py
     │   ├── __init__.py
     │   ├── __main__.py
+    │   ├── cli.py
+    │   ├── core.py
+    │   ├── dispatcher.py
+    │   ├── util.py
     │   ├── REFERENCE
     │   └── USAGE
     ├── doc
-    │   ├── conf.py
-    │   ├── contributing.rst
-    │   ├── index.rst
+    │   ├── _static
+    │   │   ├── *.png
+    │   │   └── *.svg
     │   ├── locale
     │   │   └── es
     │   │       └── LC_MESSAGES
-    │   │           ├── contributing.po
-    │   │           ├── index.po
-    │   │           ├── installation.po
-    │   │           ├── reference.po
-    │   │           └── reference
-    │   │               └─── *.po
+    │   │           ├── reference
+    │   │           │   └── *.po
+    │   │           └── *.po
+    │   ├── reference
+    │   │   └── *.rst
+    │   ├── conf.py
+    │   ├── contributing.rst
+    │   ├── index.rst
+    │   ├── installation.rst
+    │   ├── reference.rst
     │   ├── reference.sh
-    │   ├── requirements.txt
-    │   └── _static
-    │       ├─── *.svg
-    │       └─── *.png
+    │   └── requirements.txt
+    ├── test
+    │   ├── cpanelrc.test.example
+    │   ├── test_core.py
+    │   └── test_uapi.py
     ├── hatch.py
     ├── LICENSE
     ├── Makefile
     ├── pyproject.toml
     ├── pyrightconfig.json
     ├── README.rst
-    ├── .readthedocs.yaml
-    ├── test
-    │   ├── cpanelrc.test.example
-    │   └── test_uapi.py
-    └── tox.ini
+    ├── tox.ini
+    └── UAPI.md
 
-``cpanel`` contains the main source code. Files ``REFERENCE`` and ``USAGE`` contain the actual
-text for the ``--help`` and ``--version`` flags and the ``help`` command. (I keep them in
-external files to make them easier to change. Also, I can automatically parse ``REFERENCE`` to
-generate ``*.rst`` files for the Sphinx documentation builder.
-See the ``reference.sh`` script below.)
+``cpanel`` contains the application source. ``__main__.py`` is the console entry point,
+``cli.py`` parses options and configuration, ``core.py`` wraps the cPanel API client,
+``dispatcher.py`` routes commands to the modules in ``cpanel/caller/``, and ``util.py`` contains
+shared command helpers. ``cpanel/__init__.py`` holds package metadata.
 
-Standard ``pyproject.toml`` contains the project metadata, development and release dependencies,
-and build backend definitions. (See `Writing your pyproject.toml`_ for further info.)
+``REFERENCE`` and ``USAGE`` contain the help text used by the ``--help`` flag and the ``help``
+command. They are external files so the text is easy to maintain and ``REFERENCE`` can also be
+used to generate the Sphinx command reference. ``UAPI.md`` tracks which upstream cPanel UAPI
+operations the client supports.
+
+The standard ``pyproject.toml`` file contains project metadata, dependencies, the console-script
+entry point, and build backend configuration. (See `Writing your pyproject.toml`_ for further
+information.)
 
 .. _`Writing your pyproject.toml`: https://packaging.python.org/en/latest/guides/writing-pyproject-toml/
 
-I’m using the `Hatchling`_ build backend, with a small custom ``hatch.py`` script to get the
-``dynamic`` metadata properties in ``pyproject.toml``. The custom ``hatch.py`` script works by parsing the
-``cpanel/__init__.py`` source file.
+The project uses the `Hatchling`_ build backend. The custom ``hatch.py`` metadata hook obtains
+dynamic metadata from ``cpanel/__init__.py``.
 
 .. _`Hatchling`: https://pypi.org/project/hatchling/
 
-``pyrightconfig.json`` is the configuration file for the `Pyright`_ static type checker.
+``pyrightconfig.json`` configures the `Pyright`_ static type checker, while ``.editorconfig``
+contains editor-independent formatting settings. ``.devcontainer/devcontainer.json`` defines an
+optional development container.
 
-``test`` contains a set of unit API tests. They’re written using the `tox automation framework`_.
-The code driving the tests is in ``test/test_uapi.py``; the main tox configuration file is ``tox.ini``.
-These are *not* simple standalone unit tests, but API tests running against
-a *live* cPanel instance. See `Running tests`_ below for further details.
+``test`` contains tests written with Python’s ``unittest`` framework and run through the
+`tox automation framework`_. ``test/test_core.py`` contains isolated unit tests;
+``test/test_uapi.py`` contains API tests that run against a *live* cPanel instance using a local
+``test/cpanelrc.test`` configuration file. See `Running tests`_ below for further details.
 
 .. _`tox automation framework`: https://tox.wiki/en/latest/index.html
 
-``doc`` contains the documentation sources, written in `reStructuredText`_ and processed using `Sphinx`_.
-The main configuration file for Sphinx is ``doc/conf.py``. The Sphinx version and theme used
-to build the documentation are in ``doc/requirements.txt``.
+``doc`` contains the documentation sources, written in `reStructuredText`_ and processed using
+`Sphinx`_. ``doc/conf.py`` is the Sphinx configuration, and ``doc/requirements.txt`` specifies the
+documentation dependencies.
 
 .. _`reStructuredText`: https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html
 .. _Sphinx: https://www.sphinx-doc.org/
 
-The source files for the documentation are in ``doc/*.rst``. The ``index.rst`` file is the main
-page. You will notice a ``doc/reference`` folder and a series of ``*.rst`` files on it.
-These are programmatically generated by the ``reference.sh`` script and need *not* be edited manually.
-(I’m committing them to the source tree because they serve as the actual source files for Sphinx.)
+The documentation pages live in ``doc/*.rst``. ``doc/index.rst`` is the main page.
+``doc/reference.sh`` parses ``cpanel/REFERENCE`` to generate ``doc/reference.rst`` and the files in
+``doc/reference/``; do not edit those generated files manually. ``doc/_static`` contains the image
+assets used by the documentation.
 
-The ``reference.sh`` script generates ``doc/reference.rst`` and the files inside ``doc/reference/``
-by parsing the ``REFERENCE`` text file, splitting it into sections and converting them to restructuredText.
-This allows me to keep ``REFERENCE`` as a single source of truth for the documentation
-and keep the Sphinx documents up to date.
-
-``_static`` contains the images and SVG files used in the documentation.
-
-``.readthedocs.yaml`` is a `configuration file for Read the Docs`_. The remote Sphinx build system
-uses this file.
+``.readthedocs.yaml`` is the `configuration file for Read the Docs`_ used by the remote Sphinx
+build system.
 
 .. _`configuration file for Read the Docs`: https://docs.readthedocs.io/en/stable/config-file/index.html
 
-I maintain a Spanish translation of the documentation, generated using strings from a series of
-catalog files (``*.po``) inside ``locale/es/LC_MESSAGES/``. See `Translations`_ for further information.
+The Spanish translation catalogs are in ``doc/locale/es/LC_MESSAGES/``. See `Translations`_ for
+further information.
 
-Finally, I’m using a ``Makefile`` to automate all phases of the development life cycle.
-(`Make and Makefiles are awesome`_.)
+Finally, the ``Makefile`` automates the development lifecycle, and ``tox.ini`` defines the Python
+test environments. (`Make and Makefiles are awesome`_.)
 
 .. _`Make and Makefiles are awesome`: https://mplanchard.com/posts/make-and-makefiles-are-awesome.html
 
@@ -112,7 +123,7 @@ Finally, I’m using a ``Makefile`` to automate all phases of the development li
 Development environment
 =======================
 
-I developed **cpanel-cli** on Ubuntu Linux 23.10 “Mantic” with Python 3.11.
+I developed **cpanel-cli** on Ubuntu Linux 26.04 “Resolute Racoon” with Python 3.
 **cpanel-cli**, however, has no special requirements, so any Linux distro
 supporting at least Python 3.11 should work. You can also use macOS “Ventura”
 or a later macOS release.
@@ -434,100 +445,108 @@ Cómo contribuir
 
 Para contribuir, haga un fork de este repositorio, cree una nueva rama y abra un `pull request`_.
 
-**cpanel-cli** está escrito en Python (versión 3.11 o posterior). El código está organizado en este árbol::
+**cpanel-cli** está escrito en Python (versión 3.11 o posterior). El repositorio está organizado
+como sigue (los grupos de archivos generados y módulos de comandos similares se abrevian con ``*``)::
 
     cpanel-cli
-    ├── API.md
+    ├── .devcontainer
+    │   └── devcontainer.json
+    ├── .editorconfig
+    ├── .gitignore
+    ├── .readthedocs.yaml
+    ├── AGENTS.md
     ├── CONTRIBUTING.rst
     ├── cpanel
-    │   ├── cli.py
-    │   ├── core.py
+    │   ├── caller
+    │   │   └── *.py
     │   ├── __init__.py
     │   ├── __main__.py
+    │   ├── cli.py
+    │   ├── core.py
+    │   ├── dispatcher.py
+    │   ├── util.py
     │   ├── REFERENCE
     │   └── USAGE
     ├── doc
-    │   ├── conf.py
-    │   ├── contributing.rst
-    │   ├── index.rst
+    │   ├── _static
+    │   │   ├── *.png
+    │   │   └── *.svg
     │   ├── locale
     │   │   └── es
     │   │       └── LC_MESSAGES
-    │   │           ├── contributing.po
-    │   │           ├── index.po
-    │   │           ├── installation.po
-    │   │           ├── reference.po
-    │   │           └── reference
-    │   │               └─── *.po
+    │   │           ├── reference
+    │   │           │   └── *.po
+    │   │           └── *.po
+    │   ├── reference
+    │   │   └── *.rst
+    │   ├── conf.py
+    │   ├── contributing.rst
+    │   ├── index.rst
+    │   ├── installation.rst
+    │   ├── reference.rst
     │   ├── reference.sh
-    │   ├── requirements.txt
-    │   └── _static
-    │       ├─── *.svg
-    │       └─── *.png
+    │   └── requirements.txt
+    ├── test
+    │   ├── cpanelrc.test.example
+    │   ├── test_core.py
+    │   └── test_uapi.py
     ├── hatch.py
     ├── LICENSE
     ├── Makefile
     ├── pyproject.toml
     ├── pyrightconfig.json
     ├── README.rst
-    ├── .readthedocs.yaml
-    ├── test
-    │   ├── cpanelrc.test.example
-    │   └── test_uapi.py
-    └── tox.ini
+    ├── tox.ini
+    └── UAPI.md
 
-``cpanel`` contiene el código fuente principal. Los archivos ``REFERENCE`` y ``USAGE`` contienen
-el texto para las opciones ``--help`` y ``--version`` y el comando ``help``. (Los mantengo en
-archivos externos para que sea más fácil editarlos. Además, puedo analizar programáticamente
-``REFERENCE`` para generar los archivos ``*.rst`` para el constructor de documentación Sphinx.
-Vea el script ``reference.sh`` más abajo).
+``cpanel`` contiene el código de la aplicación. ``__main__.py`` es el punto de entrada de la consola,
+``cli.py`` procesa las opciones y la configuración, ``core.py`` encapsula el cliente de la API de cPanel,
+``dispatcher.py`` dirige los comandos a los módulos de ``cpanel/caller/`` y ``util.py`` contiene
+funciones auxiliares compartidas. ``cpanel/__init__.py`` contiene los metadatos del paquete.
 
-El archivo ``pyproject.toml`` estándar contiene los metadatos del proyecto, las dependencias de
-desarrollo y publicación, y las definiciones del backend de compilación.
+``REFERENCE`` y ``USAGE`` contienen el texto de ayuda utilizado por la opción ``--help`` y el
+comando ``help``. Son archivos externos para que el texto sea fácil de mantener y para poder usar
+``REFERENCE`` al generar la referencia de comandos de Sphinx. ``UAPI.md`` registra las operaciones
+de la UAPI de cPanel que admite el cliente.
+
+El archivo ``pyproject.toml`` estándar contiene los metadatos y dependencias del proyecto, el punto
+de entrada del script de consola y la configuración del backend de compilación.
 (Vea `Writing your pyproject.toml`_ para más información.)
 
-Uso el backend de construcción `Hatchling`_, con un pequeño script personalizado ``hatch.py`` para
-obtener las propiedades de metadatos ``dynamic`` en ``pyproject.toml``. El script ``hatch.py`` funciona
-analizando el archivo fuente ``cpanel/__init__.py``.
+El proyecto usa el backend de construcción `Hatchling`_. El hook de metadatos personalizado
+``hatch.py`` obtiene los metadatos dinámicos de ``cpanel/__init__.py``.
 
-``pyrightconfig.json`` es el archivo de configuración para el verificador de tipos
-estáticos `Pyright`_.
+``pyrightconfig.json`` configura el verificador de tipos estáticos `Pyright`_, mientras que
+``.editorconfig`` contiene opciones de formato independientes del editor.
+``.devcontainer/devcontainer.json`` define un contenedor de desarrollo opcional.
 
-``test`` contiene un conjunto de pruebas unitarias de la API. Están escritas usando el
-`framework de automatización tox`_. El código que controla las pruebas está en
-``test/test_uapi.py``; el archivo de configuración principal de tox es ``tox.ini``.
-Nótese que *no* son simples pruebas unitarias independientes, sino pruebas de API que se ejecutan
-en una instancia de cPanel *activa*. Vea `Ejecución de pruebas`_ más abajo para más detalles.
+``test`` contiene pruebas escritas con el framework ``unittest`` de Python y ejecutadas mediante el
+`framework de automatización tox`_. ``test/test_core.py`` contiene pruebas unitarias independientes;
+``test/test_uapi.py`` contiene pruebas de API que se ejecutan en una instancia de cPanel *activa*
+usando un archivo de configuración local ``test/cpanelrc.test``. Vea `Ejecución de pruebas`_ más
+abajo para más detalles.
 
 .. _`framework de automatización tox`: https://tox.wiki/en/latest/index.html
 
 ``doc`` contiene las fuentes de la documentación, escritas en `reStructuredText`_ y procesadas
-usando `Sphinx`_. El archivo de configuración principal de Sphinx es ``doc/conf.py``. La versión
-de Sphinx y el tema para construir la documentación están en ``doc/requirements.txt``.
+usando `Sphinx`_. ``doc/conf.py`` es la configuración de Sphinx y ``doc/requirements.txt`` especifica
+las dependencias de la documentación.
 
-Las fuentes de la documentación están en ``doc/*.rst``. El archivo ``index.rst`` es la página
-principal. Nótese una carpeta ``doc/reference`` y una serie de archivos ``*.rst`` en ésta.
-Éstos son generados programáticamente por el script ``reference.sh`` y *no* necesitan ser editados
-manualmente. (Los subo al repositorio porque Sphinx los usa como sus archivos fuentes).
+Las páginas de documentación se encuentran en ``doc/*.rst``. ``doc/index.rst`` es la página
+principal. ``doc/reference.sh`` analiza ``cpanel/REFERENCE`` para generar ``doc/reference.rst`` y
+los archivos de ``doc/reference/``; no edite manualmente estos archivos generados. ``doc/_static``
+contiene las imágenes utilizadas en la documentación.
 
-El script ``reference.sh`` genera ``doc/reference.rst`` y los archivos dentro de ``doc/reference/``
-analizando el archivo de texto ``REFERENCE``, dividiéndolo en secciones y convirtiéndolas a
-restructuredText. Esto me permite mantener ``REFERENCE`` como una única fuente de verdad para
-la documentación y mantener los archivos de Sphinx actualizados.
-
-``_static`` contiene las imágenes y archivos SVG utilizados en la documentación.
-
-``.readthedocs.yaml`` es un `archivo de configuración para Read the Docs`_. El sistema remoto de Sphinx
-utiliza este archivo.
+``.readthedocs.yaml`` es el `archivo de configuración para Read the Docs`_ utilizado por el sistema
+remoto de compilación de Sphinx.
 
 .. _`archivo de configuración para Read the Docs`: https://docs.readthedocs.io/en/stable/config-file/index.html
 
-También mantengo una traducción al español de la documentación, generada usando cadenas de una serie
-de archivos de catálogo (``*.po``) dentro de ``locale/es/LC_MESSAGES/``.
-Vea `Traducciones`_ para más información.
+Los catálogos de la traducción al español están en ``doc/locale/es/LC_MESSAGES/``. Vea
+`Traducciones`_ para más información.
 
-Finalmente, uso un ``Makefile`` para automatizar todas las fases del ciclo de vida del desarrollo.
-(`Make y los Makefiles son increíbles`_.)
+Finalmente, el ``Makefile`` automatiza el ciclo de vida del desarrollo y ``tox.ini`` define los
+entornos de pruebas. (`Make y los Makefiles son increíbles`_.)
 
 .. _`Make y los Makefiles son increíbles`: https://mplanchard.com/posts/make-and-makefiles-are-awesome.html
 
