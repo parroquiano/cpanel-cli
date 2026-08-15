@@ -2,18 +2,30 @@ import os
 import unittest
 from unittest import TestResult
 import json
-import random
-from typing import List
+import uuid
 from cpanel.cli import configuration
-from cpanel.core import JSONType, CPanelEndpoint, endpoint
+from cpanel.core import JSONType, CPanelEndpoint, CPanelError, endpoint
 from cpanel.__main__ import dispatch
 import urllib3
 from urllib3.exceptions import InsecureRequestWarning
 
 
 class TestCore(unittest.TestCase):
+	@staticmethod
+	def remove_file_if_exists(filename: str) -> None:
+		if os.path.exists(filename):
+			os.remove(filename)
+
+
+	def dispatch_ignoring_error(self, args: list[str]) -> None:
+		try:
+			dispatch(self.host, args)
+		except CPanelError:
+			pass
 
 	def setUp(self) -> None:
+		if not os.path.isfile('./test/cpanelrc.test'):
+			self.skipTest("live cPanel configuration test/cpanelrc.test is not available")
 		_, hostname, username, utoken = configuration([], {}, './test/cpanelrc.test')
 		urllib3.disable_warnings(category = InsecureRequestWarning)
 		self.host: CPanelEndpoint = endpoint(str(hostname), str(username), str(utoken))
@@ -27,11 +39,11 @@ class TestCore(unittest.TestCase):
 			super(TestCore, self).run(result)
 
 
-	def list_mail_accounts(self) -> List[JSONType]:
+	def list_mail_accounts(self) -> list[JSONType]:
 		return json.loads(dispatch(self.host, ["list", "mail", "accounts"]))
 
 
-	def list_mail_filters(self, account: str) -> List[JSONType]:
+	def list_mail_filters(self, account: str) -> list[JSONType]:
 		return json.loads(dispatch(self.host, ["list", "mail", "filters", account]))
 
 
@@ -60,7 +72,7 @@ class TestCore(unittest.TestCase):
 
 
 	def test_get_usage(self) -> None:
-		usage: List[JSONType] = json.loads(dispatch(self.host, ["get", "usage"]))
+		usage: list[JSONType] = json.loads(dispatch(self.host, ["get", "usage"]))
 		print(usage)
 
 		self.assertTrue(len(usage) > 0)
@@ -71,8 +83,8 @@ class TestCore(unittest.TestCase):
 
 
 	def test_get_stats(self) -> None:
-		display: List[str] = ["hostname", "machinetype", "cpanelversion"]
-		stats: List[JSONType] = json.loads(dispatch(self.host, ["get", "stats"] + display))
+		display: list[str] = ["hostname", "machinetype", "cpanelversion"]
+		stats: list[JSONType] = json.loads(dispatch(self.host, ["get", "stats"] + display))
 		print(stats)
 
 		self.assertTrue(len(stats) > 0)
@@ -83,7 +95,7 @@ class TestCore(unittest.TestCase):
 
 
 	def test_list_accounts(self) -> None:
-		accounts: List[JSONType] = json.loads(dispatch(self.host, ["list", "accounts"]))
+		accounts: list[JSONType] = json.loads(dispatch(self.host, ["list", "accounts"]))
 		print(accounts)
 
 		self.assertTrue(len(accounts[0]['user']) > 0)
@@ -97,7 +109,7 @@ class TestCore(unittest.TestCase):
 
 
 	def test_subaccounts(self) -> None:
-		subaccounts: List[JSONType] = json.loads(dispatch(self.host, ["list", "subaccounts"]))
+		subaccounts: list[JSONType] = json.loads(dispatch(self.host, ["list", "subaccounts"]))
 		print(subaccounts)
 
 		self.assertTrue(len(subaccounts) > 0)
@@ -134,11 +146,12 @@ class TestCore(unittest.TestCase):
 		print(original)
 		self.assertTrue(len(original['locale']) > 0)
 
-		locales: List[JSONType] = json.loads(dispatch(self.host, ["list", "locales"]))
+		locales: list[JSONType] = json.loads(dispatch(self.host, ["list", "locales"]))
 		locale: JSONType = locales[0]
 		print(locale)
 		self.assertTrue(len(locale['locale']) > 0)
 
+		self.addCleanup(dispatch, self.host, ["set", "locale", original['locale']])
 		r: str = dispatch(self.host, ["set", "locale", locale['locale']])
 		self.assertEqual(r, "OK")
 
@@ -151,7 +164,7 @@ class TestCore(unittest.TestCase):
 
 
 	def test_get_theme(self) -> None:
-		themes: List[JSONType] = json.loads(dispatch(self.host, ["list", "themes"]))
+		themes: list[JSONType] = json.loads(dispatch(self.host, ["list", "themes"]))
 		print(themes)
 
 		theme: JSONType = json.loads(dispatch(self.host, ["get", "theme"]))
@@ -189,6 +202,8 @@ class TestCore(unittest.TestCase):
 		print(original)
 
 		self.assertTrue(original['protected'] in (0, 1))
+		restore_command = "enable" if original['protected'] else "disable"
+		self.addCleanup(dispatch, self.host, [restore_command, "dir", "privacy", "/.cpanel"])
 
 		r: str = dispatch(self.host, ["enable", "dir", "privacy", "/.cpanel"])
 		self.assertEqual(r, "OK")
@@ -205,13 +220,14 @@ class TestCore(unittest.TestCase):
 
 
 	def test_add_list_delete_dir_user(self) -> None:
-		user: str = 'tmp-{}'.format(hex(random.randrange(0, 2 ** 32))[2:])
+		user: str = 'tmp-{}'.format(uuid.uuid4().hex[:12])
 		print(user)
 
 		r: str = dispatch(self.host, ["add", "dir", "user", "/.cpanel", user, "twypjaspAsAc1"])
 		self.assertEqual(r, "OK")
+		self.addCleanup(self.dispatch_ignoring_error, ["delete", "dir", "user", "/.cpanel", user])
 
-		users: List[JSONType] = json.loads(dispatch(self.host, ["list", "dir", "users", "/.cpanel"]))
+		users: list[JSONType] = json.loads(dispatch(self.host, ["list", "dir", "users", "/.cpanel"]))
 		print(users)
 
 		created: bool = False
@@ -239,7 +255,7 @@ class TestCore(unittest.TestCase):
 
 
 	def test_list_mail_accounts(self) -> None:
-		emails: List[JSONType] = self.list_mail_accounts()
+		emails: list[JSONType] = self.list_mail_accounts()
 		print(emails)
 
 		email: JSONType
@@ -248,10 +264,11 @@ class TestCore(unittest.TestCase):
 
 
 	def test_list_mail_filters(self) -> None:
-		emails: List[JSONType] = self.list_mail_accounts()
-		if len(emails) == 0: return
+		emails: list[JSONType] = self.list_mail_accounts()
+		if len(emails) == 0:
+			self.skipTest("server has no mail accounts")
 
-		filters: List[JSONType] = self.list_mail_filters(emails[0]['email'])
+		filters: list[JSONType] = self.list_mail_filters(emails[0]['email'])
 		print(filters)
 
 		filter: JSONType
@@ -260,23 +277,26 @@ class TestCore(unittest.TestCase):
 
 
 	def test_get_mail_filter(self) -> None:
-		emails: List[JSONType] = self.list_mail_accounts()
-		if len(emails) == 0: return
+		emails: list[JSONType] = self.list_mail_accounts()
+		if len(emails) == 0:
+			self.skipTest("server has no mail accounts")
 
-		filters: List[JSONType] = self.list_mail_filters(emails[0]['email'])
-		if len(filters) == 0: return
+		filters: list[JSONType] = self.list_mail_filters(emails[0]['email'])
+		if len(filters) == 0:
+			self.skipTest("mail account has no filters")
 
 		filter: JSONType = self.get_mail_filter(emails[0]['email'], filters[0]['filtername'])
 		print(filter)
 
-		actions: List[JSONType] = filter['actions']
+		actions: list[JSONType] = filter['actions']
 		action: JSONType
 		for action in actions:
 			self.assertTrue(len(action['action']) > 0)
-			if action['dest'] is not None: self.assertTrue(len(action['dest']) > 0)
+			if action['dest'] is not None:
+				self.assertTrue(len(action['dest']) > 0)
 			self.assertTrue(int(action['number']) > 0)
 
-		rules: List[JSONType] = filter['rules']
+		rules: list[JSONType] = filter['rules']
 		rule: JSONType
 		for rule in rules:
 			self.assertTrue(len(rule['match']) > 0)
@@ -286,24 +306,29 @@ class TestCore(unittest.TestCase):
 
 
 	def test_set_then_delete_mail_filter(self) -> None:
-		emails: List[JSONType] = self.list_mail_accounts()
-		if len(emails) == 0: return
+		emails: list[JSONType] = self.list_mail_accounts()
+		if len(emails) == 0:
+			self.skipTest("server has no mail accounts")
 
-		filters: List[JSONType] = self.list_mail_filters(emails[0]['email'])
-		if len(filters) == 0: return
+		filters: list[JSONType] = self.list_mail_filters(emails[0]['email'])
+		if len(filters) == 0:
+			self.skipTest("mail account has no filters")
 
 		filter: JSONType = self.get_mail_filter(emails[0]['email'], filters[0]['filtername'])
-		if len(filter) == 0: return
+		if len(filter) == 0:
+			self.skipTest("selected filter has no data")
 
-		name: str = 'tmp-{}'.format(hex(random.randrange(0, 2 ** 32))[2:])
+		name: str = 'tmp-{}'.format(uuid.uuid4().hex[:12])
 		filter['filtername'] = name
 		filterfile: str = './test/{}.json'.format(name)
+		self.addCleanup(self.remove_file_if_exists, filterfile)
 
 		with open(filterfile, 'w', encoding = 'utf-8') as stream:
 			stream.write(json.dumps(filter, indent = 4, sort_keys = True))
 
 		r: str = dispatch(self.host, ["set", "mail", "filter", emails[0]['email'], filterfile])
 		self.assertEqual(r, "OK")
+		self.addCleanup(self.dispatch_ignoring_error, ["delete", "mail", "filter", emails[0]['email'], name])
 
 		r = dispatch(self.host, ["delete", "mail", "filter", emails[0]['email'], name])
 		self.assertEqual(r, "OK")
@@ -312,17 +337,23 @@ class TestCore(unittest.TestCase):
 
 
 	def test_move_mail_filter(self) -> None:
-		emails: List[JSONType] = self.list_mail_accounts()
-		if len(emails) == 0: return
+		emails: list[JSONType] = self.list_mail_accounts()
+		if len(emails) == 0:
+			self.skipTest("server has no mail accounts")
 
-		filters: List[JSONType] = self.list_mail_filters(emails[0]['email'])
+		filters: list[JSONType] = self.list_mail_filters(emails[0]['email'])
 		n: int = len(filters)
-		if n == 0: return
+		if n == 0:
+			self.skipTest("mail account has no filters")
 
 		print(filters)
 
 		account: str = emails[0]['email']
 		first_filtername: str = filters[0]['filtername']
+		self.addCleanup(
+			dispatch, self.host,
+			["move", "mail", "filter", account, first_filtername, "top"],
+		)
 
 		r: str = dispatch(self.host, ["move", "mail", "filter", account, first_filtername, "bottom"])
 		self.assertEqual(r, "OK")
@@ -346,8 +377,9 @@ class TestCore(unittest.TestCase):
 
 
 	def test_list_filter_domains(self) -> None:
-		domains: List[JSONType] = json.loads(dispatch(self.host, ["list", "filter", "domains"]))
-		if len(domains) == 0: return
+		domains: list[JSONType] = json.loads(dispatch(self.host, ["list", "filter", "domains"]))
+		if len(domains) == 0:
+			self.skipTest("server has no filter domains")
 
 		print(domains)
 
@@ -358,7 +390,8 @@ class TestCore(unittest.TestCase):
 
 	def test_get_spam_settings(self) -> None:
 		settings: JSONType = json.loads(dispatch(self.host, ["get", "spam", "settings"]))
-		if len(settings) == 0: return
+		if len(settings) == 0:
+			self.skipTest("server has no spam settings")
 
 		print(settings)
 
@@ -368,53 +401,61 @@ class TestCore(unittest.TestCase):
 
 	def test_add_then_remove_from_spam_allowlist(self) -> None:
 		settings: JSONType = json.loads(dispatch(self.host, ["get", "spam", "settings"]))
-		if len(settings) == 0: return
+		if len(settings) == 0:
+			self.skipTest("server has no spam settings")
 
-		r: str = dispatch(self.host, ["add", "spam", "allowlist", "scott@example.com"])
+		address = "cpanel-cli-{}@example.com".format(uuid.uuid4().hex)
+		r: str = dispatch(self.host, ["add", "spam", "allowlist", address])
 		self.assertEqual(r, "OK")
+		self.addCleanup(self.dispatch_ignoring_error, ["delete", "spam", "allowlist", address])
 
 		settings = json.loads(dispatch(self.host, ["get", "spam", "settings"]))
 		print(settings)
-		self.assertTrue("scott@example.com" in settings['whitelist_from'])
+		self.assertTrue(address in settings['whitelist_from'])
 
-		r = dispatch(self.host, ["delete", "spam", "allowlist", "scott@example.com"])
+		r = dispatch(self.host, ["delete", "spam", "allowlist", address])
 		self.assertEqual(r, "OK")
 
 		settings = json.loads(dispatch(self.host, ["get", "spam", "settings"]))
 		self.assertTrue(
 			'whitelist_from' not in settings or
-			"scott@example.com" not in settings['whitelist_from'])
+			address not in settings['whitelist_from'])
 
 
 	def test_suspend_then_unsuspend_mail(self) -> None:
-		emails: List[JSONType] = self.list_mail_accounts()
-		if len(emails) == 0: return
+		emails: list[JSONType] = self.list_mail_accounts()
+		if len(emails) == 0:
+			self.skipTest("server has no mail accounts")
 
 		r: str = dispatch(self.host, ["suspend", "mail", "incoming", emails[0]['email']])
 		self.assertEqual(r, "OK")
+		self.addCleanup(dispatch, self.host, ["unsuspend", "mail", "incoming", emails[0]['email']])
 
 		r: str = dispatch(self.host, ["unsuspend", "mail", "incoming", emails[0]['email']])
 		self.assertEqual(r, "OK")
-		
+
 		r: str = dispatch(self.host, ["suspend", "mail", "outgoing", emails[0]['email']])
 		self.assertEqual(r, "OK")
+		self.addCleanup(dispatch, self.host, ["unsuspend", "mail", "outgoing", emails[0]['email']])
 
 		r: str = dispatch(self.host, ["unsuspend", "mail", "outgoing", emails[0]['email']])
 		self.assertEqual(r, "OK")
-		
+
 		r: str = dispatch(self.host, ["suspend", "mail", "login", emails[0]['email']])
 		self.assertEqual(r, "OK")
+		self.addCleanup(dispatch, self.host, ["unsuspend", "mail", "login", emails[0]['email']])
 
 		r: str = dispatch(self.host, ["unsuspend", "mail", "login", emails[0]['email']])
 		self.assertEqual(r, "OK")
-		
+
 	def test_domain_stats(self) -> None:
-		domains: List[str] = json.loads(dispatch(self.host, ["list", "stats", "domains"]))	
-		if len(domains) == 0: return
-		
+		domains: list[str] = json.loads(dispatch(self.host, ["list", "stats", "domains"]))
+		if len(domains) == 0:
+			self.skipTest("server has no statistics domains")
+
 		print(domains)
-		
+
 		html: str = dispatch(self.host, ["get", "stats", "domain", domains[0]])
 		self.assertTrue(len(html) > 800)
-		
+
 		print(html[:800])

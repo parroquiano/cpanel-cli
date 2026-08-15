@@ -1,10 +1,9 @@
-from typing import List
 from cpanel_api import Api
 from ..core import CPanelEndpoint
 from ..util import cmd_is, domain
 
 
-def call(host: CPanelEndpoint, cmd: str, args: List[str]) -> str:
+def call(host: CPanelEndpoint, cmd: str, args: list[str]) -> str:
 	r: str = ""
 	uapi: Api = host.client.uapi
 

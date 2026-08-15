@@ -16,6 +16,9 @@ as follows (groups of similar generated files and command modules are abbreviate
     │   └── devcontainer.json
     ├── .editorconfig
     ├── .gitignore
+    ├── .github
+    │   └── workflows
+    │       └── ci.yml
     ├── .readthedocs.yaml
     ├── AGENTS.md
     ├── CONTRIBUTING.rst
@@ -51,9 +54,11 @@ as follows (groups of similar generated files and command modules are abbreviate
     │   └── requirements.txt
     ├── test
     │   ├── cpanelrc.test.example
+    │   ├── test_cli.py
     │   ├── test_core.py
+    │   ├── test_dispatcher.py
+    │   ├── test_package.py
     │   └── test_uapi.py
-    ├── hatch.py
     ├── LICENSE
     ├── Makefile
     ├── pyproject.toml
@@ -78,19 +83,25 @@ information.)
 
 .. _`Writing your pyproject.toml`: https://packaging.python.org/en/latest/guides/writing-pyproject-toml/
 
-The project uses the `Hatchling`_ build backend. The custom ``hatch.py`` metadata hook obtains
-dynamic metadata from ``cpanel/__init__.py``.
+The project uses the `Hatchling`_ build backend. Most package metadata is static and Hatchling
+reads the version directly from ``cpanel/__init__.py``.
 
 .. _`Hatchling`: https://pypi.org/project/hatchling/
 
-``pyrightconfig.json`` configures the `Pyright`_ static type checker, while ``.editorconfig``
-contains editor-independent formatting settings. ``.devcontainer/devcontainer.json`` defines an
-optional development container.
+``pyrightconfig.json`` configures the `Pyright`_ static type checker, while ``pyproject.toml``
+contains the `Ruff`_ lint configuration and ``.editorconfig`` contains editor-independent
+formatting settings. ``.devcontainer/devcontainer.json`` defines an optional development
+container.
 
-``test`` contains tests written with Python’s ``unittest`` framework and run through the
-`tox automation framework`_. ``test/test_core.py`` contains isolated unit tests;
-``test/test_uapi.py`` contains API tests that run against a *live* cPanel instance using a local
-``test/cpanelrc.test`` configuration file. See `Running tests`_ below for further details.
+.. _Ruff: https://docs.astral.sh/ruff/
+
+``test`` contains tests written with Python’s ``unittest`` framework. ``test/test_core.py`` tests
+response and upload behavior, ``test/test_cli.py`` tests configuration and secret-safe logging,
+``test/test_dispatcher.py`` tests command aliases and argument validation, and
+``test/test_package.py`` verifies built artifact contents. These tests are isolated and require no
+cPanel credentials. ``test/test_uapi.py`` is the separate integration suite; it runs against a
+*live* cPanel instance using a local ``test/cpanelrc.test`` configuration file. See `Running tests`_
+below for further details.
 
 .. _`tox automation framework`: https://tox.wiki/en/latest/index.html
 
@@ -114,8 +125,10 @@ build system.
 The Spanish translation catalogs are in ``doc/locale/es/LC_MESSAGES/``. See `Translations`_ for
 further information.
 
-Finally, the ``Makefile`` automates the development lifecycle, and ``tox.ini`` defines the Python
-test environments. (`Make and Makefiles are awesome`_.)
+Finally, the ``Makefile`` automates the development lifecycle, ``tox.ini`` defines isolated Python
+3.11 and 3.12 unit environments plus an explicit integration environment, and
+``.github/workflows/ci.yml`` runs the automated pull-request checks. (`Make and Makefiles are
+awesome`_.)
 
 .. _`Make and Makefiles are awesome`: https://mplanchard.com/posts/make-and-makefiles-are-awesome.html
 
@@ -217,50 +230,76 @@ Then run the ``cpanel`` utility:
 If you edit the sources, just run ``pip3 install .`` (note the dot ``.``) to rebuild
 the local package.
 
-Running the (optional) type checker
-===================================
+Running static checks
+=====================
 
-*Running the type checker is optional — you can ignore this step if you want.*
-
-The Python source code is annotated using type hints. I use them
-to improve the readability of Python code. Read the `Python Type Checking Guide`_ for
-an excellent introduction to the use of type hints in Python.
+The Python source code is annotated using type hints. Read the
+`Python Type Checking Guide`_ for an introduction to Python type hints.
 
 .. _`Python Type Checking Guide`: https://realpython.com/python-type-checking/
 
-Type hints are not actually checked by the Python runtime — you need a
-third party *type checker* utility.
-For this project I use Pyright_, which is my Python type checker of choice.
+Type hints are not checked by the Python runtime, so this project uses Pyright_. Ruff_ provides a
+separate lint pass. Both tools are installed by ``make venv`` as development dependencies.
 
 .. _Pyright: https://github.com/Microsoft/pyright
 
-To install Pyright:
-
-.. code:: sh
-
-    $ pip3 install --user pyright
-
-Run it using:
+Run both checks before submitting a change:
 
 .. code:: sh
 
     $ make typecheck
+    $ make lint
 
-The type checker configuration is in the ``pyrightconfig.json`` file.
+The type checker configuration is in ``pyrightconfig.json`` and the lint configuration is in
+``pyproject.toml``. Ruff is configured as a linter only; it does not reformat the repository’s
+tab-indented Python files. Use built-in generic annotations such as ``list[str]`` and
+``dict[str, object]``, union syntax such as ``str | None``, and precisely parameterized callbacks.
 
-Note that Pyright is based on Node.js, so that pip will indirectly install it and pull a
-lot of JavaScript dependencies required by Pyright.
+
+Command and logging safety
+==========================
+
+Command-line values can contain API tokens, passwords, email addresses, message bodies, and filter
+rules. Never log raw command arguments or API parameter dictionaries. Prefer structural diagnostic
+messages; if a value must be represented in a log, pass it through the central ``redact()`` helper
+in ``cpanel/util.py``. Add a regression test whenever logging behavior changes.
+
+Commands are declared as specifications in ``cpanel/dispatcher.py``. Each specification contains
+exact aliases, minimum and maximum argument counts, and a handler. Add or change the specification
+and its focused tests together. Do not use prefix matching for command names, and validate arguments
+before invoking cPanel API code.
+
+Reusable application and dispatch code must raise ``CPanelError`` for expected failures. It must not
+call ``die()`` or ``sys.exit()``; process termination belongs exclusively to the console entry point
+in ``cpanel/__main__.py``. When handling cPanel responses, support the documented error payload
+shapes explicitly and avoid incidental exceptions such as ``IndexError``.
+
+Configuration discovery is a read operation. It must not create ``~/.config/cpanel/`` or any other
+directory merely because the CLI looked for a configuration file.
 
 Running tests
 =============
 
-I’m using the `tox automation framework`_ for a series of unit API tests.
-The main code driving the tests is in ``test/test_uapi.py``; the main tox configuration file is
-``tox.ini``.
+The default test suite is isolated and does not require cPanel credentials. For a quick run using
+the Python interpreter in ``venv``, use:
 
-These are *not* simple unit tests, but unit API tests running against a *live* cPanel instance.
-To run the tests, you need access to a cPanel instance running on another host reachable from
-the host you’re running the tests on.
+.. code:: sh
+
+    $ make unit
+
+Before submitting a change, run the default tox suite on both supported Python versions:
+
+.. code:: sh
+
+    $ make test
+
+``tox.ini`` defines the Python 3.11 and 3.12 environments. Add focused unit coverage for local
+logic, including configuration precedence, option parsing, exact command aliases and arity,
+response error shapes, HTTP failures, and secret redaction. Tests must not depend on a network
+connection, a home-directory configuration file, or cPanel credentials.
+
+Live cPanel integration tests are kept separately in ``test/test_uapi.py``. Run them only when API
+interaction is essential and you have access to a test account on a reachable cPanel host.
 
 To set the remote hosts credentials, make a copy of the provided ``cpanelrc.test.example`` file
 and name it ``cpanelrc.test`` (keep in the ``test`` directory):
@@ -279,16 +318,20 @@ Then edit ``cpanelrc.test`` and set:
 
 .. _`API token`: https://docs.cpanel.net/knowledge-base/security/how-to-use-cpanel-api-tokens/
 
-To run the tests, use:
+To run the live integration suite, use:
 
 .. code:: sh
 
-    $ make test
+    $ make integration
 
-The above command will hit the `cPanel UAPI REST interface`_ with most of the functions
-implemented in **cpanel-cli**.
+This command uses tox’s explicit ``integration`` environment and hits the
+`cPanel UAPI REST interface`_ with many of the functions implemented in **cpanel-cli**. Tests that
+cannot run because the account lacks suitable data must use ``skipTest()`` so the omission is
+visible.
 
-**The remote state of cPanel is left unchanged, i.e., the tests are strictly non-destructive.**
+Integration tests that change remote state must register cleanup before making the change or use
+``try``/``finally``. Generate unique test values, restore preexisting settings, and never commit
+``test/cpanelrc.test`` or real hostnames, usernames, passwords, or API tokens.
 
 .. _`cPanel UAPI REST interface`: https://api.docs.cpanel.net/cpanel/introduction/
 
@@ -310,7 +353,7 @@ temporary ``dist`` directory:
 .. code:: sh
 
     cpanel_cli-<version>-py3-none-any.whl
-    cpanel-cli-<version>.tar.gz
+    cpanel_cli-<version>.tar.gz
 
 where ``<version>`` is the release number set in ``cpanel/__init__.py``.
 
@@ -318,9 +361,28 @@ The tarball is the source archive; the wheel file is the built distribution arch
 included files for these distribution packages are listed on the ``[tool.hatch.build.targets.sdist]`` and
 ``[tool.hatch.build.targets.wheel]`` sections of ``pyproject.toml`` respectively.
 
+To build both artifacts and verify their manifests, use:
+
+.. code:: sh
+
+    $ make package-check
+
+The wheel must contain every ``cpanel/caller`` command module plus ``cpanel/USAGE`` and
+``cpanel/REFERENCE``. The source distribution must additionally contain the tests, documentation,
+and ``UAPI.md``. Update ``test/test_package.py`` whenever the required artifact contents change.
+
 These packages are ready to be uploaded to the `Python Package Index`_.
 
 .. _`Python Package Index`: https://pypi.org/
+
+
+Continuous integration
+======================
+
+GitHub Actions runs the isolated unit suite, Pyright, Ruff, package builds, and artifact-content
+checks on Python 3.11 and 3.12. Live integration tests are intentionally excluded because pull
+requests must not receive cPanel credentials. A pull request should pass the same checks locally
+and list the verification performed.
 
 Building the documentation
 ==========================
@@ -462,6 +524,9 @@ como sigue (los grupos de archivos generados y módulos de comandos similares se
     │   └── devcontainer.json
     ├── .editorconfig
     ├── .gitignore
+    ├── .github
+    │   └── workflows
+    │       └── ci.yml
     ├── .readthedocs.yaml
     ├── AGENTS.md
     ├── CONTRIBUTING.rst
@@ -497,9 +562,11 @@ como sigue (los grupos de archivos generados y módulos de comandos similares se
     │   └── requirements.txt
     ├── test
     │   ├── cpanelrc.test.example
+    │   ├── test_cli.py
     │   ├── test_core.py
+    │   ├── test_dispatcher.py
+    │   ├── test_package.py
     │   └── test_uapi.py
-    ├── hatch.py
     ├── LICENSE
     ├── Makefile
     ├── pyproject.toml
@@ -522,18 +589,22 @@ El archivo ``pyproject.toml`` estándar contiene los metadatos y dependencias de
 de entrada del script de consola y la configuración del backend de compilación.
 (Vea `Writing your pyproject.toml`_ para más información.)
 
-El proyecto usa el backend de construcción `Hatchling`_. El hook de metadatos personalizado
-``hatch.py`` obtiene los metadatos dinámicos de ``cpanel/__init__.py``.
+El proyecto usa el backend de construcción `Hatchling`_. La mayoría de los metadatos del paquete
+son estáticos y Hatchling lee la versión directamente desde ``cpanel/__init__.py``.
 
 ``pyrightconfig.json`` configura el verificador de tipos estáticos `Pyright`_, mientras que
-``.editorconfig`` contiene opciones de formato independientes del editor.
+``pyproject.toml`` contiene la configuración del linter `Ruff`_ y ``.editorconfig`` contiene
+opciones de formato independientes del editor.
 ``.devcontainer/devcontainer.json`` define un contenedor de desarrollo opcional.
 
-``test`` contiene pruebas escritas con el framework ``unittest`` de Python y ejecutadas mediante el
-`framework de automatización tox`_. ``test/test_core.py`` contiene pruebas unitarias independientes;
-``test/test_uapi.py`` contiene pruebas de API que se ejecutan en una instancia de cPanel *activa*
-usando un archivo de configuración local ``test/cpanelrc.test``. Vea `Ejecución de pruebas`_ más
-abajo para más detalles.
+``test`` contiene pruebas escritas con el framework ``unittest`` de Python.
+``test/test_core.py`` prueba las respuestas y las cargas de archivos, ``test/test_cli.py`` prueba
+la configuración y el registro seguro de secretos, ``test/test_dispatcher.py`` prueba los alias de
+comandos y la validación de argumentos, y ``test/test_package.py`` verifica el contenido de los
+artefactos construidos. Estas pruebas son independientes y no requieren credenciales de cPanel.
+``test/test_uapi.py`` es la suite de integración separada; se ejecuta en una instancia de cPanel
+*activa* usando un archivo de configuración local ``test/cpanelrc.test``. Vea `Ejecución de pruebas`_
+más abajo para más detalles.
 
 .. _`framework de automatización tox`: https://tox.wiki/en/latest/index.html
 
@@ -554,8 +625,10 @@ remoto de compilación de Sphinx.
 Los catálogos de la traducción al español están en ``doc/locale/es/LC_MESSAGES/``. Vea
 `Traducciones`_ para más información.
 
-Finalmente, el ``Makefile`` automatiza el ciclo de vida del desarrollo y ``tox.ini`` define los
-entornos de pruebas. (`Make y los Makefiles son increíbles`_.)
+Finalmente, el ``Makefile`` automatiza el ciclo de vida del desarrollo, ``tox.ini`` define entornos
+unitarios aislados para Python 3.11 y 3.12 además de un entorno de integración explícito, y
+``.github/workflows/ci.yml`` ejecuta las verificaciones automatizadas de los pull requests.
+(`Make y los Makefiles son increíbles`_.)
 
 .. _`Make y los Makefiles son increíbles`: https://mplanchard.com/posts/make-and-makefiles-are-awesome.html
 
@@ -657,48 +730,82 @@ Si edita las fuentes, simplemente ejecute ``pip3 install .`` (nótese el punto `
 para reconstruir el paquete local.
 
 
-Ejecución (opcional) del verificador de tipos
-=============================================
+Ejecución de verificaciones estáticas
+=====================================
 
-*El verificador de tipos es opcional; puede ignorar este paso si lo desea.*
-
-El código fuente de Python está anotado con sugerencias de tipos (*type hints*).
-Las uso para hacer más legible el código. Lea la `Guía de verificación de tipos en Python`_
-para una excelente introducción al uso de sugerencias de tipos en Python.
+El código fuente de Python está anotado con sugerencias de tipos (*type hints*). Lea la
+`Guía de verificación de tipos en Python`_ para una introducción al uso de sugerencias de tipos
+en Python.
 
 .. _`Guía de verificación de tipos en Python`: https://realpython.com/python-type-checking/
 
-Las sugerencias de tipos no son realmente verificadas por el runtime de Python;
-necesita un utilitario de un tercero.
-Para este proyecto uso Pyright_, que es mi verificador de tipos preferido para Python.
+Las sugerencias de tipos no son verificadas por el runtime de Python, por lo que este proyecto usa
+Pyright_. Ruff_ proporciona una verificación de lint separada. ``make venv`` instala ambas
+herramientas como dependencias de desarrollo.
 
-Para instalar Pyright:
-
-.. code:: sh
-
-    $ pip3 install --user pyright
-
-Ejecútelo con:
+Ejecute ambas verificaciones antes de enviar un cambio:
 
 .. code:: sh
 
     $ make typecheck
+    $ make lint
 
-La configuración del verificador de tipos están en el archivo ``pyrightconfig.json``.
+La configuración del verificador de tipos está en ``pyrightconfig.json`` y la configuración del
+linter está en ``pyproject.toml``. Ruff está configurado sólo como linter; no cambia el formato de
+los archivos Python del repositorio, que usan tabuladores para la indentación. Use anotaciones
+genéricas integradas como ``list[str]`` y ``dict[str, object]``, uniones como ``str | None`` y
+callbacks con parámetros de tipo precisos.
 
-Tenga en cuenta que Pyright está basado en Node.js, por lo que pip instalará indirectamente
-Node.js y un montón de dependencias de JavaScript necesarias para Pyright.
+
+Seguridad de comandos y registros
+=================================
+
+Los valores de la línea de comandos pueden contener tokens de API, contraseñas, direcciones de
+correo electrónico, cuerpos de mensajes y reglas de filtros. Nunca registre argumentos de comandos
+ni diccionarios de parámetros de la API sin procesar. Prefiera mensajes de diagnóstico
+estructurales; si necesita representar un valor en un registro, páselo por la función central
+``redact()`` de ``cpanel/util.py``. Añada una prueba de regresión cuando cambie el comportamiento de
+los registros.
+
+Los comandos se declaran como especificaciones en ``cpanel/dispatcher.py``. Cada especificación
+contiene alias exactos, cantidades mínima y máxima de argumentos, y un manejador. Añada o cambie la
+especificación y sus pruebas específicas en conjunto. No use coincidencias por prefijo para los
+nombres de comandos y valide los argumentos antes de invocar el código de la API de cPanel.
+
+El código reutilizable de la aplicación y del despachador debe lanzar ``CPanelError`` para los
+fallos esperados. No debe llamar a ``die()`` ni a ``sys.exit()``; la terminación del proceso pertenece
+exclusivamente al punto de entrada de consola en ``cpanel/__main__.py``. Al procesar respuestas de
+cPanel, maneje explícitamente las formas documentadas de los errores y evite excepciones
+incidentales como ``IndexError``.
+
+El descubrimiento de la configuración es una operación de lectura. No debe crear
+``~/.config/cpanel/`` ni ningún otro directorio sólo porque la CLI buscó un archivo de configuración.
 
 Ejecución de pruebas
 ====================
 
-Para las pruebas unitarias del API uso el `framework de automatización tox`_. El código que
-controla las pruebas está en ``test/test_uapi.py``; el archivo de configuración principal de
-tox es ``tox.ini``.
+La suite de pruebas por defecto es independiente y no requiere credenciales de cPanel. Para una
+ejecución rápida con el intérprete de Python de ``venv``, use:
 
-Éstas *no* son pruebas unitarias simples, sino pruebas unitarias de API que se ejecutan contra
-una instancia `en vivo` de cPanel. Por esto, tox necesita acceso a una instancia de cPanel
-activa en algún host remoto accesible desde el host local.
+.. code:: sh
+
+    $ make unit
+
+Antes de enviar un cambio, ejecute la suite tox por defecto en ambas versiones de Python soportadas:
+
+.. code:: sh
+
+    $ make test
+
+``tox.ini`` define los entornos de Python 3.11 y 3.12. Añada pruebas unitarias específicas para la
+lógica local, incluyendo la precedencia de configuración, el procesamiento de opciones, los alias
+exactos y la cantidad de argumentos de los comandos, las formas de error de las respuestas, los
+fallos HTTP y la ocultación de secretos. Estas pruebas no deben depender de una conexión de red, de
+un archivo de configuración en el directorio personal ni de credenciales de cPanel.
+
+Las pruebas de integración con una instancia activa de cPanel están separadas en
+``test/test_uapi.py``. Ejecútelas sólo cuando la interacción con la API sea esencial y tenga acceso
+a una cuenta de pruebas en un host cPanel accesible.
 
 Para establecer las credenciales del host remoto, haga una copia del archivo proporcionado
 ``cpanelrc.test.example`` y cámbiele el nombre a ``cpanelrc.test`` (manténgalo en el directorio
@@ -719,17 +826,21 @@ Luego edite ``cpanelrc.test`` y proporcione los siguientes datos:
 
 .. _`token de API`: https://docs.cpanel.net/knowledge-base/security/how-to-use-cpanel-api-tokens/
 
-Para ejecutar las pruebas, use:
+Para ejecutar la suite de integración activa, use:
 
 .. code:: sh
 
-    $ make test
+    $ make integration
 
-El comando anterior accede a un subconjunto de la `interfaz REST de cPanel UAPI`_ con las funciones
-implementadas en **cpanel-cli**.
+Este comando usa el entorno ``integration`` explícito de tox y accede a la
+`interfaz REST de cPanel UAPI`_ con muchas de las funciones implementadas en **cpanel-cli**. Las
+pruebas que no puedan ejecutarse porque la cuenta no contiene datos adecuados deben usar
+``skipTest()`` para que la omisión sea visible.
 
-**El estado remoto de cPanel se deja sin cambios, es decir, las pruebas son estrictamente no
-destructivas.**
+Las pruebas de integración que cambian el estado remoto deben registrar la limpieza antes de hacer
+el cambio o usar ``try``/``finally``. Genere valores de prueba únicos, restaure las configuraciones
+preexistentes y nunca incluya en un commit ``test/cpanelrc.test`` ni nombres de host, nombres de
+usuario, contraseñas o tokens de API reales.
 
 .. _`interfaz REST de cPanel UAPI`: https://api.docs.cpanel.net/cpanel/introduction/
 
@@ -751,7 +862,7 @@ en el directorio temporal ``dist``:
 .. code:: sh
 
     cpanel_cli-<version>-py3-none-any.whl
-    cpanel-cli-<version>.tar.gz
+    cpanel_cli-<version>.tar.gz
 
 donde ``<version>`` es el número de versión establecido en ``cpanel/__init__.py``.
 
@@ -760,7 +871,28 @@ binaria para instalación. Los archivos incluidos para estos paquetes de distrib
 están listados en las secciones ``[tool.hatch.build.targets.sdist]`` y
 ``[tool.hatch.build.targets.wheel]`` de ``pyproject.toml`` respectivamente.
 
+Para construir ambos artefactos y verificar sus manifiestos, use:
+
+.. code:: sh
+
+    $ make package-check
+
+El wheel debe contener todos los módulos de comandos de ``cpanel/caller``, además de
+``cpanel/USAGE`` y ``cpanel/REFERENCE``. La distribución de código fuente también debe contener las
+pruebas, la documentación y ``UAPI.md``. Actualice ``test/test_package.py`` cuando cambie el
+contenido requerido de los artefactos.
+
 Estos paquetes están listos para ser subidos al `Python Package Index`_.
+
+
+Integración continua
+====================
+
+GitHub Actions ejecuta la suite unitaria independiente, Pyright, Ruff, la construcción de paquetes
+y la verificación del contenido de los artefactos en Python 3.11 y 3.12. Las pruebas de integración
+activas se excluyen intencionalmente porque los pull requests no deben recibir credenciales de
+cPanel. Un pull request debe superar localmente las mismas verificaciones e indicar las
+verificaciones realizadas.
 
 Construcción de la documentación
 ================================

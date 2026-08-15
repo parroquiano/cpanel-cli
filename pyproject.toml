@@ -4,7 +4,11 @@ build-backend = "hatchling.build"
 
 [project]
 name = "cpanel-cli"
-dynamic = ["version", "authors", "description", "urls"]
+dynamic = ["version"]
+authors = [
+    { name = "Marco Bravo Mejías", email = "marco@layfellow.net" },
+]
+description = "A command line interface for the cPanel Unrestricted API."
 readme = "README.rst"
 requires-python = ">=3.11"
 license = { text = "GNU General Public License v3 (GPLv3)" }
@@ -17,12 +21,20 @@ classifiers = [
 
 dependencies = ["cpanel-api>=0.3.0", "parsedatetime>=2.6"]
 
+[project.urls]
+Homepage = "https://github.com/layfellow/cpanel-cli"
+Documentation = "https://cpanel-cli.readthedocs.io/"
+Repository = "https://github.com/layfellow/cpanel-cli"
+"Bug Tracker" = "https://github.com/layfellow/cpanel-cli/issues"
+
 [project.optional-dependencies]
 dev = [
     "cpanel-api>=0.3.0",
     "parsedatetime>=2.6",
     "build>=1.2",
     "tox>=4.22",
+    "pyright>=1.1.390",
+    "ruff>=0.8.0",
     "Sphinx>=5.0",
     "sphinx-intl>=2.2.0",
     "sphinx-book-theme>=1.1.3",
@@ -35,15 +47,18 @@ cpanel = "cpanel.__main__:main"
 [tool.hatch.metadata]
 allow-direct-references = true
 
+[tool.hatch.version]
+path = "cpanel/__init__.py"
+
 [tool.hatch.build.targets.wheel]
 include = ["cpanel/*.py", "cpanel/caller/*.py", "cpanel/USAGE", "cpanel/REFERENCE"]
 
 [tool.hatch.build.targets.sdist]
 include = [
-    "API.md",
+    "UAPI.md",
     "CONTRIBUTING.rst",
     "cpanel/*.py",
-    "cpanel/caller/.*.py",
+    "cpanel/caller/*.py",
     "cpanel/REFERENCE",
     "cpanel/USAGE",
     "doc/conf.py",
@@ -54,7 +69,6 @@ include = [
     "doc/*.sh",
     "doc/requirements.txt",
     "doc/_static/*",
-    "hatch.py",
     "LICENSE",
     "Makefile",
     "pyproject.toml",
@@ -67,5 +81,10 @@ include = [
 ]
 exclude = ["**/__pycache__", "doc/build/*"]
 
-[tool.hatch.metadata.hooks.custom]
-path = "./hatch.py"
+[tool.ruff]
+target-version = "py311"
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F"]
+ignore = ["F403", "F405"]

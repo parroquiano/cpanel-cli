@@ -6,10 +6,11 @@ from configparser import ConfigParser
 import logging
 from logging import Logger
 import cpanel
-from typing import List, Mapping, Tuple, Match, Union
+from collections.abc import Mapping
+from re import Match
 from .core import NullableStr, NullableBytes, CPanelError
 
-NullableMatch = Union[Match[str], None]
+NullableMatch = Match[str] | None
 
 log: Logger = logging.getLogger(__name__)
 
@@ -21,7 +22,7 @@ def die(message: NullableStr = None) -> None:
 	sys.exit(1)
 
 
-def eatvalue(args: List[str], shortopt: str, longopt: str) -> Tuple[List[str], NullableStr]:
+def eatvalue(args: list[str], shortopt: str, longopt: str) -> tuple[list[str], NullableStr]:
 	"""Scan args list looking for a short or long option with a value.
 
 	args       list of arguments passed to the command line
@@ -32,7 +33,7 @@ def eatvalue(args: List[str], shortopt: str, longopt: str) -> Tuple[List[str], N
 		args with options and VALUE possibly removed,
 		VALUE if option is found, None otherwise
 	"""
-	reargs: List[str] = []
+	reargs: list[str] = []
 	value: NullableStr = None
 	n: int = len(longopt)
 
@@ -49,7 +50,7 @@ def eatvalue(args: List[str], shortopt: str, longopt: str) -> Tuple[List[str], N
 	return reargs, value
 
 
-def eatflag(args: List[str], shortopt: str, longopt: str) -> Tuple[List[str], bool]:
+def eatflag(args: list[str], shortopt: str, longopt: str) -> tuple[list[str], bool]:
 	"""Scan args list looking for a short or long flag option.
 
 	args       list of arguments passed to the command line
@@ -60,7 +61,7 @@ def eatflag(args: List[str], shortopt: str, longopt: str) -> Tuple[List[str], bo
 		args with options possibly removed,
 		True if option is found, False otherwise
 	"""
-	reargs: List[str] = []
+	reargs: list[str] = []
 	flag: bool = False
 
 	for arg in args:
@@ -73,8 +74,8 @@ def eatflag(args: List[str], shortopt: str, longopt: str) -> Tuple[List[str], bo
 	return reargs, flag
 
 
-def configuration(args: List[str], env: Mapping[str, str], conf: NullableStr = None) \
-		-> Tuple[List[str], NullableStr, NullableStr, NullableStr]:
+def configuration(args: list[str], env: Mapping[str, str], conf: NullableStr = None) \
+		-> tuple[list[str], NullableStr, NullableStr, NullableStr]:
 	"""Return a tuple with credentials to hit the cPanel API.
 
 	args       list of arguments passed to the command line
@@ -113,9 +114,6 @@ def configuration(args: List[str], env: Mapping[str, str], conf: NullableStr = N
 			xdg_config_home = os.path.join(home, '.config')
 
 		config_home: str = os.path.join(xdg_config_home, 'cpanel')
-
-		if xdg_config_home and not os.path.isdir(config_home):
-			os.makedirs(config_home)
 
 		if os.path.isfile(os.path.join(config_home, 'cpanel.conf')):
 			conf = os.path.join(config_home, 'cpanel.conf')

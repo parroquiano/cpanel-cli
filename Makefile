@@ -3,6 +3,7 @@ BIN = ./venv/bin
 LOCALIZER = sphinx-intl
 DOCBUILDER = sphinx-build
 TYPECHECKER = pyright
+LINTER = ruff
 UNITTESTER = tox
 PUBLISHER = twine
 LOCALES = $(shell ls -1 doc/locale )
@@ -14,14 +15,28 @@ install: venv dist
 typecheck: venv
 	. $(BIN)/activate && $(TYPECHECKER) cpanel/*.py cpanel/caller/*.py test/*.py
 
+lint: venv
+	$(BIN)/$(LINTER) check cpanel test
+
+unit: venv
+	PYTHONPATH=. $(BIN)/python -m unittest discover -v -s test -p 'test_core.py'
+	PYTHONPATH=. $(BIN)/python -m unittest discover -v -s test -p 'test_cli.py'
+	PYTHONPATH=. $(BIN)/python -m unittest discover -v -s test -p 'test_dispatcher.py'
+
 test: venv dist
-	@test -f test/cpanelrc.test || ( echo "Missing test configuration file test/cpanelrc.test" && exit 1 )
 	$(BIN)/cpanel version
 	$(BIN)/$(UNITTESTER)
+
+integration: venv
+	@test -f test/cpanelrc.test || ( echo "Missing test configuration file test/cpanelrc.test" && exit 1 )
+	$(BIN)/$(UNITTESTER) -e integration
 
 package: venv
 	rm -f dist/*
 	. $(BIN)/activate && $(BIN)/python3 -m build --wheel --sdist
+
+package-check: package
+	CPANEL_DIST_DIR=dist PYTHONPATH=. $(BIN)/python -m unittest discover -v -s test -p 'test_package.py'
 
 dist:
 	$(MAKE) package
@@ -52,4 +67,4 @@ releases:
 clean:
 	rm -rf venv build doc/build $$( find doc/locale/ -name *.mo ) *.egg-info .tox dist */__pycache__ ./__pycache__
 
-.PHONY: install doc typecheck test package publish locale releases clean
+.PHONY: install doc typecheck lint unit test integration package package-check publish locale releases clean

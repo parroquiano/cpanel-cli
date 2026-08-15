@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.11', '3.12']
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - name: Install development dependencies
+        run: |
+          python -m venv venv
+          venv/bin/python -m pip install '.[dev]'
+      - name: Unit tests
+        run: |
+          venv/bin/python -m unittest discover -v -s test -p 'test_core.py'
+          venv/bin/python -m unittest discover -v -s test -p 'test_cli.py'
+          venv/bin/python -m unittest discover -v -s test -p 'test_dispatcher.py'
+      - name: Type checking
+        run: venv/bin/pyright cpanel test
+      - name: Lint
+        run: venv/bin/ruff check cpanel test
+      - name: Build packages
+        run: venv/bin/python -m build --wheel --sdist
+      - name: Check package contents
+        run: CPANEL_DIST_DIR=dist venv/bin/python -m unittest discover -v -s test -p 'test_package.py'

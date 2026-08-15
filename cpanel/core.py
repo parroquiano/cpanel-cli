@@ -9,13 +9,15 @@ from urllib.parse import urljoin
 from logging import Logger
 from json import JSONDecodeError
 from cpanel_api import CPanelApi, Result
-from typing import Any, Union, Dict, List, Mapping, Callable
+from collections.abc import Callable, Mapping
+from typing import Any, TypeVar
 
-NullableStr = Union[str, None]
-NullableResult = Union[Result, None]
-NullableBytes = Union[bytes, None]
-JSONType = Dict[str, Any]
-StringOrInteger = Union[str, int]
+NullableStr = str | None
+NullableResult = Result | None
+NullableBytes = bytes | None
+JSONType = dict[str, Any]
+StringOrInteger = str | int
+T = TypeVar('T')
 
 log: Logger = logging.getLogger(__name__)
 
@@ -31,7 +33,33 @@ class CPanelEndpoint:
 		self.client = client
 
 
-	def safely(self, r: Result, method: Callable) -> str:
+	@staticmethod
+	def _errors(r: Any) -> Any:
+		if hasattr(r, 'errors'):
+			return r.errors
+		if isinstance(r, Mapping):
+			return r.get('errors')
+		return None
+
+
+	@staticmethod
+	def _error_message(errors: Any) -> str | None:
+		"""Normalize the error shapes returned by different cPanel versions."""
+		if errors is None:
+			return None
+		if isinstance(errors, str):
+			message = errors.strip()
+			if not message or 'no error' in message.lower():
+				return None
+			return message
+		if isinstance(errors, (list, tuple)):
+			messages = [str(item).strip() for item in errors if str(item).strip()]
+			messages = [item for item in messages if 'no error' not in item.lower()]
+			return '; '.join(messages) or None
+		return "malformed error response ({})".format(type(errors).__name__)
+
+
+	def safely(self, r: Result, method: Callable[[], T]) -> T:
 		"""Check for possible errors in API call result, then call method.
 
 		r          API call result
@@ -39,16 +67,13 @@ class CPanelEndpoint:
 
 		Returns processed r or empty string
 		"""
-		if r.status == 1:
-			if r.errors is None:
-				return method()
-			elif isinstance(r.errors, str) and r.errors.lower().find("no error") > -1:
-				return method()
-			elif isinstance(r.errors, List) and r.errors[0].lower().find("no error") > -1:
-				return method()
-		else:
-			raise CPanelError(r['errors'][0])
-		return ""
+		status = getattr(r, 'status', r.get('status') if isinstance(r, Mapping) else None)
+		message = self._error_message(self._errors(r))
+		if status == 1 and message is None:
+			return method()
+		if message is not None:
+			raise CPanelError(message)
+		raise CPanelError("cPanel API request failed")
 
 
 	def extract(self, r: Result, key: str) -> str:
@@ -59,7 +84,7 @@ class CPanelEndpoint:
 
 		Returns stringified JSON array with key: value pairs
 		"""
-		data: List[Mapping[str, str]] = []
+		data: list[Mapping[str, str]] = []
 		for datum in r['data']:
 			data.append({ key: datum[key] })
 		return json.dumps(data, indent = 4, sort_keys = True)
@@ -81,7 +106,7 @@ class CPanelEndpoint:
 		return json.dumps(data, indent = 4, sort_keys = True)
 
 
-	def check(self, apicall: Callable) -> str:
+	def check(self, apicall: Callable[[], Result]) -> str:
 		"""Call API and check if request was OK, do not print results.
 
 		apicall    deferred API call
@@ -92,7 +117,7 @@ class CPanelEndpoint:
 		return self.safely(r, lambda: "OK")
 
 
-	def dump(self, apicall: Callable) -> str:
+	def dump(self, apicall: Callable[[], Result]) -> str:
 		"""Call API and get stringified JSON result.
 
 		apicall    deferred API call
@@ -103,7 +128,7 @@ class CPanelEndpoint:
 		return self.safely(r, lambda: json.dumps(r.data, indent = 4, sort_keys = True))
 
 
-	def dump_extracted(self, key: str, apicall: Callable) -> str:
+	def dump_extracted(self, key: str, apicall: Callable[[], Result]) -> str:
 		"""Call API and get stringified JSON result filtered by key.
 
 		key        key name to filter result
@@ -115,7 +140,7 @@ class CPanelEndpoint:
 		return self.safely(r, lambda: self.extract(r, key))
 
 
-	def dump_selected(self, key: str, value: str, apicall: Callable) -> str:
+	def dump_selected(self, key: str, value: str, apicall: Callable[[], Result]) -> str:
 		"""Call API and get a stringified JSON result whose key == value.
 
 		key        key name to select result
@@ -126,7 +151,7 @@ class CPanelEndpoint:
 		return self.safely(r, lambda: self.select(r, key, value))
 
 
-	def dump_null(self, apicall: Callable, replace: str) -> str:
+	def dump_null(self, apicall: Callable[[], Result], replace: str) -> str:
 		"""Call API and get stringified JSON result, but replaces nulls.
 
 		apicall    deferred API call
@@ -153,40 +178,36 @@ class CPanelEndpoint:
 		Returns "OK" or prints error
 		"""
 		# kwargs for CPanelAPi call to Backup.fullbackup_to_*().
-		parameters: Dict[str, NullableStr] = {}
+		parameters: dict[str, NullableStr] = {}
 
 		if len(args) < 1:
 			raise CPanelError("missing arguments for create backup")
 
-		try:
-			if args[0] == 'ftp' or args[0] == 'scp':
-				parameters['username'] = args[1]
-				parameters['password'] = args[2]
-				parameters['host'] = args[3]
-				if len(args) > 4:
-					parameters['directory'] = args[4]
-				if len(args) > 5:
-					parameters['email'] = args[5]
-			elif args[0] == 'home':
-				if len(args) > 1:
-					parameters['email'] = args[1]
-			else:
-				raise CPanelError("create backup target must be ftp, home or scp")
-
-			log.debug(str(args))
-
-			if args[0] == 'ftp':
-				return self.check(
-					lambda: self.client.uapi.Backup.fullbackup_to_ftp(**parameters))
-			elif args[0] == 'scp':
-				return self.check(
-					lambda: self.client.uapi.Backup.fullbackup_to_scp_with_password(**parameters))
-
-			return self.check(
-				lambda: self.client.uapi.Backup.fullbackup_to_homedir(**parameters))
-
-		except IndexError:
+		if args[0] in ('ftp', 'scp') and len(args) < 4:
 			raise CPanelError("missing arguments for create backup")
+		if args[0] == 'ftp' or args[0] == 'scp':
+			parameters['username'] = args[1]
+			parameters['password'] = args[2]
+			parameters['host'] = args[3]
+			if len(args) > 4:
+				parameters['directory'] = args[4]
+			if len(args) > 5:
+				parameters['email'] = args[5]
+		elif args[0] == 'home':
+			if len(args) > 1:
+				parameters['email'] = args[1]
+		else:
+			raise CPanelError("create backup target must be ftp, home or scp")
+
+		if args[0] == 'ftp':
+			return self.check(
+				lambda: self.client.uapi.Backup.fullbackup_to_ftp(**parameters))
+		if args[0] == 'scp':
+			return self.check(
+				lambda: self.client.uapi.Backup.fullbackup_to_scp_with_password(**parameters))
+
+		return self.check(
+			lambda: self.client.uapi.Backup.fullbackup_to_homedir(**parameters))
 
 
 	def set_log_settings(self, flag: int, *args: str) -> str:
@@ -197,9 +218,7 @@ class CPanelEndpoint:
 
 		Returns "OK" or prints error
 		"""
-		parameters: Dict[str, NullableStr] = {}
-
-		log.debug(str(args))
+		parameters: dict[str, NullableStr] = {}
 
 		if len(args) == 0:
 			raise CPanelError("missing arguments for set log settings")
@@ -226,10 +245,7 @@ class CPanelEndpoint:
 
 		r: Result = self.client.uapi.Fileman.get_file_content(
 			dir = dirname, file = basename, to_charset = 'utf-8')
-		if r.status != 1 or r.errors is not None:
-			raise CPanelError(r['errors'][0])
-
-		return r['data'].content.encode('utf-8')
+		return self.safely(r, lambda: r['data'].content.encode('utf-8'))
 
 
 	def write_file(self, filepath: str, content: str) -> str:
@@ -260,25 +276,22 @@ class CPanelEndpoint:
 
 		Returns "OK" or prints error
 		"""
-		log.debug(str(args))
-
 		# kwargs for CPanelAPI call to Email.add_auto_responder().
-		parameters: Dict[str, StringOrInteger] = {}
+		parameters: dict[str, StringOrInteger] = {}
 
 		default_subject: str = "This is an automatic message"
 		default_body: str = "I’m currently unavailable."
 
-		try:
-			email: str = args[0]
-			parameters['email'] = email
-			parameters['domain'] = email[email.find("@") + 1:]
-			parameters['from'] = len(args) > 1 and args[1] or email
-			parameters['subject'] = len(args) > 2 and args[2] or default_subject
-			parameters['body'] = len(args) > 3 and args[3] or default_body
-			parameters['interval'] = 24
-			parameters['is_html'] = 1
-		except IndexError:
+		if len(args) < 1:
 			raise CPanelError("missing arguments for create mail autoresponder")
+		email: str = args[0]
+		parameters['email'] = email
+		parameters['domain'] = email[email.find("@") + 1:]
+		parameters['from'] = len(args) > 1 and args[1] or email
+		parameters['subject'] = len(args) > 2 and args[2] or default_subject
+		parameters['body'] = len(args) > 3 and args[3] or default_body
+		parameters['interval'] = 24
+		parameters['is_html'] = 1
 
 		cal: parsedatetime.Calendar = parsedatetime.Calendar()
 
@@ -309,7 +322,6 @@ class CPanelEndpoint:
 		parameters['start'] = int(starttime.timestamp())
 		parameters['stop'] = int(endtime.timestamp())
 
-		log.debug(str(parameters))
 		return self.check(
 			lambda: self.client.uapi.Email.add_auto_responder(**parameters))
 
@@ -345,6 +357,8 @@ class CPanelEndpoint:
 
 		if response.status_code == 401:
 			raise CPanelError("Unauthorized")
+		if response.status_code >= 400:
+			raise CPanelError("HTTP {} response".format(response.status_code))
 
 		r: Result = Result({})
 		try:
@@ -374,7 +388,7 @@ class CPanelEndpoint:
 			raise CPanelError("error parsing JSON filter file {}, {}".format(filterfile, str(e)))
 
 		# kwargs for CPanelAPi call to Email.store_filter().
-		parameters: Dict[str, NullableStr] = {}
+		parameters: dict[str, NullableStr] = {}
 
 		try:
 			parameters['filtername'] = filters['filtername']
@@ -399,7 +413,6 @@ class CPanelEndpoint:
 		except KeyError as e:
 			raise CPanelError("missing key in JSON filter file {}, {}".format(filterfile, str(e)))
 
-		log.debug(str(parameters))
 		return self.check(
 			lambda: self.client.uapi.Email.store_filter(**parameters))
 
@@ -408,8 +421,6 @@ class CPanelEndpoint:
 		"""Return the forwarder address for email, or None if mail has no forwarders."""
 
 		r: Result = self.client.uapi.Email.list_forwarders(domain = domain)
-
-		log.debug(str(r['data']))
 
 		for forwarder in r['data']:
 			if forwarder['dest'] == email:
@@ -430,34 +441,32 @@ class CPanelEndpoint:
 		"""
 		if len(args) < 1:
 			raise CPanelError("missing arguments for move mail filter")
+		if len(args) < 3:
+			raise CPanelError("missing arguments for move mail filter")
 
 		# Get filter list as data
 		data: list = self.client.uapi.Email.list_filters(account = args[0])['data']
 		n: int = len(data)
 
-		try:
-			# Find the index x of the filter to move
-			x: int | None  = next((i for i, kv in enumerate(data) if kv['filtername'] == args[1]), None)
-			if x is None:
-				raise CPanelError("filter not found, {}".format(args[1]))
+		# Find the index x of the filter to move
+		x: int | None  = next((i for i, kv in enumerate(data) if kv['filtername'] == args[1]), None)
+		if x is None:
+			raise CPanelError("filter not found, {}".format(args[1]))
 
-			# Find the index y of the destination
-			y: int
-			if args[2] in ("up", "down", "top", "bottom"):
-				m: int = 1
-				if len(args) > 3:
-					m = int(args[3])
-				y = x + { "up": -m, "down": m, "top": -x, "bottom": -x + n - 1}[args[2]]  # type: ignore [index]
-			else:
-				y = int(args[2]) - 1  # From 1-based to 0-based
+		# Find the index y of the destination
+		y: int
+		if args[2] in ("up", "down", "top", "bottom"):
+			m: int = 1
+			if len(args) > 3:
+				m = int(args[3])
+			y = x + { "up": -m, "down": m, "top": -x, "bottom": -x + n - 1}[args[2]]  # type: ignore [index]
+		else:
+			y = int(args[2]) - 1  # From 1-based to 0-based
 
-			if y < 0:
-				y = 0
-			elif y >= n:
-				y = n - 1
-
-		except IndexError:
-			raise CPanelError("missing arguments for move mail filter")
+		if y < 0:
+			y = 0
+		elif y >= n:
+			y = n - 1
 
 		if x == y:
 			return "OK"
@@ -466,7 +475,7 @@ class CPanelEndpoint:
 
 		i: int = 0
 		j: int = 0
-		filters: Dict[str, NullableStr] = {}
+		filters: dict[str, NullableStr] = {}
 
 		while j < n:
 			if x > y and i == y or x < y and i == y + 1:
@@ -485,8 +494,6 @@ class CPanelEndpoint:
 
 		filters['mailbox'] = args[0]
 
-		log.debug(str(filters))
-
 		return self.check(lambda: self.client.uapi.Email.reorder_filters(filters))
 
 
@@ -503,8 +510,6 @@ class CPanelEndpoint:
 		preferences: Result = self.client.uapi.SpamAssassin.get_user_preferences()
 		current: list[str] = preferences['data'][spam_list] if spam_list in preferences['data'] else []
 
-		log.debug(str(current))
-
 		for email in args:
 			if add and email not in current or not add and email in current:
 				if add:
@@ -515,8 +520,6 @@ class CPanelEndpoint:
 		kwargs: dict = {'preference': spam_list}
 		for i, email in enumerate(current):
 			kwargs[f'value-{i}'] = email
-
-		log.debug(str(current))
 
 		return self.check(
 			lambda: self.client.uapi.SpamAssassin.update_user_preference(**kwargs))

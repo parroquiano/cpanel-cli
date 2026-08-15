@@ -2,7 +2,6 @@ import os
 import sys
 import logging
 from logging import Logger
-from typing import List
 from .cli import eatflag, configuration, version, die, usage
 from .core import NullableStr, endpoint
 from .dispatcher import dispatch
@@ -25,7 +24,7 @@ def main() -> None:
 	_version: bool
 
 	try:
-		args: List[str] = sys.argv[1:]
+		args: list[str] = sys.argv[1:]
 
 		# Parse options (I don’t like argparse, manual parsing is much simpler and readable.)
 		args, _help = eatflag(args, '-h', '--help')
@@ -53,7 +52,7 @@ def main() -> None:
 			if utoken is None:
 				die("missing cPanel UAPI token, use cpanel --help")
 
-			log.debug("hostname: {}, username: {}, utoken: {}".format(hostname, user, utoken))
+			log.debug("connecting to configured cPanel endpoint")
 
 			r: str = dispatch(endpoint(str(hostname), str(user), str(utoken)), args)
 			if len(r) > 0:
