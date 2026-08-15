@@ -136,11 +136,15 @@ Install Python 3:
 
     $ brew install python
 
-Homebrew will install the latest Python version available. If you want to install a specific
-version, you can use the excellent `Pyenv`_ utility to manage different releases of Python
-side by side.
+Homebrew will install the latest Python version available. In addition, I strongly recommend installing the `uv`_
+utility and use it to install Python 3.11 and Python 3.12 alongside the current Python version:
 
-.. _`Pyenv`: https://github.com/pyenv/pyenv
+.. code:: sh
+
+    $ brew install uv
+    $ uv python install 3.11 3.12
+
+.. _`uv`: https://docs.astral.sh/uv/
 
 Install GNU Make:
 
@@ -162,9 +166,14 @@ On a RPM-based distro (RHEL, Fedora), install Python 3 using:
 
     $ sudo dnf install python3 python3-pip
 
-``apt`` and ``dnf`` will install the latest Python version available. If you want to
-install a specific version, you can use the excellent `Pyenv`_ utility to manage
-different releases of Python side by side.
+``apt`` and ``dnf`` will install the latest Python version available. In addition, I strongly recommend installing the
+modern `uv`_ utility and use it to install Python 3.11 and Python 3.12 alongside the current Python
+version:
+
+.. code:: sh
+
+    $ curl -LsSf https://astral.sh/uv/install.sh | sh
+    $ uv python install 3.11 3.12
 
 GNU Make is installed by default on most Linux distros. Check its availability using:
 
@@ -567,9 +576,13 @@ Instale Python 3:
 
     $ brew install python
 
-Homebrew instala la última versión de Python disponible. Si desea instalar una versión
-específica, puede usar el excelente utilitario `Pyenv`_ para gestionar diferentes versiones
-de Python en paralelo.
+Homebrew instala la última versión de Python disponible. Además, recomiendo encarecidamente instalar el utilitario `uv`_
+y usarlo para instalar Python 3.11 y Python 3.12 junto a la versión actual de Python:
+
+.. code:: sh
+
+    $ brew install uv
+    $ uv python install 3.11 3.12
 
 Instale GNU Make:
 
@@ -591,9 +604,13 @@ Para distros basadas en RPM (RHEL, Fedora), instale Python 3 con:
 
     $ sudo dnf install python3 python3-pip
 
-``apt`` y ``dnf`` instalan la última versión de Python disponible. Si quiere
-instalar una versión específica, puede usar el excelente utilitario `Pyenv`_
-para gestionar diferentes versiones de Python.
+``apt`` y ``dnf`` instalan la última versión de Python disponible. Además, recomiendo encarecidamente instalar el utilitario `uv`_
+y usarlo para instalar Python 3.11 y Python 3.12 junto a la versión actual de Python:
+
+.. code:: sh
+
+    $ curl -LsSf https://astral.sh/uv/install.sh | sh
+    $ uv python install 3.11 3.12
 
 GNU Make está instalado por defecto en la mayoría de las distros de Linux.
 Verifique su disponibilidad usando:
