@@ -33,13 +33,19 @@ Then run:
 
     $ python3 -m pip install --user cpanel-cli
 
+Or, using ``uv``:
+
+.. code:: sh
+
+    $ uv tool install cpanel-cli
+
 Test the installation using:
 
 .. code:: sh
 
     $ cpanel --version
 
-Tested on Ubuntu Linux 23.10 “Mantic”, but it has no specific Ubuntu requirements,
+Tested on Ubuntu Linux 26.04 “Resolute Raccoon”, but it has no specific Ubuntu requirements,
 so any Linux distro with Python 3.11 or later should work.
 
 Installation on macOS

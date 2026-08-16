@@ -136,7 +136,7 @@ awesome`_.)
 Development environment
 =======================
 
-I developed **cpanel-cli** on Ubuntu Linux 26.04 “Resolute Racoon” with Python 3.
+I developed **cpanel-cli** on Ubuntu Linux 26.04 “Resolute Raccoon” with Python 3.
 **cpanel-cli**, however, has no special requirements, so any Linux distro
 supporting at least Python 3.11 should work. You can also use macOS “Ventura”
 or a later macOS release.
@@ -150,7 +150,7 @@ Install Python 3:
     $ brew install python
 
 Homebrew will install the latest Python version available. In addition, I strongly recommend installing the `uv`_
-utility and use it to install Python 3.11 and Python 3.12 alongside the current Python version:
+utility and using it to install Python 3.11 and Python 3.12 alongside the current Python version:
 
 .. code:: sh
 
@@ -180,7 +180,7 @@ On a RPM-based distro (RHEL, Fedora), install Python 3 using:
     $ sudo dnf install python3 python3-pip
 
 ``apt`` and ``dnf`` will install the latest Python version available. In addition, I strongly recommend installing the
-modern `uv`_ utility and use it to install Python 3.11 and Python 3.12 alongside the current Python
+modern `uv`_ utility and using it to install Python 3.11 and Python 3.12 alongside the current Python
 version:
 
 .. code:: sh
@@ -636,7 +636,7 @@ unitarios aislados para Python 3.11 y 3.12 además de un entorno de integración
 Entorno de desarrollo
 =====================
 
-**cpanel-cli** fue desarrollado en Ubuntu Linux 23.10 “Mantic” con Python 3.11.
+**cpanel-cli** fue desarrollado en Ubuntu Linux 26.04 “Resolute Raccoon” con Python 3.
 Sin embargo **cpanel-cli** no tiene ningún requerimiento especial, por lo que
 cualquier distribución de Linux que soporte al menos Python 3.11 debería funcionar.
 También puede utilizar macOS “Ventura” o posterior.

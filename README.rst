@@ -146,6 +146,11 @@ Then run:
 
     $ python3 -m pip install --user cpanel-cli
 
+Or, using ``uv``:
+
+.. code:: sh
+
+    $ uv tool install cpanel-cli
 
 Test the installation using:
 
@@ -325,6 +330,11 @@ A continuación, ejecute:
 
     $ python3 -m pip install --user cpanel-cli
 
+O, si usa ``uv``:
+
+.. code:: sh
+
+    $ uv tool install cpanel-cli
 
 Pruebe la instalación:
 
