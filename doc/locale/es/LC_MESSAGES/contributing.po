@@ -100,12 +100,13 @@ msgid ""
 "details."
 msgstr ""
 "``test`` contiene un conjunto de pruebas unitarias de la API. Están "
-"escritas usando el `framework de automatización tox`_. El código que "
+"escritas usando el `framework de automatización tox <tox automation "
+"framework_>`_. El código que "
 "controla las pruebas está en ``test/test_uapi.py``; el archivo de "
 "configuración principal de tox es ``tox.ini``. Nótese que *no* son "
 "simples pruebas unitarias independientes, sino pruebas de API que se "
-"ejecutan en una instancia de cPanel *activa*. Vea `Ejecución de pruebas`_"
-" más abajo para más detalles."
+"ejecutan en una instancia de cPanel *activa*. Vea `Ejecución de pruebas "
+"<Running tests_>`_ más abajo para más detalles. # noqa"
 
 #: ../../contributing.rst:79
 msgid ""
@@ -162,8 +163,9 @@ msgid ""
 "``.readthedocs.yaml`` is a `configuration file for Read the Docs`_. The "
 "remote Sphinx build system uses this file."
 msgstr ""
-"``.readthedocs.yaml`` es un `archivo de configuración para Read the "
-"Docs`_. El sistema remoto de construcción de Sphinx utiliza este archivo."
+"``.readthedocs.yaml`` es un `archivo de configuración para Read the Docs "
+"<configuration file for Read the Docs_>`_. El sistema remoto de "
+"construcción de Sphinx utiliza este archivo. # noqa"
 
 #: ../../contributing.rst:103
 msgid ""
@@ -173,7 +175,8 @@ msgid ""
 msgstr ""
 "También mantengo una traducción al español de la documentación, generada "
 "usando cadenas de una serie de archivos de catálogo (``*.po``) dentro de "
-"``locale/es/LC_MESSAGES/``. Vea `Traducciones`_ para más información."
+"``locale/es/LC_MESSAGES/``. Vea `Traducciones <Translations_>`_ para más "
+"información. # noqa"
 
 #: ../../contributing.rst:106
 msgid ""
@@ -181,7 +184,8 @@ msgid ""
 "development life cycle. (`Make and Makefiles are awesome`_.)"
 msgstr ""
 "Finalmente, uso un ``Makefile`` para automatizar todas las fases del "
-"ciclo de vida del desarrollo. (`Make y los Makefiles son increíbles`_.)"
+"ciclo de vida del desarrollo. (`Make y los Makefiles son increíbles <Make "
+"and Makefiles are awesome_>`_.) # noqa"
 
 #: ../../contributing.rst:113
 msgid "Development environment"
@@ -315,7 +319,7 @@ msgid ""
 "The Python source code is annotated using type hints. I use them to "
 "improve the readability of Python code. Read the `Python Type Checking "
 "Guide`_ for an excellent introduction to the use of type hints in Python."
-msgstr "El código fuente de Python está anotado con sugerencias de tipos (*type hints*). Las uso hacer más legible el código. Lea la `Guía de verificación de tipos en Python`_ para una excelente introducción al uso de sugerencias de tipos en Python."
+msgstr "El código fuente de Python está anotado con sugerencias de tipos (*type hints*). Las uso hacer más legible el código. Lea la `Guía de verificación de tipos en Python <Python Type Checking Guide_>`_ para una excelente introducción al uso de sugerencias de tipos en Python. # noqa"
 
 #: ../../contributing.rst:211
 msgid ""
@@ -355,9 +359,9 @@ msgid ""
 " The main code driving the tests is in ``test/test_uapi.py``; the main "
 "tox configuration file is ``tox.ini``."
 msgstr ""
-"Para las pruebas unitarias del API uso el `framework de automatización "
-"tox`_. El código que controla las pruebas está en ``test/test_uapi.py``; "
-"el archivo de configuración principal de tox es ``tox.ini``."
+"Para las pruebas unitarias del API uso el `framework de automatización tox "
+"<tox automation framework_>`_. El código que controla las pruebas está en ``test/test_uapi.py``; "
+"el archivo de configuración principal de tox es ``tox.ini``. # noqa"
 
 #: ../../contributing.rst:241
 msgid ""
@@ -395,7 +399,7 @@ msgstr "El nombre de usuario de su cuenta de cPanel"
 
 #: ../../contributing.rst:256
 msgid "An `API token`_ associated to that username"
-msgstr "Un `token de API`_ asociado a ese nombre de usuario."
+msgstr "Un `token de API <API token_>`_ asociado a ese nombre de usuario. # noqa"
 
 #: ../../contributing.rst:258
 msgid ""
@@ -414,9 +418,9 @@ msgid ""
 "The above command will hit the `cPanel UAPI REST interface`_ with most of"
 " the functions implemented in **cpanel-cli**."
 msgstr ""
-"El comando anterior accede a un subconjunto de la `interfaz REST de "
-"cPanel UAPI`_ con las funciones\n"
-"implementadas en **cpanel-cli**."
+"El comando anterior accede a un subconjunto de la `interfaz REST de cPanel "
+"UAPI <cPanel UAPI REST interface_>`_ con las funciones\n"
+"implementadas en **cpanel-cli**. # noqa"
 
 #: ../../contributing.rst:271
 msgid ""
@@ -576,7 +580,8 @@ msgstr ""
 "Los archivos ``.po`` de catálogo se compilan en archivos ``.mo`` con el "
 "utilitario de internacionalización de Sphinx. Estos archivos ``.mo`` "
 "compilados se utilizan luego para componer las versiones traducidas "
-"durante la `Construcción de la documentación`_."
+"durante la `Construcción de la documentación <Building the "
+"documentation_>`_. # noqa"
 
 #: ../../contributing.rst:355
 msgid "Adding a translation"
@@ -595,9 +600,9 @@ msgid ""
 "where ``<language code>`` is the `ISO 639-1 code`_ corresponding to the "
 "new language. For example, to add a French translation you would use:"
 msgstr ""
-"donde ``<código de idioma>`` es el `código ISO 639-1`_ correspondiente al"
-" nuevo idioma. Por ejemplo, para añadir una traducción al francés se "
-"utilizaría:"
+"donde ``<código de idioma>`` es el `código ISO 639-1 <ISO 639-1 code_>`_ "
+"correspondiente al nuevo idioma. Por ejemplo, para añadir una traducción al francés se "
+"utilizaría: # noqa"
 
 #: ../../contributing.rst:372
 msgid ""
@@ -650,8 +655,8 @@ msgid ""
 "where ``<language code>`` is the `ISO 639-1 code`_. You need to run it "
 "for every translated language."
 msgstr ""
-"donde ``<language code>`` es el código `ISO 639-1`_.  Tiene que "
-"ejecutarlo para cada lenguaje traducido."
+"donde ``<código de idioma>`` es el `código ISO 639-1 <ISO 639-1 code_>`_. Tiene que "
+"ejecutarlo para cada lenguaje traducido. # noqa"
 
 #: ../../contributing.rst:407
 msgid ""
@@ -678,4 +683,4 @@ msgstr ""
 
 #: ../../contributing.rst:420
 msgid "For further information, see the `Internationalization Guide`_"
-msgstr "Para más información consulte la `Guía de internacionalización`_."
+msgstr "Para más información consulte la `Guía de internacionalización <Internationalization Guide_>`_. # noqa"

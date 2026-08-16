@@ -32,7 +32,7 @@ msgstr "Requisitos"
 
 #: ../../installation.rst:10
 msgid "Linux or macOS; it might work `on Windows`_"
-msgstr "Linux o macOS; tal vez podría funcionar `en Windows`_"
+msgstr "Linux o macOS; tal vez podría funcionar `en Windows <on Windows_>`_ # noqa"
 
 #: ../../installation.rst:11
 msgid "Python 3.11 or later"

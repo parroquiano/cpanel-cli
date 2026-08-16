@@ -99,15 +99,16 @@ msgid ""
 "like jq`_"
 msgstr ""
 "La salida es JSON, por lo que es fácilmente analizable utilizando un "
-"`procesador CLI de JSON, como por ejemplo, jq`_"
+"`procesador CLI de JSON, como por ejemplo, jq <CLI JSON processor, like "
+"jq_>`_ # noqa"
 
 #: ../../index.rst:92
 msgid ""
 "See the User’s `Guide`_ for a complete reference of the implemented API "
 "functions."
 msgstr ""
-"Consulte la `Guía del usuario`_ para una referencia completa de las "
-"funciones implementadas de la API."
+"Consulte la `Guía del usuario <Guide_>`_ para una referencia completa de las "
+"funciones implementadas de la API. # noqa"
 
 #: ../../index.rst:98
 msgid "Quick Start Guide"
@@ -154,8 +155,8 @@ msgid ""
 "``utoken`` is an API token associated with ``username``. See `How to "
 "create an API token`_."
 msgstr ""
-"``utoken`` es un token de API asociado con el ``username``. Lea `Cómo "
-"crear un token de API`_."
+"``utoken`` es un token de API asociado con el ``username``. Lea `Cómo crear "
+"un token de API <How to create an API token_>`_. # noqa"
 
 #: ../../index.rst:125
 msgid "Then run:"
@@ -169,7 +170,7 @@ msgstr "Pruebe la instalación usando:"
 msgid ""
 "For further instructions, see the `Installation`_ "
 "section of the User’s Guide."
-msgstr "Para mayores detalles, vea la sección de `Instalación`_ de la Guía del usuario."
+msgstr "Para mayores detalles, vea la sección de `Instalación <Installation_>`_ de la Guía del usuario. # noqa"
 
 #: ../../index.rst:144
 msgid "User’s Guide"
