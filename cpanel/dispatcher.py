@@ -65,6 +65,7 @@ COMMANDS: tuple[CommandSpec, ...] = (
 	command(ssh.call, 'get ssh port'),
 	command(ip.call, 'block ip', 1, 1), command(ip.call, 'unblock ip', 1, 1),
 	command(accounts.call, 'list account|list accounts'), command(accounts.call, 'get account'),
+	command(accounts.call, 'set account password|change account password', 2, 2),
 	command(addons.call, 'list addon instance|list addon instances', 1, 1),
 	command(addons.call, 'list addon|list addons'), command(addons.call, 'get addon instance', 1, 1),
 	command(subaccounts.call, 'list subaccount|list subaccounts'),

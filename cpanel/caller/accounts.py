@@ -13,4 +13,8 @@ def call(host: CPanelEndpoint, cmd: str, args: list[str]) -> str:
 	elif cmd_is(cmd, "get account"):
 		r = host.dump(lambda: uapi.Variables.get_user_information())
 
+	elif cmd_is(cmd, "set account password", "change account password"):
+		r = host.check(lambda: uapi.UserManager.change_password(
+			oldpass = args[3], newpass = args[4]))
+
 	return r

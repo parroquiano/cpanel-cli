@@ -197,6 +197,7 @@ Usage: cpanel list addons
 
 Usage: cpanel list accounts
     cpanel get account
+    cpanel set account password OLDPASSWORD NEWPASSWORD
 
 \033[1mCOMMANDS\033[0m
 
@@ -217,6 +218,17 @@ Usage: cpanel list accounts
 
     See a sample of the JSON result data at:
     https://api.docs.cpanel.net/openapi/cpanel/operation/Variables-get_user_information/
+
+\033[1mset account password OLDPASSWORD NEWPASSWORD\033[0m
+    Change the authenticated cPanel account password from OLDPASSWORD to NEWPASSWORD.
+    This does not update the account's MySQL password. The alias
+    ‘change account password’ is also supported.
+
+    EXAMPLE
+        \033[1;34mcpanel set account password 'old-secret' 'new-secret'\033[00m
+
+    See a sample of the JSON result data at:
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/account-management/usermanager-change_password
 
 ---
 

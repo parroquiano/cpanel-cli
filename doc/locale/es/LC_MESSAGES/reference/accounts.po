@@ -7,15 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cPanel CLI \n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Creation-Date: 2022-04-10 22:10-0400\n"
-"POT-Revision-Date: 2022-04-24 17:15-0400\n"
+"POT-Creation-Date: 2026-08-15 20:02-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Marco Bravo Mejías <marco@layfellow.net>\n"
 "Language: en\n"
 "Language-Team: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.9.1\n"
+"Generated-By: Babel 2.18.0\n"
 
 #: ../../reference/accounts.rst:7
 msgid "Module: ``accounts``"
@@ -25,47 +26,69 @@ msgstr "Módulo: ``accounts``"
 msgid "`Leer en español </es/latest/reference/accounts.html>`_"
 msgstr "`Read in English </en/latest/reference/accounts.html>`_"
 
-#: ../../reference/accounts.rst:11 ../../reference/accounts.rst:17
+#: ../../reference/accounts.rst:11 ../../reference/accounts.rst:18
 msgid "**list accounts**"
 msgstr "**list accounts**"
 
-#: ../../reference/accounts.rst:12 ../../reference/accounts.rst:30
+#: ../../reference/accounts.rst:12 ../../reference/accounts.rst:31
 msgid "**get account**"
 msgstr "**get account**"
 
-#: ../../reference/accounts.rst:14
+#: ../../reference/accounts.rst:13 ../../reference/accounts.rst:44
+msgid "**set account password OLDPASSWORD NEWPASSWORD**"
+msgstr "**set account password CONTRASEÑAANTERIOR CONTRASEÑANUEVA**"
+
+#: ../../reference/accounts.rst:15
 msgid "**COMMANDS**"
 msgstr "**COMANDOS**"
 
-#: ../../reference/accounts.rst:19
+#: ../../reference/accounts.rst:20
 msgid "List basic information of the main cPanel account."
 msgstr "Lista información básica de la cuenta principal de cPanel."
 
-#: ../../reference/accounts.rst:21 ../../reference/accounts.rst:34
+#: ../../reference/accounts.rst:22 ../../reference/accounts.rst:35
+#: ../../reference/accounts.rst:50
 msgid "*Example*"
 msgstr "*Ejemplo*"
 
-#: ../../reference/accounts.rst:27
+#: ../../reference/accounts.rst:28
 msgid ""
 "See a sample of the JSON result data at: "
 "https://api.docs.cpanel.net/openapi/cpanel/operation/list_accounts/"
 msgstr ""
-"Vea una muestra del resultado en "
-"formato JSON en: "
+"Vea una muestra del resultado en formato JSON en: "
 "https://api.docs.cpanel.net/openapi/cpanel/operation/list_accounts/"
 
-#: ../../reference/accounts.rst:32
+#: ../../reference/accounts.rst:33
 msgid "Show detailed information of the main account."
 msgstr "Muestra información detallada de la cuenta principal."
 
-#: ../../reference/accounts.rst:40
+#: ../../reference/accounts.rst:41
 msgid ""
 "See a sample of the JSON result data at: "
 "https://api.docs.cpanel.net/openapi/cpanel/operation/Variables-"
 "get_user_information/"
 msgstr ""
-"Vea una muestra del resultado en "
-"formato JSON en: "
+"Vea una muestra del resultado en formato JSON en: "
 "https://api.docs.cpanel.net/openapi/cpanel/operation/Variables-"
 "get_user_information/"
 
+#: ../../reference/accounts.rst:46
+msgid ""
+"Change the authenticated cPanel account password from OLDPASSWORD to "
+"NEWPASSWORD. This does not update the account's MySQL password. The alias"
+" ‘change account password’ is also supported."
+msgstr ""
+"Cambia la contraseña de la cuenta de cPanel autenticada de "
+"CONTRASEÑAANTERIOR a CONTRASEÑANUEVA. Esto no actualiza la contraseña "
+"MySQL de la cuenta. También se admite el alias ‘change account password’."
+
+#: ../../reference/accounts.rst:56
+msgid ""
+"See a sample of the JSON result data at: "
+"https://api.docs.cpanel.net/specifications/cpanel.openapi/account-"
+"management/usermanager-change_password"
+msgstr ""
+"Vea una muestra del resultado en formato JSON en: "
+"https://api.docs.cpanel.net/specifications/cpanel.openapi/account-"
+"management/usermanager-change_password"

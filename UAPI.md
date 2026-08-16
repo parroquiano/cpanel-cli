@@ -639,7 +639,7 @@
 - [ ] TwoFactorAuth::set_user_configuration
 - [ ] UserData::get_scoped_userdata
 - [ ] UserData::set_scoped_userdata
-- [ ] UserManager::change_password
+- [x] UserManager::change_password
 - [x] UserManager::check_account_conflicts
 - [x] UserManager::create_user
 - [x] UserManager::delete_user

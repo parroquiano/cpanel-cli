@@ -92,3 +92,33 @@ class TestSubaccountDispatch(unittest.TestCase):
 		with self.assertRaisesRegex(CPanelError, '^invalid email, local-only$'):
 			dispatch(self.host, ['delete', 'subaccount', 'local-only'])
 		self.host.client.uapi.UserManager.delete_user.assert_not_called()
+
+
+class TestAccountDispatch(unittest.TestCase):
+
+	def setUp(self) -> None:
+		self.host = Mock()
+		self.host.check.side_effect = TestSubaccountDispatch.run_check
+
+
+	def test_set_account_password_forwards_required_parameters(self) -> None:
+		result = dispatch(self.host, ['set', 'account', 'password', 'old-secret', 'new-secret'])
+
+		self.assertEqual(result, 'OK')
+		self.host.client.uapi.UserManager.change_password.assert_called_once_with(
+			oldpass = 'old-secret',
+			newpass = 'new-secret',
+		)
+
+
+	def test_change_account_password_alias_is_supported(self) -> None:
+		result = dispatch(self.host, ['change', 'account', 'password', 'old-secret', 'new-secret'])
+
+		self.assertEqual(result, 'OK')
+		self.host.client.uapi.UserManager.change_password.assert_called_once()
+
+
+	def test_set_account_password_requires_both_passwords(self) -> None:
+		with self.assertRaisesRegex(CPanelError, '^missing arguments for set account password'):
+			dispatch(self.host, ['set', 'account', 'password', 'old-secret'])
+		self.host.check.assert_not_called()
