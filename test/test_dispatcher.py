@@ -159,6 +159,79 @@ class TestSubaccountDispatch(unittest.TestCase):
 				self.host.check.assert_not_called()
 
 
+	def test_merge_service_subaccount_forwards_selected_services(self) -> None:
+		result = dispatch(self.host, [
+			'merge', 'service', 'subaccount', 'existing.user@example.test',
+			'email', 'ftp', 'webdisk',
+		])
+
+		self.assertEqual(result, 'OK')
+		self.host.client.uapi.UserManager.merge_service_account.assert_called_once_with(
+			username = 'existing.user',
+			domain = 'example.test',
+			**{
+				'services.email.merge': 1,
+				'services.ftp.merge': 1,
+				'services.webdisk.merge': 1,
+			},
+		)
+
+
+	def test_unlink_service_subaccount_forwards_optional_dismiss(self) -> None:
+		for trailing_arguments, expected in (
+			([], {'service': 'ftp'}),
+			(['dismiss'], {'service': 'ftp', 'dismiss': 1}),
+		):
+			with self.subTest(trailing_arguments = trailing_arguments):
+				self.host.client.uapi.UserManager.unlink_service_account.reset_mock()
+				result = dispatch(self.host, [
+					'unlink', 'service', 'subaccount', 'existing.user@example.test',
+					'ftp', *trailing_arguments,
+				])
+				self.assertEqual(result, 'OK')
+				self.host.client.uapi.UserManager.unlink_service_account.assert_called_once_with(
+					username = 'existing.user',
+					domain = 'example.test',
+					**expected,
+				)
+
+
+	def test_service_subaccount_commands_validate_arity_before_api_call(self) -> None:
+		invalid_commands = (
+			(['merge', 'service', 'subaccount', 'existing.user@example.test'],
+				'missing arguments for merge service subaccount'),
+			(['unlink', 'service', 'subaccount', 'existing.user@example.test'],
+				'missing arguments for unlink service subaccount'),
+			(['unlink', 'service', 'subaccount', 'existing.user@example.test', 'ftp', 'dismiss', 'extra'],
+				'too many arguments for unlink service subaccount'),
+		)
+		for command, message in invalid_commands:
+			with self.subTest(command = command):
+				self.host.check.reset_mock()
+				with self.assertRaisesRegex(CPanelError, '^{}'.format(re.escape(message))):
+					dispatch(self.host, command)
+				self.host.check.assert_not_called()
+
+
+	def test_service_subaccount_commands_reject_invalid_values(self) -> None:
+		invalid_commands = (
+			(['merge', 'service', 'subaccount', 'existing.user@example.test', 'smtp'],
+				'unsupported subaccount service'),
+			(['merge', 'service', 'subaccount', 'existing.user@example.test', 'ftp', 'ftp'],
+				'duplicate subaccount service, ftp'),
+			(['unlink', 'service', 'subaccount', 'existing.user@example.test', 'smtp'],
+				'unsupported subaccount service'),
+			(['unlink', 'service', 'subaccount', 'existing.user@example.test', 'ftp', 'keep'],
+				'optional unlink argument must be dismiss'),
+		)
+		for command, message in invalid_commands:
+			with self.subTest(command = command):
+				self.host.check.reset_mock()
+				with self.assertRaisesRegex(CPanelError, '^{}$'.format(re.escape(message))):
+					dispatch(self.host, command)
+				self.host.check.assert_not_called()
+
+
 	def test_subaccount_identity_requires_domain(self) -> None:
 		with self.assertRaisesRegex(CPanelError, '^invalid email, local-only$'):
 			dispatch(self.host, ['delete', 'subaccount', 'local-only'])

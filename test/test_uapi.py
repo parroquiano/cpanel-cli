@@ -173,6 +173,57 @@ class TestCore(unittest.TestCase):
 		self.assertFalse(any(item.get('full_username') == full_username for item in subaccounts))
 
 
+	def test_merge_then_unlink_service_subaccount(self) -> None:
+		domain_data: JSONType = json.loads(dispatch(self.host, ["list", "domains"]))
+		main_domain = domain_data.get('main_domain')
+		if not isinstance(main_domain, str) or len(main_domain) == 0:
+			self.skipTest("server account has no usable main domain")
+
+		features: JSONType = json.loads(dispatch(self.host, ["list", "features"]))
+		if features.get('ftpaccts') != 1:
+			self.skipTest("server account cannot provision FTP service accounts")
+
+		local_username = 'cpanel-cli-{}'.format(uuid.uuid4().hex[:12])
+		full_username = '{}@{}'.format(local_username, main_domain)
+		password = 'Service-{}!A1'.format(uuid.uuid4().hex)
+		homedir = '{}-ftp'.format(local_username)
+
+		try:
+			r: str = dispatch(self.host, [
+				"create", "ftp", full_username, password, "0", homedir,
+			])
+		except CPanelError as error:
+			self.skipTest("server cannot create a temporary FTP account: {}".format(error))
+		self.assertEqual(r, "OK")
+		self.addCleanup(self.dispatch_ignoring_error, ["delete", "ftp", full_username])
+
+		r = dispatch(self.host, [
+			"merge", "service", "subaccount", full_username, "ftp",
+		])
+		self.assertEqual(r, "OK")
+		self.addCleanup(
+			self.dispatch_ignoring_error,
+			["delete", "subaccount", full_username],
+		)
+
+		service: JSONType = json.loads(dispatch(self.host, [
+			"get", "service", "subaccount", full_username, "ftp",
+		]))
+		self.assertEqual(service.get('full_username'), full_username)
+		self.assertEqual(service.get('type'), 'service')
+
+		r = dispatch(self.host, [
+			"unlink", "service", "subaccount", full_username, "ftp",
+		])
+		self.assertEqual(r, "OK")
+		self.assertEqual(dispatch(self.host, ["check", "ftp", full_username]), "OK")
+
+		r = dispatch(self.host, ["delete", "subaccount", full_username])
+		self.assertEqual(r, "OK")
+		r = dispatch(self.host, ["delete", "ftp", full_username])
+		self.assertEqual(r, "OK")
+
+
 	def test_cache(self) -> None:
 		update: JSONType = json.loads(dispatch(self.host, ["update", "cache"]))
 		print(update)

@@ -11,6 +11,8 @@ Module: ``subaccounts``
 - **list subaccounts**
 - **create subaccount USER\@DOMAIN PASSWORD**
 - **edit subaccount USER\@DOMAIN SETTING=VALUE...**
+- **merge service subaccount USER\@DOMAIN SERVICE...**
+- **unlink service subaccount USER\@DOMAIN SERVICE [dismiss]**
 - **delete subaccount USER\@DOMAIN**
 - **get subaccount GUID**
 - **get service account USERNAME TYPE**
@@ -71,6 +73,39 @@ homedir setting in the same command.
 
 See a sample of the JSON result data at:
 https://api.docs.cpanel.net/specifications/cpanel.openapi/subaccount-management/usermanager-edit_user
+
+**merge service subaccount USER\@DOMAIN SERVICE...**
+
+Link one or more existing service accounts to the subaccount identified by
+USER\@DOMAIN. SERVICE must be ‘email’, ‘ftp’ or ‘webdisk’. All selected
+service accounts must use the same username and domain. The command creates
+the base subaccount if it does not already exist.
+
+*Example*
+
+.. code:: sh
+
+    $ cpanel merge service subaccount user@example.com email ftp
+
+See a sample of the JSON result data at:
+https://api.docs.cpanel.net/specifications/cpanel.openapi/subaccount-management/usermanager-merge_service_account
+
+**unlink service subaccount USER\@DOMAIN SERVICE [dismiss]**
+
+Unlink one service account from the subaccount identified by USER\@DOMAIN
+without deleting the service account. SERVICE must be ‘email’, ‘ftp’ or
+‘webdisk’. Add ‘dismiss’ to prevent the unlinked service from appearing as
+a future merge candidate.
+
+*Examples*
+
+.. code:: sh
+
+    $ cpanel unlink service subaccount user@example.com ftp
+    $ cpanel unlink service subaccount user@example.com ftp dismiss
+
+See a sample of the JSON result data at:
+https://api.docs.cpanel.net/specifications/cpanel.openapi/subaccount-management/usermanager-unlink_service_account
 
 **delete subaccount USER\@DOMAIN**
 

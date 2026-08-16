@@ -235,6 +235,8 @@ Usage: cpanel list accounts
 Usage: cpanel list subaccounts
     cpanel create subaccount USER@DOMAIN PASSWORD
     cpanel edit subaccount USER@DOMAIN SETTING=VALUE...
+    cpanel merge service subaccount USER@DOMAIN SERVICE...
+    cpanel unlink service subaccount USER@DOMAIN SERVICE [dismiss]
     cpanel delete subaccount USER@DOMAIN
     cpanel get subaccount GUID
     cpanel get service account USERNAME TYPE
@@ -282,6 +284,31 @@ Usage: cpanel list subaccounts
 
     See a sample of the JSON result data at:
     https://api.docs.cpanel.net/specifications/cpanel.openapi/subaccount-management/usermanager-edit_user
+
+\033[1mmerge service subaccount USER@DOMAIN SERVICE...\033[0m
+    Link one or more existing service accounts to the subaccount identified by
+    USER@DOMAIN. SERVICE must be ‘email’, ‘ftp’ or ‘webdisk’. All selected
+    service accounts must use the same username and domain. The command creates
+    the base subaccount if it does not already exist.
+
+    EXAMPLE
+        \033[1;34mcpanel merge service subaccount user@example.com email ftp\033[00m
+
+    See a sample of the JSON result data at:
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/subaccount-management/usermanager-merge_service_account
+
+\033[1munlink service subaccount USER@DOMAIN SERVICE [dismiss]\033[0m
+    Unlink one service account from the subaccount identified by USER@DOMAIN
+    without deleting the service account. SERVICE must be ‘email’, ‘ftp’ or
+    ‘webdisk’. Add ‘dismiss’ to prevent the unlinked service from appearing as
+    a future merge candidate.
+
+    EXAMPLES
+        \033[1;34mcpanel unlink service subaccount user@example.com ftp\033[00m
+        \033[1;34mcpanel unlink service subaccount user@example.com ftp dismiss\033[00m
+
+    See a sample of the JSON result data at:
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/subaccount-management/usermanager-unlink_service_account
 
 \033[1mdelete subaccount USER@DOMAIN\033[0m
     Delete a subaccount identified by USER@DOMAIN. This does not delete separate

@@ -648,8 +648,8 @@
 - [x] UserManager::list_users
 - [x] UserManager::lookup_service_account
 - [x] UserManager::lookup_user
-- [ ] UserManager::merge_service_account
-- [ ] UserManager::unlink_service_account
+- [x] UserManager::merge_service_account
+- [x] UserManager::unlink_service_account
 - [ ] Users::change_password
 - [ ] UserTasks::delete
 - [ ] UserTasks::retrieve
