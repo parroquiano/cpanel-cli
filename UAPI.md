@@ -644,7 +644,7 @@
 - [x] UserManager::create_user
 - [x] UserManager::delete_user
 - [ ] UserManager::dismiss_merge
-- [ ] UserManager::edit_user
+- [x] UserManager::edit_user
 - [x] UserManager::list_users
 - [x] UserManager::lookup_service_account
 - [x] UserManager::lookup_user

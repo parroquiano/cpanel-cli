@@ -1,3 +1,4 @@
+import re
 import unittest
 from collections.abc import Callable
 from unittest.mock import Mock
@@ -86,6 +87,76 @@ class TestSubaccountDispatch(unittest.TestCase):
 		with self.assertRaisesRegex(CPanelError, '^missing arguments for create subaccount'):
 			dispatch(self.host, ['create', 'subaccount', 'new.user@example.test'])
 		self.host.check.assert_not_called()
+
+
+	def test_edit_subaccount_forwards_only_requested_settings(self) -> None:
+		result = dispatch(self.host, [
+			'edit', 'subaccount', 'existing.user@example.test',
+			'real_name=Existing User',
+			'password=new-secret',
+			'services.email.enabled=1',
+			'services.email.quota=unlimited',
+			'services.webdisk.enabled=1',
+			'services.webdisk.homedir=/webdisk',
+			'services.webdisk.perms=ro',
+		])
+
+		self.assertEqual(result, 'OK')
+		self.host.client.uapi.UserManager.edit_user.assert_called_once_with(
+			real_name = 'Existing User',
+			password = 'new-secret',
+			**{
+				'services.email.enabled': 1,
+				'services.email.quota': 'unlimited',
+				'services.webdisk.enabled': 1,
+				'services.webdisk.homedir': '/webdisk',
+				'services.webdisk.perms': 'ro',
+				'username': 'existing.user',
+				'domain': 'example.test',
+			},
+		)
+
+
+	def test_edit_subaccount_requires_a_setting_before_api_call(self) -> None:
+		with self.assertRaisesRegex(CPanelError, '^missing arguments for edit subaccount'):
+			dispatch(self.host, ['edit', 'subaccount', 'existing.user@example.test'])
+		self.host.check.assert_not_called()
+
+
+	def test_edit_subaccount_rejects_malformed_and_unsupported_settings(self) -> None:
+		invalid_arguments = (
+			(['real_name'], 'expected SETTING=VALUE for edit subaccount'),
+			(['not_a_setting=value'], 'unsupported subaccount setting'),
+			(['real_name=First', 'real_name=Second'], 'duplicate subaccount setting, real_name'),
+		)
+		for setting_arguments, message in invalid_arguments:
+			with self.subTest(setting_arguments = setting_arguments):
+				self.host.check.reset_mock()
+				with self.assertRaisesRegex(CPanelError, '^{}$'.format(re.escape(message))):
+					dispatch(self.host, [
+						'edit', 'subaccount', 'existing.user@example.test', *setting_arguments,
+					])
+				self.host.check.assert_not_called()
+
+
+	def test_edit_subaccount_validates_structured_setting_values(self) -> None:
+		invalid_settings = (
+			('services.email.enabled=yes', 'services.email.enabled must be 0 or 1'),
+			('services.email.quota=-1', 'services.email.quota must be a number or unlimited'),
+			('services.webdisk.perms=write', 'services.webdisk.perms must be ro or rw'),
+			('password=', 'password must not be empty'),
+			('services.ftp.homedir=', 'services.ftp.homedir must not be empty'),
+			('services.ftp.enabled=1', 'services.ftp.homedir is required when enabling FTP'),
+			('services.webdisk.enabled=1', 'services.webdisk.homedir is required when enabling Web Disk'),
+		)
+		for setting, message in invalid_settings:
+			with self.subTest(setting = setting):
+				self.host.check.reset_mock()
+				with self.assertRaisesRegex(CPanelError, '^{}$'.format(re.escape(message))):
+					dispatch(self.host, [
+						'edit', 'subaccount', 'existing.user@example.test', setting,
+					])
+				self.host.check.assert_not_called()
 
 
 	def test_subaccount_identity_requires_domain(self) -> None:

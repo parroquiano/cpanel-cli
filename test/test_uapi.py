@@ -130,7 +130,7 @@ class TestCore(unittest.TestCase):
 			self.assertEqual("service", service['type'])
 
 
-	def test_create_then_delete_subaccount(self) -> None:
+	def test_create_edit_then_delete_subaccount(self) -> None:
 		domain_data: JSONType = json.loads(dispatch(self.host, ["list", "domains"]))
 		main_domain = domain_data.get('main_domain')
 		if not isinstance(main_domain, str) or len(main_domain) == 0:
@@ -160,6 +160,12 @@ class TestCore(unittest.TestCase):
 		if created.get('sub_account_exists') == 1:
 			details: JSONType = json.loads(dispatch(self.host, ["get", "subaccount", str(created['guid'])]))
 			self.assertEqual(details.get('full_username'), full_username)
+
+		updated_password = 'Updated-{}!A1'.format(uuid.uuid4().hex)
+		r = dispatch(self.host, [
+			"edit", "subaccount", full_username, "password={}".format(updated_password),
+		])
+		self.assertEqual(r, "OK")
 
 		r = dispatch(self.host, ["delete", "subaccount", full_username])
 		self.assertEqual(r, "OK")

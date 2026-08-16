@@ -10,6 +10,7 @@ Module: ``subaccounts``
 
 - **list subaccounts**
 - **create subaccount USER\@DOMAIN PASSWORD**
+- **edit subaccount USER\@DOMAIN SETTING=VALUE...**
 - **delete subaccount USER\@DOMAIN**
 - **get subaccount GUID**
 - **get service account USERNAME TYPE**
@@ -46,6 +47,30 @@ remain disabled according to the cPanel API defaults.
 
 See a sample of the JSON result data at:
 https://api.docs.cpanel.net/specifications/cpanel.openapi/subaccount-management/usermanager-create_user
+
+**edit subaccount USER\@DOMAIN SETTING=VALUE...**
+
+Update one or more settings for the subaccount identified by USER\@DOMAIN.
+Specify each setting as SETTING=VALUE. Settings omitted from the command are
+not sent to the API.
+
+Supported settings are alternate_email, password, real_name,
+services.email.enabled, services.email.quota, services.ftp.enabled,
+services.ftp.homedir, services.webdisk.enabled,
+services.webdisk.enabledigest, services.webdisk.homedir,
+services.webdisk.perms and services.webdisk.private. Service switches accept
+0 or 1, email quota accepts a non-negative number or ‘unlimited’, and Web Disk
+permissions accept ‘ro’ or ‘rw’. Enabling FTP or Web Disk also requires its
+homedir setting in the same command.
+
+*Example*
+
+.. code:: sh
+
+    $ cpanel edit subaccount user@example.com real_name='Example User' services.email.enabled=1 services.email.quota=500
+
+See a sample of the JSON result data at:
+https://api.docs.cpanel.net/specifications/cpanel.openapi/subaccount-management/usermanager-edit_user
 
 **delete subaccount USER\@DOMAIN**
 

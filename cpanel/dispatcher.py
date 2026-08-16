@@ -73,6 +73,7 @@ COMMANDS: tuple[CommandSpec, ...] = (
 	command(subaccounts.call, 'get service subaccount', 2, 2),
 	command(subaccounts.call, 'check subaccount conflicts', 1, 1),
 	command(subaccounts.call, 'create subaccount', 2, 2),
+	command(subaccounts.call, 'edit subaccount', 2, None),
 	command(subaccounts.call, 'delete subaccount|rm subaccount|remove subaccount', 1, 1),
 	command(backup.call, 'create backup', 1, 6), command(backup.call, 'list backup|list backups'),
 	command(backup.call, 'restore backup', 1, 1),
