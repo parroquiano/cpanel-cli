@@ -1,4 +1,4 @@
-.. image:: https://img.shields.io/pypi/v/cpanel-cli&cacheBust=2026-08-15
+.. image:: https://img.shields.io/pypi/v/cpanel-cli?cacheBust=2026-08-15
     :alt: PyPI
     :target: https://pypi.org/project/cpanel-cli/
 
