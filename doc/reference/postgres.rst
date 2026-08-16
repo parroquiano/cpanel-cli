@@ -46,7 +46,7 @@ List all PostgreSQL users associated to the cPanel account.
     $ cpanel list postgres users
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/Postgresql::list_users/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/postgresql-user-management/postgresql-list_users
 
 **rename postgres user OLDUSERNAME NEWUSERNAME NEWPASSWORD**
 
@@ -99,7 +99,7 @@ List existing PostgreSQL databases.
     $ cpanel list postgres databases
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/Postgresql-list_databases/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/postgresql-database-management/postgresql-list_databases
 
 **rename postgres database OLDDBNAME NEWDBNAME**
 
@@ -168,5 +168,5 @@ Return PostgreSQL object name length and prefix restrictions.
     $ cpanel get postgres restrictions
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/Postgresql::get_restrictions/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/postgresql-database-management/postgresql-get_restrictions
 

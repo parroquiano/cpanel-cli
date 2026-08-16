@@ -30,7 +30,7 @@ If no ACCOUNT is provided, the default mail account is used.
     $ cpanel get webmail settings scott@example.com
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/get_webmail_settings/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/email-accounts/email-get_webmail_settings
 
 **list webmail apps**
 
@@ -43,6 +43,6 @@ Return a list of available Web Mail apps.
     $ cpanel list webmail apps
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/listwebmailapps/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/webmail-applications/webmailapps-list_webmail_apps
 
 

@@ -19,6 +19,6 @@ Get the cPanel account’s total disk quota information in megabytes.
     $ cpanel get quota
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/get_quota_info/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/disk-quotas/quota-get_quota_info
 
 

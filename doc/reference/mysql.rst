@@ -55,7 +55,7 @@ List all MySQL users associated to the cPanel account.
     $ cpanel list mysql users
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/Mysql-list_users/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/user-management/mysql-list_users
 
 **rename mysql user OLDUSERNAME NEWUSERNAME**
 
@@ -108,7 +108,7 @@ List existing MySQL databases.
     $ cpanel list mysql databases
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/list_databases/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/database-management/mysql-list_databases
 
 **rename mysql database OLDDBNAME NEWDBNAME**
 
@@ -141,7 +141,7 @@ Check the integrity of MySQL database DBNAME.
     $ cpanel check mysql database 'northwind'
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/Mysql-check_database/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/database-management/mysql-check_database
 
 **repair mysql database DBNAME**
 
@@ -155,7 +155,7 @@ See ‘cpanel check mysql database’ above.
     $ cpanel repair mysql database 'northwind'
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/repair_database/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/database-management/mysql-repair_database
 
 **set mysql privileges USERNAME DBNAME PRIVILEGES**
 
@@ -166,7 +166,7 @@ To add full privileges, use 'ALL PRIVILEGES'.
 To add individual privileges, use a comma-separated list.
 
 For a list of individual privileges see:
-https://api.docs.cpanel.net/openapi/cpanel/operation/set_privileges_on_database/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/user-management/mysql-set_privileges_on_database
 
 For a description of the scope of individual privileges see:
 https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html
@@ -191,7 +191,7 @@ List privileges granted to MySQL user USERNAME on database DBNAME.
     $ cpanel list mysql privileges 'scott' 'northwind'
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/Mysql-get_privileges_on_database/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/user-management/mysql-get_privileges_on_database
 
 **delete mysql privileges USERNAME DBNAME**
 
@@ -216,7 +216,7 @@ user USERNAME. If not provided, list routines from all users.
     $ cpanel list mysql routines 'scott'
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/list_routines/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/user-management/mysql-list_routines
 
 **get mysql schema DBNAME**
 
@@ -267,7 +267,7 @@ See ‘cpanel add mysql host’ above.
     $ cpanel list mysql hosts
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/get_host_notes/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/remote-databases/mysql-get_host_notes
 
 **delete mysql host HOST**
 
@@ -291,7 +291,7 @@ Return server information and version from MySQL.
     $ cpanel get mysql server
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/get_server_information/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/database-information/mysql-get_server_information
 
 **get mysql restrictions**
 
@@ -304,6 +304,6 @@ Return MySQL object name length and prefix restrictions.
     $ cpanel get mysql restrictions
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/get_restrictions/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/user-management/mysql-get_restrictions
 
 

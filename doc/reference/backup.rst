@@ -67,7 +67,7 @@ List the account’s backup files.
     $ cpanel list backups
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/list_backups/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/backup/backup-list_backups
 
 **restore backup TARBALL**
 

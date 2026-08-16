@@ -29,7 +29,7 @@ Count the number of cPanel email accounts.
     $ cpanel count mail accounts
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/count_pops/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/email-accounts/email-count_pops
 
 **list mail accounts**
 
@@ -42,7 +42,7 @@ List cPanel email accounts.
     $ cpanel list mail accounts
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/list_pops/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/email-accounts/email-list_pops
 
 
 
@@ -65,7 +65,7 @@ Use ‘cpanel list mail accounts’ to get a list of valid ACCOUNTS.
     $ cpanel get mail settings scott@example.com
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/get_client_settings/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/email-accounts/email-get_client_settings
 
 
 
@@ -208,7 +208,7 @@ Use ‘cpanel list mail accounts’ to get a list of valid ACCOUNTS.
     $ cpanel list mail boxes scott@example.com .spam
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/browse_mailbox/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/email-accounts/email-browse_mailbox
 
 
 
@@ -240,7 +240,7 @@ List the autoresponders of all email accounts in DOMAIN.
     $ cpanel list mail autoresponders example.com
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/list_auto_responders/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/email-accounts/email-list_auto_responders
 
 **count mail autoresponders**
 
@@ -253,7 +253,7 @@ Return the number of autoresponders for all email accounts.
     $ cpanel count mail autoresponders
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/count_auto_responders/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/email-accounts/email-count_auto_responders
 
 **get mail autoresponder ACCOUNT**
 
@@ -266,7 +266,7 @@ Retrieve autoresponder information corresponding to ACCOUNT.
     $ cpanel get mail autoresponder scott@example.com
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/get_auto_responder/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/email-accounts/email-get_auto_responder
 
 **set mail autoresponder ACCOUNT [FROM] [SUBJECT] [BODY] [START] [STOP]**
 
@@ -350,10 +350,10 @@ the forwarders for DOMAIN.
     $ cpanel list mail forwarders example.com
 
 See a sample of the JSON result for all forwarders data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/list_forwarders/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/email-forwarding/email-list_forwarders
 
 See a sample of the JSON result for DOMAIN forwarders data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/list_domain_forwarders/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/email-forwarding/email-list_domain_forwarders
 
 **add mail forwarder DOMAIN FORWARDHERE**
 
@@ -386,7 +386,7 @@ Return the total number of mail forwarders for all accounts.
     $ cpanel count mail forwarders
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/count_forwarders/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/email-forwarding/email-count_forwarders
 
 **delete mail forwarder DOMAIN**
 
@@ -445,7 +445,7 @@ List mail filters associated to ACCOUNT.
     $ cpanel list mail filters scott@example.com
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/list_filters/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/email-filtering/email-list_filters
 
 **count mail filters**
 
@@ -470,7 +470,7 @@ to email ACCOUNT. To get a list of filters, use
     $ cpanel get mail filter scott@example.com spamkiller
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/get_filter/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/email-filtering/email-get_filter
 
 **set mail filter ACCOUNT FILE**
 
@@ -591,7 +591,7 @@ List all the domains with email filters.
     $ cpanel list filter domains
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/list_filters_backups/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/email-filtering/email-list_filters_backups
 
 
 
@@ -672,6 +672,6 @@ Return the disk space in megabytes used by ACCOUNT.
     $ cpanel get mail usage scott@example.com
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/get_disk_usage/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/email-accounts/email-get_disk_usage
 
 

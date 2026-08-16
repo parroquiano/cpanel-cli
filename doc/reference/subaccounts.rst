@@ -30,7 +30,7 @@ of each sub-account.
     $ cpanel list subaccounts
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/UserManager-list_users/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/subaccount-management/usermanager-list_users
 
 **create subaccount USER\@DOMAIN PASSWORD**
 
@@ -45,7 +45,7 @@ remain disabled according to the cPanel API defaults.
     $ cpanel create subaccount user@example.com A-Strong-Password
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/UserManager-create_user/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/subaccount-management/usermanager-create_user
 
 **delete subaccount USER\@DOMAIN**
 
@@ -60,7 +60,7 @@ The aliases ‘rm subaccount’ and ‘remove subaccount’ are also supported.
     $ cpanel delete subaccount user@example.com
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/UserManager-delete_user/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/subaccount-management/usermanager-delete_user
 
 **get subaccount GUID**
 
@@ -75,7 +75,7 @@ sub_account_exists flag set to 1 can be queried.
     $ cpanel get subaccount EXAMPLE1:EXAMPLE.COM:564CD663:FE50072F2620B50988EA4E5F46022546FBE6BDDE3C36C2F2534F4967C661EC37
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/lookup_user/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/subaccount-management/usermanager-lookup_user
 
 **get service subaccount USERNAME TYPE**
 
@@ -91,7 +91,7 @@ Use ‘cpanel list subaccounts’ to get a list of full subaccount usernames.
     $ cpanel get service subaccount ftp@example.com ftp
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/lookup_service_account/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/subaccount-management/usermanager-lookup_service_account
 
 **check subaccount conflicts USERNAME**
 
@@ -107,6 +107,6 @@ Use ‘cpanel list subaccounts’ to get a list of full subaccount usernames.
     $ cpanel check subaccount conflicts ftp@example.com
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/check_account_conflicts/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/subaccount-management/usermanager-check_account_conflicts
 
 

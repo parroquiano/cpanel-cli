@@ -27,7 +27,7 @@ List domains for the cPanel account’s.
     $ cpanel list domains
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/list_domains/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/domain-information/domaininfo-list_domains
 
 **list domain data**
 
@@ -40,7 +40,7 @@ Get hosting data for all the cPanel account’s domains.
     $ cpanel list domain data
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/domains_data/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/domain-information/domaininfo-domains_data
 
 **get domain data DOMAIN**
 
@@ -54,7 +54,7 @@ to get a list of domains.
     $ cpanel get domain data example.com
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/single_domain_data/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/domain-information/domaininfo-single_domain_data
 
 **get domain aliases**
 
@@ -67,6 +67,6 @@ List the built-in subdomain aliases for an account’s main domain.
     $ cpanel get domain aliases
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/main_domain_builtin_subdomain_aliases/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/domain-information/domaininfo-main_domain_builtin_subdomain_aliases
 
 

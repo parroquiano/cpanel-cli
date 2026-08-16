@@ -70,7 +70,7 @@ information on Mailman see https://wiki.list.org/DOC/Home
     $ cpanel count mailman lists
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/count_lists/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/mailing-lists/email-count_lists
 
 **list mailman lists**
 
@@ -84,7 +84,7 @@ information of each mailing list.
     $ cpanel list mailman lists
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/list_lists/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/mailing-lists/email-list_lists
 
 **add mailman delegates LISTNAME@DOMAIN EMAIL...**
 
@@ -121,7 +121,7 @@ information on Mailman see https://wiki.list.org/DOC/Home
     $ cpanel list mailman delegates private-list@example.com
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/get_mailman_delegates/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/mailing-lists/email-get_mailman_delegates
 
 **delete mailman delegates LISTNAME@DOMAIN EMAIL...**
 
@@ -158,7 +158,7 @@ information on Mailman see https://wiki.list.org/DOC/Home
     $ cpanel check mailman delegate scott@example.com
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/has_delegated_mailman_lists/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/mailing-lists/email-has_delegated_mailman_lists
 
 **generate mailman password LISTNAME@DOMAIN**
 
@@ -175,7 +175,7 @@ information on Mailman see https://wiki.list.org/DOC/Home
     $ cpanel generate mailman password private-list@example.com
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/generate_mailman_otp/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/mailing-lists/email-generate_mailman_otp
 
 **set mailman password LISTNAME@DOMAIN PASSWORD**
 
@@ -205,7 +205,7 @@ information on Mailman see https://wiki.list.org/DOC/Home
     $ cpanel get mailman usage
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/get_lists_total_disk_usage/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/mailing-lists/email-get_lists_total_disk_usage
 
 **set mailman private LISTNAME@DOMAIN**
 

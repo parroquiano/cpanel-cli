@@ -28,7 +28,7 @@ Return a list of services (by protocol) being monitored in bandwidth data.
     $ cpanel get bandwidth services
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/get_enabled_protocols/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/bandwidth/bandwidth-get_enabled_protocols
 
 **get bandwidth retention**
 
@@ -41,6 +41,6 @@ Get the collection interval and retention periods for bandwidth data.
     $ cpanel get bandwidth services
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/get_retention_periods/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/bandwidth/bandwidth-get_retention_periods
 
 

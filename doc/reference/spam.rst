@@ -39,8 +39,8 @@ List the current SpamAssassin settings for all email accounts on the server.
 
 This command shows a combined output of the JSON result data from the
 following two API calls:
-https://api.docs.cpanel.net/openapi/cpanel/operation/get_spam_settings/
-https://api.docs.cpanel.net/openapi/cpanel/operation/get_user_preferences/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/spam-management/email-get_spam_settings
+https://api.docs.cpanel.net/specifications/cpanel.openapi/spam-management/spamassassin-get_user_preferences
 
 **enable spam assassin**
 
@@ -218,7 +218,7 @@ In general, you should not need to modify these rules.
     $ cpanel list spam rules
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/get_symbolic_test_names/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/spam-management/spamassassin-get_symbolic_test_names
 
 **set spam rule score RULE SCORE**
 

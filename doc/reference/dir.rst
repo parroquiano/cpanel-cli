@@ -52,7 +52,7 @@ List the index settings for remote PATH and its subdirectories (children).
     $ cpanel list dir indexing /public_html
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/DirectoryIndexes-list_directories/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/directory-indexes/directoryindexes-list_directories
 
 **get dir indexing PATH**
 
@@ -65,7 +65,7 @@ Get the index setting for remote PATH only.
     $ cpanel get dir indexing /public_html
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/get_indexing/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/directory-indexes/directoryindexes-get_indexing
 
 **set dir indexing PATH TYPE**
 
@@ -113,7 +113,7 @@ List the privacy settings for remote PATH and its subdirectories (children).
     $ cpanel list dir privacy /public_html
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/DirectoryPrivacy-list_directories/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/directory-privacy/directoryprivacy-list_directories
 
 **get dir privacy PATH**
 
@@ -128,7 +128,7 @@ You can enable or disable password protection using
     $ cpanel get dir privacy /public_html
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/is_directory_protected/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/directory-privacy/directoryprivacy-is_directory_protected
 
 **enable dir privacy PATH**
 
@@ -206,7 +206,7 @@ List allowed users for PATH.
     $ cpanel list dir users /public_html
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/DirectoryPrivacy::list_users/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/directory-privacy/directoryprivacy-list_users
 
 
 
@@ -232,6 +232,6 @@ List leech protection status for PATH and its subdirectories (children).
     $ cpanel list dir protection /public_html
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/DirectoryProtection-list_directories/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/directory-protection/directoryprotection-list_directories
 
 

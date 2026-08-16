@@ -12,7 +12,7 @@ Module: ``ip``
 - **unblock ip IPRANGE**
 
 IPRANGE can be a single address, a CDIR, or a hostname. See:
-https://api.docs.cpanel.net/openapi/cpanel/operation/blockip-add-ip/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/block-ip/blockip-add_ip
 for a list of supported formats.
 
 For a list of currently blocked IP ranges, you can use:

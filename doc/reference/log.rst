@@ -39,7 +39,7 @@ Get the account’s log archival settings.
     $ cpanel get log settings
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/get_settings/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/logs/logmanager-get_settings
 
 **set log settings SETTING...**
 
@@ -78,7 +78,7 @@ List the account’s archived log files.
     $ cpanel list log archives
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/list_archives/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/logs/logmanager-list_archives
 
 **get log TYPE DOMAIN**
 
@@ -94,6 +94,6 @@ Use ‘cpanel list domains’ to get a list of valid DOMAINs.
     $ cpanel get log suexec example.com
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/get_site_errors/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/domain-statistics/stats-get_site_errors
 
 

@@ -11,7 +11,7 @@ Usage: cpanel list features
         \033[1;34mcpanel list features\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/list_features/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/cpanel-features/features-list_features
 
 \033[1mget feature details\033[0m
     Get details for all available features. Details include whether the
@@ -21,7 +21,7 @@ Usage: cpanel list features
         \033[1;34mcpanel get feature details\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/get_feature_metadata/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/cpanel-features/features-get_feature_metadata
 
 \033[1mhas feature FEATURE\033[0m
     Return ‘1’ if a cPanel account has FEATURE, ‘0’ if it doesn’t.
@@ -41,7 +41,7 @@ EXAMPLE
     \033[1;34mcpanel get quota\033[00m
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/get_quota_info/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/disk-quotas/quota-get_quota_info
 
 ---
 
@@ -54,7 +54,7 @@ EXAMPLE
     \033[1;34mcpanel get usage\033[00m
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/get_usages/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/resource-usage-and-statistics/resourceusage-get_usages
 
 ---
 
@@ -78,7 +78,7 @@ Usage: cpanel list stats domains
         \033[1;34mcpanel get stats bandwidth\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/get_bandwidth/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/domain-statistics/stats-get_bandwidth
 
 \033[1mget stats DOMAIN [ENGINE] [PROTOCOL]\033[0m
     Return a HTML page with traffic stats for DOMAIN.
@@ -99,14 +99,14 @@ Usage: cpanel list stats domains
 
     STAT is the name of the statistic you want, you can provide a list of STATs to
     be displayed. For a complete list ot STAT names, see ‘display parameters’ at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/get_stats/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/resource-usage-and-statistics/statsbar-get_stats
 
     EXAMPLES
         \033[1;34mcpanel get stats hostname\033[00m
         \033[1;34mcpanel get stats machinetype cpanelversion\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/get_stats/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/resource-usage-and-statistics/statsbar-get_stats
 
 ---
 
@@ -118,7 +118,7 @@ EXAMPLE
     \033[1;34mcpanel get ssh port\033[00m
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/SSH-get_port/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/ssh/ssh-get_port
 
 ---
 
@@ -126,7 +126,7 @@ Usage: cpanel block ip IPRANGE
     cpanel unblock ip IPRANGE
 
 IPRANGE can be a single address, a CDIR, or a hostname. See:
-https://api.docs.cpanel.net/openapi/cpanel/operation/blockip-add-ip/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/block-ip/blockip-add_ip
 for a list of supported formats.
 
 For a list of currently blocked IP ranges, you can use:
@@ -166,7 +166,7 @@ Usage: cpanel list addons
         \033[1;34mcpanel list addons\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/get_available_addons/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/cpanel-addons-%28cpaddons%29/get_available_addons
 
 \033[1mlist addon instances ADDON\033[0m
     List all the deployed instances of an ADDON identified by its name.
@@ -180,7 +180,7 @@ Usage: cpanel list addons
         \033[1;34mcpanel list addon instances 'cPanel::Blogs::WordPressX'\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/list_addon_instances/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/cpanel-addons-%28cpaddons%29/list_addon_instances
 
 \033[1mget addon instance UNIQUEID\033[0m
     Get the settings of a deployed instance of an addon identified by its UNIQUEID.
@@ -191,7 +191,7 @@ Usage: cpanel list addons
         \033[1;34mcpanel get addon instance 'cPanel::Blogs::WordPressX.0.1486754861'\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/get_instance_settings/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/cpanel-addons-%28cpaddons%29/get_instance_settings
 
 ---
 
@@ -208,7 +208,7 @@ Usage: cpanel list accounts
         \033[1;34mcpanel list accounts\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/list_accounts/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/account-information/resellers-list_accounts
 
 \033[1mget account\033[0m
     Show detailed information of the main account.
@@ -217,7 +217,7 @@ Usage: cpanel list accounts
         \033[1;34mcpanel get account\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/Variables-get_user_information/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/account-information/variables-get_user_information
 
 \033[1mset account password OLDPASSWORD NEWPASSWORD\033[0m
     Change the authenticated cPanel account password from OLDPASSWORD to NEWPASSWORD.
@@ -249,7 +249,7 @@ Usage: cpanel list subaccounts
         \033[1;34mcpanel list subaccounts\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/UserManager-list_users/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/subaccount-management/usermanager-list_users
 
 \033[1mcreate subaccount USER@DOMAIN PASSWORD\033[0m
     Create a subaccount identified by USER@DOMAIN, using PASSWORD for authentication.
@@ -260,7 +260,7 @@ Usage: cpanel list subaccounts
         \033[1;34mcpanel create subaccount user@example.com A-Strong-Password\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/UserManager-create_user/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/subaccount-management/usermanager-create_user
 
 \033[1mdelete subaccount USER@DOMAIN\033[0m
     Delete a subaccount identified by USER@DOMAIN. This does not delete separate
@@ -271,7 +271,7 @@ Usage: cpanel list subaccounts
         \033[1;34mcpanel delete subaccount user@example.com\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/UserManager-delete_user/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/subaccount-management/usermanager-delete_user
 
 \033[1mget subaccount GUID\033[0m
     Show detailed information of a sub-account, identified by its GUID. To get
@@ -282,7 +282,7 @@ Usage: cpanel list subaccounts
         \033[1;34mcpanel get subaccount EXAMPLE1:EXAMPLE.COM:564CD663:FE50072F2620B50988EA4E5F46022546FBE6BDDE3C36C2F2534F4967C661EC37\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/lookup_user/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/subaccount-management/usermanager-lookup_user
 
 \033[1mget service subaccount USERNAME TYPE\033[0m
     Show detailed information of a service subaccount, identified by its USERNAME.
@@ -294,7 +294,7 @@ Usage: cpanel list subaccounts
         \033[1;34mcpanel get service subaccount ftp@example.com ftp\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/lookup_service_account/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/subaccount-management/usermanager-lookup_service_account
 
 \033[1mcheck subaccount conflicts USERNAME\033[0m
     Check if a subaccount identified by USERNAME conflicts with any other subaccount.
@@ -306,7 +306,7 @@ Usage: cpanel list subaccounts
         \033[1;34mcpanel check subaccount conflicts ftp@example.com\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/check_account_conflicts/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/subaccount-management/usermanager-check_account_conflicts
 
 ---
 
@@ -358,7 +358,7 @@ confirmation email after it completes the backup.
         \033[1;34mcpanel list backups\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/list_backups/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/backup/backup-list_backups
 
 \033[1mrestore backup TARBALL\033[0m
     Restore a full backup of the user’s home directory in TARBALL.
@@ -382,7 +382,7 @@ Usage: cpanel update cache
         \033[1;34mcpanel update cache\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/update/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/browser-cache-management/cachebuster-update
 
 \033[1mread cache\033[0m
     Return web browser cached file override ID.
@@ -391,7 +391,7 @@ Usage: cpanel update cache
         \033[1;34mcpanel read cache\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/CacheBuster-read/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/browser-cache-management/cachebuster-read
 
 ---
 
@@ -409,7 +409,7 @@ Usage: cpanel list locales
         \033[1;34mcpanel list locales\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/list_locales/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/language/locale-list_locales
 
 \033[1mget locale\033[0m
     Return the current locale (language and conventions) used for the cPanel user
@@ -419,7 +419,7 @@ Usage: cpanel list locales
         \033[1;34mcpanel get locale\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/get_attributes/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/language/locale-get_attributes
 
 \033[1mset locale LOCALE\033[0m
     Set the cPanel user interface locale (language and conventions) to LOCALE.
@@ -447,7 +447,7 @@ cPanel theme is ‘jupiter’; another popular theme is ‘paper lantern’.
         \033[1;34mcpanel list themes\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/Themes::list/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/theme-settings/themes-list
 
 \033[1mget theme\033[0m
     Return the current theme.
@@ -456,7 +456,7 @@ cPanel theme is ‘jupiter’; another popular theme is ‘paper lantern’.
         \033[1;34mcpanel get theme\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/get_theme_base/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/theme-settings/themes-get_theme_base
 
 \033[1mset theme NAME\033[0m
     Set the current theme to NAME.
@@ -502,7 +502,7 @@ remote login directory, i.e., /public_html corresponds to
         \033[1;34mcpanel list dir indexing /public_html\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/DirectoryIndexes-list_directories/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/directory-indexes/directoryindexes-list_directories
 
 \033[1mget dir indexing PATH\033[0m
     Get the index setting for remote PATH only.
@@ -511,7 +511,7 @@ remote login directory, i.e., /public_html corresponds to
         \033[1;34mcpanel get dir indexing /public_html\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/get_indexing/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/directory-indexes/directoryindexes-get_indexing
 
 \033[1mset dir indexing PATH TYPE\033[0m
     Set the index setting for remote PATH. Possible values for TYPE are
@@ -547,7 +547,7 @@ remote login directory, i.e., /public_html corresponds to
         \033[1;34mcpanel list dir privacy /public_html\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/DirectoryPrivacy-list_directories/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/directory-privacy/directoryprivacy-list_directories
 
 \033[1mget dir privacy PATH\033[0m
     Get the privacy settings for remote PATH only.
@@ -558,7 +558,7 @@ remote login directory, i.e., /public_html corresponds to
         \033[1;34mcpanel get dir privacy /public_html\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/is_directory_protected/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/directory-privacy/directoryprivacy-is_directory_protected
 
 \033[1menable dir privacy PATH\033[0m
     Enable password protection for PATH. Note that you need to add users
@@ -612,7 +612,7 @@ remote login directory, i.e., /public_html corresponds to
         \033[1;34mcpanel list dir users /public_html\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/DirectoryPrivacy::list_users/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/directory-privacy/directoryprivacy-list_users
 
 ---
 
@@ -631,7 +631,7 @@ See https://docs.cpanel.net/cpanel/security/leech-protection/ for further inform
         \033[1;34mcpanel list dir protection /public_html\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/DirectoryProtection-list_directories/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/directory-protection/directoryprotection-list_directories
 
 ---
 
@@ -653,7 +653,7 @@ Usage: cpanel check dns DOMAIN
         \033[1;34mcpanel check dns example.com\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/ensure_domains_reside_only_locally/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/dns-information/dns-ensure_domains_reside_only_locally
 
 \033[1mcheck authoritative dns DOMAIN\033[0m
     Tell if cPanel server is the authoritative server for DOMAIN.
@@ -662,7 +662,7 @@ Usage: cpanel check dns DOMAIN
         \033[1;34mcpanel authoritative dns example.com\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/has_local_authority/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/dns-information/dns-has_local_authority
 
 \033[1mlookup dns DOMAIN\033[0m
     Return DNS zone information about DOMAIN.
@@ -671,7 +671,7 @@ Usage: cpanel check dns DOMAIN
         \033[1;34mcpanel lookup dns DOMAIN\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/dns-lookup/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/dns-information/dns-lookup
 
 \033[1mlist dynamic dns\033[0m
     List the Dynamic DNS domains for your cPanel user.
@@ -680,7 +680,7 @@ Usage: cpanel check dns DOMAIN
         \033[1;34mcpanel list dynamic dns\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/dynamicdns-list/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/dynamic-dns/dynamicdns-list
 
 \033[1mcreate dynamic dns SUBDOMAIN [DESCRIPTION]\033[0m
     Create a new Dynamic DNS entry attached to SUBDOMAIN.
@@ -696,7 +696,7 @@ Usage: cpanel check dns DOMAIN
         \033[1;34mcpanel create dynamic dns homeserver.example.com "A home server with variable IP"\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/dynamicdns-create/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/dynamic-dns/dynamicdns-create
 
 \033[1mrecreate dynamic dns ID\033[0m
     Delete and create again a Dynamic DNS entry identified by ID.
@@ -707,7 +707,7 @@ Usage: cpanel check dns DOMAIN
         \033[1;34mcpanel recreate dynamic dns gziugyxxjwnamqtwysgmvrurplmafxpj\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/dynamicdns-recreate/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/dynamic-dns/dynamicdns-recreate
 
 \033[1mupdate dynamic dns ID DESCRIPTION\033[0m
     Update the DESCRIPTION of Dynamic DNS entry identified by ID.
@@ -738,7 +738,7 @@ Usage: cpanel list domains
         \033[1;34mcpanel list domains\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/list_domains/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/domain-information/domaininfo-list_domains
 
 \033[1mlist domain data\033[0m
     Get hosting data for all the cPanel account’s domains.
@@ -747,7 +747,7 @@ Usage: cpanel list domains
         \033[1;34mcpanel list domain data\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/domains_data/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/domain-information/domaininfo-domains_data
 
 \033[1mget domain data DOMAIN\033[0m
     Get hosting data for DOMAIN. Use ‘cpanel list domains’
@@ -757,7 +757,7 @@ Usage: cpanel list domains
         \033[1;34mcpanel get domain data example.com\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/single_domain_data/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/domain-information/domaininfo-single_domain_data
 
 \033[1mget domain aliases\033[0m
     List the built-in subdomain aliases for an account’s main domain.
@@ -766,7 +766,7 @@ Usage: cpanel list domains
         \033[1;34mcpanel get domain aliases\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/main_domain_builtin_subdomain_aliases/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/domain-information/domaininfo-main_domain_builtin_subdomain_aliases
 
 ---
 
@@ -796,7 +796,7 @@ at the end of every month.
         \033[1;34mcpanel get log settings\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/get_settings/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/logs/logmanager-get_settings
 
 \033[1mset log settings SETTING...\033[0m
     Set the account’s log archival settings.
@@ -823,7 +823,7 @@ at the end of every month.
         \033[1;34mcpanel list log archives\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/list_archives/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/logs/logmanager-list_archives
 
 \033[1mget log TYPE DOMAIN\033[0m
     Get error log data for DOMAIN.
@@ -835,7 +835,7 @@ at the end of every month.
         \033[1;34mcpanel get log suexec example.com\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/get_site_errors/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/domain-statistics/stats-get_site_errors
 
 ---
 
@@ -854,7 +854,7 @@ https://docs.cpanel.net/cpanel/metrics/bandwidth/
         \033[1;34mcpanel get bandwidth services\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/get_enabled_protocols/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/bandwidth/bandwidth-get_enabled_protocols
 
 \033[1mget bandwidth retention\033[0m
     Get the collection interval and retention periods for bandwidth data.
@@ -863,7 +863,7 @@ https://docs.cpanel.net/cpanel/metrics/bandwidth/
         \033[1;34mcpanel get bandwidth services\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/get_retention_periods/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/bandwidth/bandwidth-get_retention_periods
 
 ---
 
@@ -899,7 +899,7 @@ directory, e.g., public corresponds to <remote login directory>/public.
         \033[1;34mcpanel list files public_html\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/list_files/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/manage-files/fileman-list_files
 
 \033[1mglob files PARTIALPATH\033[0m
     Return a list of files and subdirectories whose names start
@@ -910,7 +910,7 @@ directory, e.g., public corresponds to <remote login directory>/public.
         \033[1;34mcpanel glob files /public\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/autocompletedir/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/manage-files/fileman-autocompletedir
 
 \033[1mget file info PATH\033[0m
     Return file information about PATH.
@@ -921,7 +921,7 @@ directory, e.g., public corresponds to <remote login directory>/public.
         \033[1;34mcpanel get file info public_html/.htaccess\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/get_file_information/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/manage-files/fileman-get_file_information
 
 \033[1mcat file FILE\033[0m
     Return the contents of FILE. Note that only UTF-8 encoded files are supported.
@@ -968,7 +968,7 @@ Usage: cpanel count mail accounts
         \033[1;34mcpanel count mail accounts\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/count_pops/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/email-accounts/email-count_pops
 
 \033[1mlist mail accounts\033[0m
     List cPanel email accounts.
@@ -977,7 +977,7 @@ Usage: cpanel count mail accounts
         \033[1;34mcpanel list mail accounts\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/list_pops/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/email-accounts/email-list_pops
 
 ---
 
@@ -994,7 +994,7 @@ EXAMPLE
     \033[1;34mcpanel get mail settings scott@example.com\033[00m
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/get_client_settings/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/email-accounts/email-get_client_settings
 
 ---
 
@@ -1095,7 +1095,7 @@ EXAMPLES
     \033[1;34mcpanel list mail boxes scott@example.com .spam\033[00m
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/browse_mailbox/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/email-accounts/email-browse_mailbox
 
 ---
 
@@ -1119,7 +1119,7 @@ Use ‘cpanel list mail accounts’ to get a list of valid ACCOUNTS.
         \033[1;34mcpanel list mail autoresponders example.com\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/list_auto_responders/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/email-accounts/email-list_auto_responders
 
 \033[1mcount mail autoresponders\033[0m
     Return the number of autoresponders for all email accounts.
@@ -1128,7 +1128,7 @@ Use ‘cpanel list mail accounts’ to get a list of valid ACCOUNTS.
         \033[1;34mcpanel count mail autoresponders\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/count_auto_responders/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/email-accounts/email-count_auto_responders
 
 \033[1mget mail autoresponder ACCOUNT\033[0m
     Retrieve autoresponder information corresponding to ACCOUNT.
@@ -1137,7 +1137,7 @@ Use ‘cpanel list mail accounts’ to get a list of valid ACCOUNTS.
         \033[1;34mcpanel get mail autoresponder scott@example.com\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/get_auto_responder/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/email-accounts/email-get_auto_responder
 
 \033[1mset mail autoresponder ACCOUNT [FROM] [SUBJECT] [BODY] [START] [STOP]\033[0m
     Create an autoresponder for ACCOUNT.
@@ -1205,10 +1205,10 @@ Usage: cpanel list mail forwarders [DOMAIN]
         \033[1;34mcpanel list mail forwarders example.com\033[00m
 
     See a sample of the JSON result for all forwarders data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/list_forwarders/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/email-forwarding/email-list_forwarders
 
     See a sample of the JSON result for DOMAIN forwarders data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/list_domain_forwarders/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/email-forwarding/email-list_domain_forwarders
 
 \033[1madd mail forwarder DOMAIN FORWARDHERE\033[0m
     Forward all email sent to all accounts in DOMAIN to FORWARDHERE domain.
@@ -1229,7 +1229,7 @@ Usage: cpanel list mail forwarders [DOMAIN]
         \033[1;34mcpanel count mail forwarders\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/count_forwarders/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/email-forwarding/email-count_forwarders
 
 \033[1mdelete mail forwarder DOMAIN\033[0m
     Delete email forwarder for DOMAIN.
@@ -1272,7 +1272,7 @@ Use ‘cpanel list mail accounts’ to get a list of valid ACCOUNTS.
         \033[1;34mcpanel list mail filters scott@example.com\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/list_filters/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/email-filtering/email-list_filters
 
 \033[1mcount mail filters\033[0m
     Return the total number of mail filters for all accounts.
@@ -1289,7 +1289,7 @@ Use ‘cpanel list mail accounts’ to get a list of valid ACCOUNTS.
         \033[1;34mcpanel get mail filter scott@example.com spamkiller\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/get_filter/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/email-filtering/email-get_filter
 
 \033[1mset mail filter ACCOUNT FILE\033[0m
     Create or update an email filter associated with email ACCOUNT.
@@ -1374,7 +1374,7 @@ Use ‘cpanel list mail accounts’ to get a list of valid ACCOUNTS.
          \033[1;34mcpanel list filter domains\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/list_filters_backups/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/email-filtering/email-list_filters_backups
 
 ---
 
@@ -1429,7 +1429,7 @@ EXAMPLE
    \033[1;34mcpanel get mail usage scott@example.com\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/get_disk_usage/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/email-accounts/email-get_disk_usage
 
 ---
 
@@ -1450,7 +1450,7 @@ form user@domain.com
         \033[1;34mcpanel get webmail settings scott@example.com\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/get_webmail_settings/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/email-accounts/email-get_webmail_settings
 
 \033[1mlist webmail apps\033[0m
     Return a list of available Web Mail apps.
@@ -1459,7 +1459,7 @@ form user@domain.com
         \033[1;34mcpanel list webmail apps\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/listwebmailapps/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/webmail-applications/webmailapps-list_webmail_apps
 
 ---
 
@@ -1489,8 +1489,8 @@ Usage: cpanel get spam settings
 
     This command shows a combined output of the JSON result data from the
     following two API calls:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/get_spam_settings/
-    https://api.docs.cpanel.net/openapi/cpanel/operation/get_user_preferences/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/spam-management/email-get_spam_settings
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/spam-management/spamassassin-get_user_preferences
 
 \033[1menable spam assassin\033[0m
     Enable the SpamAssassin spam filter.
@@ -1616,7 +1616,7 @@ Usage: cpanel get spam settings
         \033[1;34mcpanel list spam rules\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/get_symbolic_test_names/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/spam-management/spamassassin-get_symbolic_test_names
 
 \033[1mset spam rule score RULE SCORE\033[0m
     Set the partial SCORE assigned to a RULE (a.k.a. a symbolic test) used
@@ -1681,7 +1681,7 @@ Usage: cpanel add mailman list LISTNAME@DOMAIN PASSWORD [private]
         \033[1;34mcpanel count mailman lists\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/count_lists/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/mailing-lists/email-count_lists
 
 \033[1mlist mailman lists\033[0m
     List the mailing lists of your cPanel account, along with detailed
@@ -1691,7 +1691,7 @@ Usage: cpanel add mailman list LISTNAME@DOMAIN PASSWORD [private]
         \033[1;34mcpanel list mailman lists\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/list_lists/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/mailing-lists/email-list_lists
 
 \033[1madd mailman delegates LISTNAME@DOMAIN EMAIL...\033[0m
     Add one or more delegate EMAILS to the mailing list identified by
@@ -1720,7 +1720,7 @@ Usage: cpanel add mailman list LISTNAME@DOMAIN PASSWORD [private]
         \033[1;34mcpanel list mailman delegates private-list@example.com\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/get_mailman_delegates/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/mailing-lists/email-get_mailman_delegates
 
 \033[1mdelete mailman delegates LISTNAME@DOMAIN EMAIL...\033[0m
     Delete one or more delegate EMAILS from the mailing list identified by
@@ -1749,7 +1749,7 @@ Usage: cpanel add mailman list LISTNAME@DOMAIN PASSWORD [private]
         \033[1;34mcpanel check mailman delegate scott@example.com\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/has_delegated_mailman_lists/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/mailing-lists/email-has_delegated_mailman_lists
 
 \033[1mgenerate mailman password LISTNAME@DOMAIN\033[0m
     Generate a one-time password for the mailing list identified by
@@ -1762,7 +1762,7 @@ Usage: cpanel add mailman list LISTNAME@DOMAIN PASSWORD [private]
         \033[1;34mcpanel generate mailman password private-list@example.com\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/generate_mailman_otp/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/mailing-lists/email-generate_mailman_otp
 
 \033[1mset mailman password LISTNAME@DOMAIN PASSWORD\033[0m
     Set a new PASSWORD for the mailing list identified by LISTNAME@DOMAIN.
@@ -1784,7 +1784,7 @@ Usage: cpanel add mailman list LISTNAME@DOMAIN PASSWORD [private]
         \033[1;34mcpanel get mailman usage\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/get_lists_total_disk_usage/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/mailing-lists/email-get_lists_total_disk_usage
 
 \033[1mset mailman private LISTNAME@DOMAIN\033[0m
     Make a mailing list identified by LISTNAME@DOMAIN private.
@@ -1869,7 +1869,7 @@ Usage: cpanel create ftp USER@DOMAIN PASSWORD QUOTA [DIRECTORY]
         \033[1;34mcpanel get ftp scott@example.com\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/list_ftp_with_disk/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/ftp-accounts/ftp-list_ftp_with_disk
 
 \033[1mget ftp quota USER@DOMAIN\033[0m
     Return the disk quota in megabytes allocated to FTP USER@DOMAIN,
@@ -1917,7 +1917,7 @@ Usage: cpanel create ftp USER@DOMAIN PASSWORD QUOTA [DIRECTORY]
         \033[1;34mcpanel list ftp accounts\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/list_ftp_with_disk/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/ftp-accounts/ftp-list_ftp_with_disk
 
 \033[1mlist ftp sessions\033[0m
     List the active FTP sessions.
@@ -1926,7 +1926,7 @@ Usage: cpanel create ftp USER@DOMAIN PASSWORD QUOTA [DIRECTORY]
         \033[1;34mcpanel list ftp sessions\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/list_sessions/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/ftp-server-settings/ftp-list_sessions
 
 \033[1mkill ftp session USER@DOMAIN\033[0m
     Kill the active FTP session associated to USER@DOMAIN.
@@ -1952,7 +1952,7 @@ Usage: cpanel create ftp USER@DOMAIN PASSWORD QUOTA [DIRECTORY]
         \033[1;34mcpanel get ftp port\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/get_port/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/ftp-server-settings/ftp-get_port
 
 \033[1mget ftp server\033[0m
     Return information about the FTP server software.
@@ -1961,7 +1961,7 @@ Usage: cpanel create ftp USER@DOMAIN PASSWORD QUOTA [DIRECTORY]
         \033[1;34mcpanel get ftp server\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/get_ftp_daemon_info/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/ftp-server-settings/ftp-get_ftp_daemon_info
 
 \033[1menable ftp anon [incoming]\033[0m
     Enable anonymous FTP users to download files. If ‘incoming’ is passed,
@@ -2004,7 +2004,7 @@ Usage: cpanel create ftp USER@DOMAIN PASSWORD QUOTA [DIRECTORY]
         \033[1;34mcpanel get ftp anon incoming\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/allows_anonymous_ftp/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/ftp-server-settings/ftp-allows_anonymous_ftp
 
 \033[1mget ftp welcome\033[0m
     Return the FTP welcome message for anonymous users.
@@ -2057,7 +2057,7 @@ Usage: cpanel create mysql user USERNAME PASSWORD
         \033[1;34mcpanel list mysql users\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/Mysql-list_users/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/user-management/mysql-list_users
 
 \033[1mrename mysql user OLDUSERNAME NEWUSERNAME\033[0m
     Rename MySQL user from OLDUSERNAME to NEWUSERNAME.
@@ -2090,7 +2090,7 @@ Usage: cpanel create mysql user USERNAME PASSWORD
         \033[1;34mcpanel list mysql databases\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/list_databases/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/database-management/mysql-list_databases
 
 \033[1mrename mysql database OLDDBNAME NEWDBNAME\033[0m
     Rename MySQL database from OLDDBNAME to NEWDBNAME.
@@ -2111,7 +2111,7 @@ Usage: cpanel create mysql user USERNAME PASSWORD
         \033[1;34mcpanel check mysql database 'northwind'\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/Mysql-check_database/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/database-management/mysql-check_database
 
 \033[1mrepair mysql database DBNAME\033[0m
     Try to repair MySQL database DBNAME.
@@ -2121,7 +2121,7 @@ Usage: cpanel create mysql user USERNAME PASSWORD
         \033[1;34mcpanel repair mysql database 'northwind'\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/repair_database/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/database-management/mysql-repair_database
 
 \033[1mset mysql privileges USERNAME DBNAME PRIVILEGES\033[0m
     Set the privileges of MySQL user USERNAME on database DBNAME
@@ -2131,7 +2131,7 @@ Usage: cpanel create mysql user USERNAME PASSWORD
     To add individual privileges, use a comma-separated list.
 
     For a list of individual privileges see:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/set_privileges_on_database/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/user-management/mysql-set_privileges_on_database
 
     For a description of the scope of individual privileges see:
     https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html
@@ -2149,7 +2149,7 @@ Usage: cpanel create mysql user USERNAME PASSWORD
         \033[1;34mcpanel list mysql privileges 'scott' 'northwind'\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/Mysql-get_privileges_on_database/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/user-management/mysql-get_privileges_on_database
 
 \033[1mdelete mysql privileges USERNAME DBNAME\033[0m
     Revoke all privileges granted to MySQL user USERNAME on database DBNAME.
@@ -2166,7 +2166,7 @@ Usage: cpanel create mysql user USERNAME PASSWORD
         \033[1;34mcpanel list mysql routines 'scott'\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/list_routines/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/user-management/mysql-list_routines
 
 \033[1mget mysql schema DBNAME\033[0m
     Dump schema of MySQL database DBNAME.
@@ -2201,7 +2201,7 @@ Usage: cpanel create mysql user USERNAME PASSWORD
         \033[1;34mcpanel list mysql hosts\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/get_host_notes/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/remote-databases/mysql-get_host_notes
 
 \033[1mdelete mysql host HOST\033[0m
     Delete HOST from list of authorized.
@@ -2217,7 +2217,7 @@ Usage: cpanel create mysql user USERNAME PASSWORD
         \033[1;34mcpanel get mysql server\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/get_server_information/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/database-information/mysql-get_server_information
 
 \033[1mget mysql restrictions\033[0m
     Return MySQL object name length and prefix restrictions.
@@ -2226,7 +2226,7 @@ Usage: cpanel create mysql user USERNAME PASSWORD
         \033[1;34mcpanel get mysql restrictions\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/get_restrictions/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/user-management/mysql-get_restrictions
 
 ---
 
@@ -2259,7 +2259,7 @@ Usage: cpanel create postgres user USERNAME PASSWORD
         \033[1;34mcpanel list postgres users\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/Postgresql::list_users/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/postgresql-user-management/postgresql-list_users
 
 \033[1mrename postgres user OLDUSERNAME NEWUSERNAME NEWPASSWORD\033[0m
     Rename PostgreSQL user from OLDUSERNAME to NEWUSERNAME with NEWPASSWORD.
@@ -2292,7 +2292,7 @@ Usage: cpanel create postgres user USERNAME PASSWORD
         \033[1;34mcpanel list postgres databases\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/Postgresql-list_databases/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/postgresql-database-management/postgresql-list_databases
 
 \033[1mrename postgres database OLDDBNAME NEWDBNAME\033[0m
     Rename PostgreSQL database from OLDDBNAME to NEWDBNAME.
@@ -2337,6 +2337,6 @@ Usage: cpanel create postgres user USERNAME PASSWORD
         \033[1;34mcpanel get postgres restrictions\033[00m
 
     See a sample of the JSON result data at:
-    https://api.docs.cpanel.net/openapi/cpanel/operation/Postgresql::get_restrictions/
+    https://api.docs.cpanel.net/specifications/cpanel.openapi/postgresql-database-management/postgresql-get_restrictions
 
 ---

@@ -45,7 +45,7 @@ Return a list of files and subdirectories in DIRECTORY
     $ cpanel list files public_html
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/list_files/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/manage-files/fileman-list_files
 
 **glob files PARTIALPATH**
 
@@ -60,7 +60,7 @@ with PARTIALPATH. For instance, /public matches /public_html and
     $ cpanel glob files /public
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/autocompletedir/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/manage-files/fileman-autocompletedir
 
 **get file info PATH**
 
@@ -75,7 +75,7 @@ Return file information about PATH.
     $ cpanel get file info public_html/.htaccess
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/get_file_information/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/manage-files/fileman-get_file_information
 
 **cat file FILE**
 

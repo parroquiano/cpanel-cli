@@ -26,7 +26,7 @@ List a cPanel account’s features.
     $ cpanel list features
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/list_features/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/cpanel-features/features-list_features
 
 **get feature details**
 
@@ -40,7 +40,7 @@ feature is a plug-in or an add-on, and a long name.
     $ cpanel get feature details
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/get_feature_metadata/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/cpanel-features/features-get_feature_metadata
 
 **has feature FEATURE**
 

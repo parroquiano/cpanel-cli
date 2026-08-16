@@ -19,6 +19,6 @@ Return the cPanel server SSH port.
     $ cpanel get ssh port
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/SSH-get_port/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/ssh/ssh-get_port
 
 

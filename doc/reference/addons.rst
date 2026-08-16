@@ -29,7 +29,7 @@ returned JSON data.
     $ cpanel list addons
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/get_available_addons/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/cpanel-addons-%28cpaddons%29/get_available_addons
 
 **list addon instances ADDON**
 
@@ -47,7 +47,7 @@ Use ‘cpanel list addons’ to get a list of ADDON names.
     $ cpanel list addon instances 'cPanel::Blogs::WordPressX'
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/list_addon_instances/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/cpanel-addons-%28cpaddons%29/list_addon_instances
 
 **get addon instance UNIQUEID**
 
@@ -62,6 +62,6 @@ Use ‘cpanel list addon instances’ to get a list of UNIQUEIDs.
     $ cpanel get addon instance 'cPanel::Blogs::WordPressX.0.1486754861'
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/get_instance_settings/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/cpanel-addons-%28cpaddons%29/get_instance_settings
 
 

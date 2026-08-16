@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cPanel CLI \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-25 01:04-0300\n"
+"POT-Creation-Date: 2026-08-15 20:17-0400\n"
 "PO-Revision-Date: 2024-11-25 01:15-0300\n"
 "Last-Translator: Marco Bravo Mejías <marco@layfellow.net>\n"
 "Language: en\n"
@@ -16,7 +16,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.16.0\n"
+"Generated-By: Babel 2.18.0\n"
 
 #: ../../reference/mail.rst:7
 msgid "Module: ``mail``"
@@ -71,10 +71,12 @@ msgstr "*Ejemplo*"
 #: ../../reference/mail.rst:31
 msgid ""
 "See a sample of the JSON result data at: "
-"https://api.docs.cpanel.net/openapi/cpanel/operation/count_pops/"
+"https://api.docs.cpanel.net/specifications/cpanel.openapi/email-accounts"
+"/email-count_pops"
 msgstr ""
 "Vea una muestra del resultado en formato JSON en: "
-"https://api.docs.cpanel.net/openapi/cpanel/operation/count_pops/"
+"https://api.docs.cpanel.net/specifications/cpanel.openapi/email-accounts"
+"/email-count_pops"
 
 #: ../../reference/mail.rst:36
 msgid "List cPanel email accounts."
@@ -83,10 +85,12 @@ msgstr "Lista las cuentas de correo de cPanel."
 #: ../../reference/mail.rst:44
 msgid ""
 "See a sample of the JSON result data at: "
-"https://api.docs.cpanel.net/openapi/cpanel/operation/list_pops/"
+"https://api.docs.cpanel.net/specifications/cpanel.openapi/email-accounts"
+"/email-list_pops"
 msgstr ""
 "Vea una muestra del resultado en formato JSON en: "
-"https://api.docs.cpanel.net/openapi/cpanel/operation/list_pops/"
+"https://api.docs.cpanel.net/specifications/cpanel.openapi/email-accounts"
+"/email-list_pops"
 
 #: ../../reference/mail.rst:50
 msgid "``settings``"
@@ -124,10 +128,12 @@ msgstr ""
 #: ../../reference/mail.rst:67
 msgid ""
 "See a sample of the JSON result data at: "
-"https://api.docs.cpanel.net/openapi/cpanel/operation/get_client_settings/"
+"https://api.docs.cpanel.net/specifications/cpanel.openapi/email-accounts"
+"/email-get_client_settings"
 msgstr ""
 "Vea una muestra del resultado en formato JSON en: "
-"https://api.docs.cpanel.net/openapi/cpanel/operation/get_client_settings"
+"https://api.docs.cpanel.net/specifications/cpanel.openapi/email-accounts"
+"/email-get_client_settings"
 
 #: ../../reference/mail.rst:73
 msgid "``incoming``"
@@ -202,11 +208,17 @@ msgid ""
 "Suspend ACCOUNT, so that the user cannot log in. Note that the account is"
 " not deleted, so that new mail will still be received and stored in it. "
 "See also ‘cpanel unsuspend mail login’."
-msgstr "Suspende la cuenta ACCOUNT, de modo que el usuario no pueda iniciar sesión. Tenga en cuenta que la cuenta no se elimina, por lo que el nuevo correo aún se recibirá y almacenará en ella. Vea también ‘cpanel unsuspend mail login’."
+msgstr ""
+"Suspende la cuenta ACCOUNT, de modo que el usuario no pueda iniciar "
+"sesión. Tenga en cuenta que la cuenta no se elimina, por lo que el nuevo "
+"correo aún se recibirá y almacenará en ella. Vea también ‘cpanel "
+"unsuspend mail login’."
 
 #: ../../reference/mail.rst:177
 msgid "Reenable ACCOUNT, so that the user can log in again."
-msgstr "Vuelve a habilitar ACCOUNT, para que el usuario pueda iniciar sesión nuevamente."
+msgstr ""
+"Vuelve a habilitar ACCOUNT, para que el usuario pueda iniciar sesión "
+"nuevamente."
 
 #: ../../reference/mail.rst:188
 msgid "``boxes``"
@@ -236,10 +248,12 @@ msgstr "*Ejemplos*"
 #: ../../reference/mail.rst:210
 msgid ""
 "See a sample of the JSON result data at: "
-"https://api.docs.cpanel.net/openapi/cpanel/operation/browse_mailbox/"
+"https://api.docs.cpanel.net/specifications/cpanel.openapi/email-accounts"
+"/email-browse_mailbox"
 msgstr ""
 "Vea una muestra del resultado en formato JSON en: "
-"https://api.docs.cpanel.net/openapi/cpanel/operation/browse_mailbox"
+"https://api.docs.cpanel.net/specifications/cpanel.openapi/email-accounts"
+"/email-browse_mailbox"
 
 #: ../../reference/mail.rst:216
 msgid "``autoresponders``"
@@ -272,10 +286,12 @@ msgstr "Lista las respuestas automáticas de todas las cuentas de correo de DOMA
 #: ../../reference/mail.rst:242
 msgid ""
 "See a sample of the JSON result data at: "
-"https://api.docs.cpanel.net/openapi/cpanel/operation/list_auto_responders/"
+"https://api.docs.cpanel.net/specifications/cpanel.openapi/email-accounts"
+"/email-list_auto_responders"
 msgstr ""
 "Vea una muestra del resultado en formato JSON en: "
-"https://api.docs.cpanel.net/openapi/cpanel/operation/list_auto_responders/"
+"https://api.docs.cpanel.net/specifications/cpanel.openapi/email-accounts"
+"/email-list_auto_responders"
 
 #: ../../reference/mail.rst:247
 msgid "Return the number of autoresponders for all email accounts."
@@ -286,10 +302,12 @@ msgstr ""
 #: ../../reference/mail.rst:255
 msgid ""
 "See a sample of the JSON result data at: "
-"https://api.docs.cpanel.net/openapi/cpanel/operation/count_auto_responders/"
+"https://api.docs.cpanel.net/specifications/cpanel.openapi/email-accounts"
+"/email-count_auto_responders"
 msgstr ""
 "Vea una muestra del resultado en formato JSON en: "
-"https://api.docs.cpanel.net/openapi/cpanel/operation/count_auto_responders/"
+"https://api.docs.cpanel.net/specifications/cpanel.openapi/email-accounts"
+"/email-count_auto_responders"
 
 #: ../../reference/mail.rst:260
 msgid "Retrieve autoresponder information corresponding to ACCOUNT."
@@ -298,10 +316,12 @@ msgstr "Devuelve información de la respuesta automática correspondiente a ACCO
 #: ../../reference/mail.rst:268
 msgid ""
 "See a sample of the JSON result data at: "
-"https://api.docs.cpanel.net/openapi/cpanel/operation/get_auto_responder/"
+"https://api.docs.cpanel.net/specifications/cpanel.openapi/email-accounts"
+"/email-get_auto_responder"
 msgstr ""
 "Vea una muestra del resultado en formato JSON en: "
-"https://api.docs.cpanel.net/openapi/cpanel/operation/get_auto_responder/"
+"https://api.docs.cpanel.net/specifications/cpanel.openapi/email-accounts"
+"/email-get_auto_responder"
 
 #: ../../reference/mail.rst:273
 msgid "Create an autoresponder for ACCOUNT."
@@ -403,20 +423,22 @@ msgstr ""
 #: ../../reference/mail.rst:352
 msgid ""
 "See a sample of the JSON result for all forwarders data at: "
-"https://api.docs.cpanel.net/openapi/cpanel/operation/list_forwarders/"
+"https://api.docs.cpanel.net/specifications/cpanel.openapi/email-"
+"forwarding/email-list_forwarders"
 msgstr ""
 "Vea una muestra del resultado en formato JSON para todos los reenviadores"
-" en: "
-"https://api.docs.cpanel.net/openapi/cpanel/operation/list_forwarders/"
+" en: https://api.docs.cpanel.net/specifications/cpanel.openapi/email-"
+"forwarding/email-list_forwarders"
 
 #: ../../reference/mail.rst:355
 msgid ""
 "See a sample of the JSON result for DOMAIN forwarders data at: "
-"https://api.docs.cpanel.net/openapi/cpanel/operation/list_domain_forwarders/"
+"https://api.docs.cpanel.net/specifications/cpanel.openapi/email-"
+"forwarding/email-list_domain_forwarders"
 msgstr ""
 "Vea una muestra del resultado en formato JSON para los reenviadores de "
-"DOMAIN en: "
-"https://api.docs.cpanel.net/openapi/cpanel/operation/list_domain_forwarders/"
+"DOMAIN en: https://api.docs.cpanel.net/specifications/cpanel.openapi"
+"/email-forwarding/email-list_domain_forwarders"
 
 #: ../../reference/mail.rst:360
 msgid "Forward all email sent to all accounts in DOMAIN to FORWARDHERE domain."
@@ -437,10 +459,12 @@ msgstr "Devuelve el número total de reenviadores de correo para todas las cuent
 #: ../../reference/mail.rst:388
 msgid ""
 "See a sample of the JSON result data at: "
-"https://api.docs.cpanel.net/openapi/cpanel/operation/count_forwarders/"
+"https://api.docs.cpanel.net/specifications/cpanel.openapi/email-"
+"forwarding/email-count_forwarders"
 msgstr ""
 "Vea una muestra del resultado en formato JSON en: "
-"https://api.docs.cpanel.net/openapi/cpanel/operation/count_forwarders/"
+"https://api.docs.cpanel.net/specifications/cpanel.openapi/email-"
+"forwarding/email-count_forwarders"
 
 #: ../../reference/mail.rst:393
 msgid "Delete email forwarder for DOMAIN."
@@ -509,10 +533,12 @@ msgstr "Lista los filtros de correo asociados a ACCOUNT."
 #: ../../reference/mail.rst:447
 msgid ""
 "See a sample of the JSON result data at: "
-"https://api.docs.cpanel.net/openapi/cpanel/operation/list_filters/"
+"https://api.docs.cpanel.net/specifications/cpanel.openapi/email-filtering"
+"/email-list_filters"
 msgstr ""
 "Vea una muestra del resultado en formato JSON en: "
-"https://api.docs.cpanel.net/openapi/cpanel/operation/list_filters/"
+"https://api.docs.cpanel.net/specifications/cpanel.openapi/email-filtering"
+"/email-list_filters"
 
 #: ../../reference/mail.rst:452
 msgid "Return the total number of mail filters for all accounts."
@@ -531,10 +557,12 @@ msgstr ""
 #: ../../reference/mail.rst:472
 msgid ""
 "See a sample of the JSON result data at: "
-"https://api.docs.cpanel.net/openapi/cpanel/operation/get_filter/"
+"https://api.docs.cpanel.net/specifications/cpanel.openapi/email-filtering"
+"/email-get_filter"
 msgstr ""
 "Vea una muestra del resultado en formato JSON en: "
-"https://api.docs.cpanel.net/openapi/cpanel/operation/get_filter/"
+"https://api.docs.cpanel.net/specifications/cpanel.openapi/email-filtering"
+"/email-get_filter"
 
 #: ../../reference/mail.rst:477
 msgid ""
@@ -637,10 +665,12 @@ msgstr "Lista todos los dominios que tienen filtros de correo."
 #: ../../reference/mail.rst:593
 msgid ""
 "See a sample of the JSON result data at: "
-"https://api.docs.cpanel.net/openapi/cpanel/operation/list_filters_backups/"
+"https://api.docs.cpanel.net/specifications/cpanel.openapi/email-filtering"
+"/email-list_filters_backups"
 msgstr ""
 "Vea una muestra del resultado en formato JSON en: "
-"https://api.docs.cpanel.net/openapi/cpanel/operation/list_filters_backups/"
+"https://api.docs.cpanel.net/specifications/cpanel.openapi/email-filtering"
+"/email-list_filters_backups"
 
 #: ../../reference/mail.rst:599
 msgid "``quota``"
@@ -705,7 +735,9 @@ msgstr "Devuelve el espacio en disco en megabytes usado por la cuenta ACCOUNT."
 #: ../../reference/mail.rst:674
 msgid ""
 "See a sample of the JSON result data at: "
-"https://api.docs.cpanel.net/openapi/cpanel/operation/get_disk_usage/"
+"https://api.docs.cpanel.net/specifications/cpanel.openapi/email-accounts"
+"/email-get_disk_usage"
 msgstr ""
 "Vea una muestra del resultado en formato JSON en: "
-"https://api.docs.cpanel.net/openapi/cpanel/operation/get_disk_usage/"
+"https://api.docs.cpanel.net/specifications/cpanel.openapi/email-accounts"
+"/email-get_disk_usage"

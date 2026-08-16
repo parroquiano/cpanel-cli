@@ -27,7 +27,7 @@ interface.
     $ cpanel list locales
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/list_locales/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/language/locale-list_locales
 
 **get locale**
 
@@ -41,7 +41,7 @@ interface.
     $ cpanel get locale
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/get_attributes/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/language/locale-get_attributes
 
 **set locale LOCALE**
 

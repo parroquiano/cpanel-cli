@@ -20,6 +20,6 @@ disk usage, number of mail filters, etc.
     $ cpanel get usage
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/get_usages/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/resource-usage-and-statistics/resourceusage-get_usages
 
 

@@ -80,7 +80,7 @@ Get information about FTP account USER\@DOMAIN.
     $ cpanel get ftp scott@example.com
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/list_ftp_with_disk/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/ftp-accounts/ftp-list_ftp_with_disk
 
 **get ftp quota USER\@DOMAIN**
 
@@ -148,7 +148,7 @@ usage information and other data.
     $ cpanel list ftp accounts
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/list_ftp_with_disk/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/ftp-accounts/ftp-list_ftp_with_disk
 
 **list ftp sessions**
 
@@ -161,7 +161,7 @@ List the active FTP sessions.
     $ cpanel list ftp sessions
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/list_sessions/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/ftp-server-settings/ftp-list_sessions
 
 **kill ftp session USER\@DOMAIN**
 
@@ -199,7 +199,7 @@ Return the FTP port open on the server.
     $ cpanel get ftp port
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/get_port/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/ftp-server-settings/ftp-get_port
 
 **get ftp server**
 
@@ -212,7 +212,7 @@ Return information about the FTP server software.
     $ cpanel get ftp server
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/get_ftp_daemon_info/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/ftp-server-settings/ftp-get_ftp_daemon_info
 
 **enable ftp anon [incoming]**
 
@@ -267,7 +267,7 @@ See ‘cpanel enable ftp anon’ above for further details.
     $ cpanel get ftp anon incoming
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/allows_anonymous_ftp/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/ftp-server-settings/ftp-allows_anonymous_ftp
 
 **get ftp welcome**
 

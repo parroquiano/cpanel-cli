@@ -26,7 +26,7 @@ List basic information of the main cPanel account.
     $ cpanel list accounts
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/list_accounts/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/account-information/resellers-list_accounts
 
 **get account**
 
@@ -39,7 +39,7 @@ Show detailed information of the main account.
     $ cpanel get account
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/Variables-get_user_information/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/account-information/variables-get_user_information
 
 **set account password OLDPASSWORD NEWPASSWORD**
 

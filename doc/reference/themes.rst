@@ -29,7 +29,7 @@ Return all the available themes.
     $ cpanel list themes
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/Themes::list/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/theme-settings/themes-list
 
 **get theme**
 
@@ -42,7 +42,7 @@ Return the current theme.
     $ cpanel get theme
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/get_theme_base/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/theme-settings/themes-get_theme_base
 
 **set theme NAME**
 

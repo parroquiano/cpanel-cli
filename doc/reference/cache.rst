@@ -25,7 +25,7 @@ Create web browser cached file override ID.
     $ cpanel update cache
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/update/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/browser-cache-management/cachebuster-update
 
 **read cache**
 
@@ -38,6 +38,6 @@ Return web browser cached file override ID.
     $ cpanel read cache
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/CacheBuster-read/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/browser-cache-management/cachebuster-read
 
 

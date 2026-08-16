@@ -8,14 +8,16 @@ msgstr ""
 "Project-Id-Version: A command line interface for the cPanel Unrestricted "
 "API. \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-16 19:18-0400\n"
+"POT-Creation-Date: 2026-08-15 20:17-0400\n"
 "PO-Revision-Date: 2022-05-16 17:40-0400\n"
 "Last-Translator: Marco Bravo Mejías <marco@layfellow.net>\n"
+"Language: es\n"
 "Language-Team: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.9.1\n"
+"Generated-By: Babel 2.18.0\n"
 
 #: ../../reference/ftp.rst:7
 msgid "Module: ``ftp``"
@@ -108,9 +110,10 @@ msgid ""
 "be allocated QUOTA megabytes of space; use ‘0’ for QUOTA to set an "
 "unlimited quota."
 msgstr ""
-"Crea una nueva cuenta FTP para el usuario USER\\@DOMAIN y con contraseña PASSWORD. El dominio DOMAIN "
-"debe ser propiedad del usuario de cPanel. Al usuario recién creado se le asignan QUOTA megabytes de espacio "
-"en disco; utilice ‘0’ para QUOTA para establecer una cuota ilimitada."
+"Crea una nueva cuenta FTP para el usuario USER\\@DOMAIN y con contraseña "
+"PASSWORD. El dominio DOMAIN debe ser propiedad del usuario de cPanel. Al "
+"usuario recién creado se le asignan QUOTA megabytes de espacio en disco; "
+"utilice ‘0’ para QUOTA para establecer una cuota ilimitada."
 
 #: ../../reference/ftp.rst:40
 msgid ""
@@ -173,10 +176,12 @@ msgstr "Obtiene información de la cuenta FTP USER\\@DOMAIN."
 #: ../../reference/ftp.rst:82 ../../reference/ftp.rst:150
 msgid ""
 "See a sample of the JSON result data at: "
-"https://api.docs.cpanel.net/openapi/cpanel/operation/list_ftp_with_disk/"
+"https://api.docs.cpanel.net/specifications/cpanel.openapi/ftp-accounts"
+"/ftp-list_ftp_with_disk"
 msgstr ""
 "Vea una muestra del resultado en formato JSON "
-"en:https://api.docs.cpanel.net/openapi/cpanel/operation/list_ftp_with_disk/"
+"en:https://api.docs.cpanel.net/specifications/cpanel.openapi/ftp-accounts"
+"/ftp-list_ftp_with_disk"
 
 #: ../../reference/ftp.rst:87
 msgid ""
@@ -249,10 +254,12 @@ msgstr "Lista las sesiones de FTP activas."
 #: ../../reference/ftp.rst:163
 msgid ""
 "See a sample of the JSON result data at: "
-"https://api.docs.cpanel.net/openapi/cpanel/operation/list_sessions/"
+"https://api.docs.cpanel.net/specifications/cpanel.openapi/ftp-server-"
+"settings/ftp-list_sessions"
 msgstr ""
 "Vea una muestra del resultado en formato JSON en: "
-"https://api.docs.cpanel.net/openapi/cpanel/operation/list_sessions"
+"https://api.docs.cpanel.net/specifications/cpanel.openapi/ftp-server-"
+"settings/ftp-list_sessions"
 
 #: ../../reference/ftp.rst:168
 msgid ""
@@ -280,10 +287,12 @@ msgstr "Devuelve el puerto FTP abierto en el servidor."
 #: ../../reference/ftp.rst:201
 msgid ""
 "See a sample of the JSON result data at: "
-"https://api.docs.cpanel.net/openapi/cpanel/operation/get_port/"
+"https://api.docs.cpanel.net/specifications/cpanel.openapi/ftp-server-"
+"settings/ftp-get_port"
 msgstr ""
 "Véase una muestra de los datos de resultados de JSON en: "
-"https://api.docs.cpanel.net/openapi/cpanel/operation/get_port"
+"https://api.docs.cpanel.net/specifications/cpanel.openapi/ftp-server-"
+"settings/ftp-get_port"
 
 #: ../../reference/ftp.rst:206
 msgid "Return information about the FTP server software."
@@ -292,10 +301,12 @@ msgstr "Devuelve información sobre el software del servidor FTP."
 #: ../../reference/ftp.rst:214
 msgid ""
 "See a sample of the JSON result data at: "
-"https://api.docs.cpanel.net/openapi/cpanel/operation/get_ftp_daemon_info/"
+"https://api.docs.cpanel.net/specifications/cpanel.openapi/ftp-server-"
+"settings/ftp-get_ftp_daemon_info"
 msgstr ""
 "Vea una muestra del resultado en formato JSON en: "
-"https://api.docs.cpanel.net/openapi/cpanel/operation/get_ftp_daemon_info/"
+"https://api.docs.cpanel.net/specifications/cpanel.openapi/ftp-server-"
+"settings/ftp-get_ftp_daemon_info"
 
 #: ../../reference/ftp.rst:219
 msgid ""
@@ -358,10 +369,12 @@ msgstr ""
 #: ../../reference/ftp.rst:269
 msgid ""
 "See a sample of the JSON result data at: "
-"https://api.docs.cpanel.net/openapi/cpanel/operation/allows_anonymous_ftp/"
+"https://api.docs.cpanel.net/specifications/cpanel.openapi/ftp-server-"
+"settings/ftp-allows_anonymous_ftp"
 msgstr ""
 "Vea una muestra del resultado en formato JSON en: "
-"https://api.docs.cpanel.net/openapi/cpanel/operation/allows_anonymous_ftp/"
+"https://api.docs.cpanel.net/specifications/cpanel.openapi/ftp-server-"
+"settings/ftp-allows_anonymous_ftp"
 
 #: ../../reference/ftp.rst:274
 msgid "Return the FTP welcome message for anonymous users."
@@ -374,5 +387,3 @@ msgstr "**get ftp welcome MESSAGE**"
 #: ../../reference/ftp.rst:284
 msgid "Set the FTP welcome message for anonymous users."
 msgstr "Establece el mensaje de bienvenida de FTP para usuarios anónimos."
-
-

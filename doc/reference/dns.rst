@@ -31,7 +31,7 @@ Check if DOMAIN resolves to the cPanel server.
     $ cpanel check dns example.com
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/ensure_domains_reside_only_locally/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/dns-information/dns-ensure_domains_reside_only_locally
 
 **check authoritative dns DOMAIN**
 
@@ -44,7 +44,7 @@ Tell if cPanel server is the authoritative server for DOMAIN.
     $ cpanel authoritative dns example.com
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/has_local_authority/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/dns-information/dns-has_local_authority
 
 **lookup dns DOMAIN**
 
@@ -57,7 +57,7 @@ Return DNS zone information about DOMAIN.
     $ cpanel lookup dns DOMAIN
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/dns-lookup/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/dns-information/dns-lookup
 
 **list dynamic dns**
 
@@ -70,7 +70,7 @@ List the Dynamic DNS domains for your cPanel user.
     $ cpanel list dynamic dns
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/dynamicdns-list/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/dynamic-dns/dynamicdns-list
 
 **create dynamic dns SUBDOMAIN [DESCRIPTION]**
 
@@ -90,7 +90,7 @@ https://docs.cpanel.net/cpanel/domains/dynamic-dns/
     $ cpanel create dynamic dns homeserver.example.com "A home server with variable IP"
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/dynamicdns-create/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/dynamic-dns/dynamicdns-create
 
 **recreate dynamic dns ID**
 
@@ -105,7 +105,7 @@ associated subdomains.
     $ cpanel recreate dynamic dns gziugyxxjwnamqtwysgmvrurplmafxpj
 
 See a sample of the JSON result data at:
-https://api.docs.cpanel.net/openapi/cpanel/operation/dynamicdns-recreate/
+https://api.docs.cpanel.net/specifications/cpanel.openapi/dynamic-dns/dynamicdns-recreate
 
 **update dynamic dns ID DESCRIPTION**
 
